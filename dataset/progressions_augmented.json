@@ -1,0 +1,8544 @@
+{
+  "progressions": [
+    {
+      "id": 1,
+      "progression": [
+        "C",
+        "G",
+        "Am",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "original"
+    },
+    {
+      "id": 2,
+      "progression": [
+        "C#",
+        "G#",
+        "A#m",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 3,
+      "progression": [
+        "D",
+        "A",
+        "Bm",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 4,
+      "progression": [
+        "D#",
+        "A#",
+        "Cm",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 5,
+      "progression": [
+        "E",
+        "B",
+        "C#m",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 6,
+      "progression": [
+        "F",
+        "C",
+        "Dm",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 7,
+      "progression": [
+        "F#",
+        "C#",
+        "D#m",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 8,
+      "progression": [
+        "G",
+        "D",
+        "Em",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 9,
+      "progression": [
+        "G#",
+        "D#",
+        "Fm",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 10,
+      "progression": [
+        "A",
+        "E",
+        "F#m",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 11,
+      "progression": [
+        "A#",
+        "F",
+        "Gm",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 12,
+      "progression": [
+        "B",
+        "F#",
+        "G#m",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "IV"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "uplifting",
+      "song_name": "I-V-vi-IV (Axis of Awesome)",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 13,
+      "progression": [
+        "C",
+        "Am",
+        "F",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "original"
+    },
+    {
+      "id": 14,
+      "progression": [
+        "C#",
+        "A#m",
+        "F#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 15,
+      "progression": [
+        "D",
+        "Bm",
+        "G",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 16,
+      "progression": [
+        "D#",
+        "Cm",
+        "G#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 17,
+      "progression": [
+        "E",
+        "C#m",
+        "A",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 18,
+      "progression": [
+        "F",
+        "Dm",
+        "A#",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 19,
+      "progression": [
+        "F#",
+        "D#m",
+        "B",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 20,
+      "progression": [
+        "G",
+        "Em",
+        "C",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 21,
+      "progression": [
+        "G#",
+        "Fm",
+        "C#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 22,
+      "progression": [
+        "A",
+        "F#m",
+        "D",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 23,
+      "progression": [
+        "A#",
+        "Gm",
+        "D#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 24,
+      "progression": [
+        "B",
+        "G#m",
+        "E",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "IV",
+        "V"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "nostalgic",
+      "song_name": "50s Progression",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 25,
+      "progression": [
+        "Am",
+        "F",
+        "C",
+        "G"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "original"
+    },
+    {
+      "id": 26,
+      "progression": [
+        "A#m",
+        "F#",
+        "C#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 27,
+      "progression": [
+        "Bm",
+        "G",
+        "D",
+        "A"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 28,
+      "progression": [
+        "Cm",
+        "G#",
+        "D#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 29,
+      "progression": [
+        "C#m",
+        "A",
+        "E",
+        "B"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 30,
+      "progression": [
+        "Dm",
+        "A#",
+        "F",
+        "C"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 31,
+      "progression": [
+        "D#m",
+        "B",
+        "F#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 32,
+      "progression": [
+        "Em",
+        "C",
+        "G",
+        "D"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 33,
+      "progression": [
+        "Fm",
+        "C#",
+        "G#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 34,
+      "progression": [
+        "F#m",
+        "D",
+        "A",
+        "E"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 35,
+      "progression": [
+        "Gm",
+        "D#",
+        "A#",
+        "F"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 36,
+      "progression": [
+        "G#m",
+        "E",
+        "B",
+        "F#"
+      ],
+      "roman_numerals": [
+        "vi",
+        "IV",
+        "I",
+        "V"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "melancholic",
+      "song_name": "vi-IV-I-V",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 37,
+      "progression": [
+        "C",
+        "F",
+        "G",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "original"
+    },
+    {
+      "id": 38,
+      "progression": [
+        "C#",
+        "F#",
+        "G#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 39,
+      "progression": [
+        "D",
+        "G",
+        "A",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 40,
+      "progression": [
+        "D#",
+        "G#",
+        "A#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 41,
+      "progression": [
+        "E",
+        "A",
+        "B",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 42,
+      "progression": [
+        "F",
+        "A#",
+        "C",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 43,
+      "progression": [
+        "F#",
+        "B",
+        "C#",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 44,
+      "progression": [
+        "G",
+        "C",
+        "D",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 45,
+      "progression": [
+        "G#",
+        "C#",
+        "D#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 46,
+      "progression": [
+        "A",
+        "D",
+        "E",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 47,
+      "progression": [
+        "A#",
+        "D#",
+        "F",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 48,
+      "progression": [
+        "B",
+        "E",
+        "F#",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V",
+        "I"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "happy",
+      "song_name": "Classic I-IV-V-I",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 49,
+      "progression": [
+        "C",
+        "Em",
+        "F",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "original"
+    },
+    {
+      "id": 50,
+      "progression": [
+        "C#",
+        "Fm",
+        "F#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 51,
+      "progression": [
+        "D",
+        "F#m",
+        "G",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 52,
+      "progression": [
+        "D#",
+        "Gm",
+        "G#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 53,
+      "progression": [
+        "E",
+        "G#m",
+        "A",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 54,
+      "progression": [
+        "F",
+        "Am",
+        "A#",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 55,
+      "progression": [
+        "F#",
+        "A#m",
+        "B",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 56,
+      "progression": [
+        "G",
+        "Bm",
+        "C",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 57,
+      "progression": [
+        "G#",
+        "Cm",
+        "C#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 58,
+      "progression": [
+        "A",
+        "C#m",
+        "D",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 59,
+      "progression": [
+        "A#",
+        "Dm",
+        "D#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 60,
+      "progression": [
+        "B",
+        "D#m",
+        "E",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "iii",
+        "IV",
+        "V"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "bright",
+      "song_name": "I-iii-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 61,
+      "progression": [
+        "C",
+        "Dm",
+        "Em",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "original"
+    },
+    {
+      "id": 62,
+      "progression": [
+        "C#",
+        "D#m",
+        "Fm",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 63,
+      "progression": [
+        "D",
+        "Em",
+        "F#m",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 64,
+      "progression": [
+        "D#",
+        "Fm",
+        "Gm",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 65,
+      "progression": [
+        "E",
+        "F#m",
+        "G#m",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 66,
+      "progression": [
+        "F",
+        "Gm",
+        "Am",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 67,
+      "progression": [
+        "F#",
+        "G#m",
+        "A#m",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 68,
+      "progression": [
+        "G",
+        "Am",
+        "Bm",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 69,
+      "progression": [
+        "G#",
+        "A#m",
+        "Cm",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 70,
+      "progression": [
+        "A",
+        "Bm",
+        "C#m",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 71,
+      "progression": [
+        "A#",
+        "Cm",
+        "Dm",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 72,
+      "progression": [
+        "B",
+        "C#m",
+        "D#m",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "ascending",
+      "song_name": "Ascending Progression",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 73,
+      "progression": [
+        "C",
+        "G",
+        "F",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "original"
+    },
+    {
+      "id": 74,
+      "progression": [
+        "C#",
+        "G#",
+        "F#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 75,
+      "progression": [
+        "D",
+        "A",
+        "G",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 76,
+      "progression": [
+        "D#",
+        "A#",
+        "G#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 77,
+      "progression": [
+        "E",
+        "B",
+        "A",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 78,
+      "progression": [
+        "F",
+        "C",
+        "A#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 79,
+      "progression": [
+        "F#",
+        "C#",
+        "B",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 80,
+      "progression": [
+        "G",
+        "D",
+        "C",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 81,
+      "progression": [
+        "G#",
+        "D#",
+        "C#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 82,
+      "progression": [
+        "A",
+        "E",
+        "D",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 83,
+      "progression": [
+        "A#",
+        "F",
+        "D#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 84,
+      "progression": [
+        "B",
+        "F#",
+        "E",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "IV",
+        "I"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "simple",
+      "song_name": "Simple I-V-IV-I",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 85,
+      "progression": [
+        "C",
+        "F",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "original"
+    },
+    {
+      "id": 86,
+      "progression": [
+        "C#",
+        "F#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 87,
+      "progression": [
+        "D",
+        "G",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 88,
+      "progression": [
+        "D#",
+        "G#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 89,
+      "progression": [
+        "E",
+        "A",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 90,
+      "progression": [
+        "F",
+        "A#",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 91,
+      "progression": [
+        "F#",
+        "B",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 92,
+      "progression": [
+        "G",
+        "C",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 93,
+      "progression": [
+        "G#",
+        "C#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 94,
+      "progression": [
+        "A",
+        "D",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 95,
+      "progression": [
+        "A#",
+        "D#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 96,
+      "progression": [
+        "B",
+        "E",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "energetic",
+      "song_name": "Classic Rock I-IV-V",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 97,
+      "progression": [
+        "C",
+        "A#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "original"
+    },
+    {
+      "id": 98,
+      "progression": [
+        "C#",
+        "B",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 99,
+      "progression": [
+        "D",
+        "C",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 100,
+      "progression": [
+        "D#",
+        "C#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 101,
+      "progression": [
+        "E",
+        "D",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 102,
+      "progression": [
+        "F",
+        "D#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 103,
+      "progression": [
+        "F#",
+        "E",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 104,
+      "progression": [
+        "G",
+        "F",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 105,
+      "progression": [
+        "G#",
+        "F#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 106,
+      "progression": [
+        "A",
+        "G",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 107,
+      "progression": [
+        "A#",
+        "G#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 108,
+      "progression": [
+        "B",
+        "A",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "IV"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "powerful",
+      "song_name": "I-bVII-IV (Mixolydian)",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 109,
+      "progression": [
+        "C",
+        "A#",
+        "G#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "original"
+    },
+    {
+      "id": 110,
+      "progression": [
+        "C#",
+        "B",
+        "A",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 111,
+      "progression": [
+        "D",
+        "C",
+        "A#",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 112,
+      "progression": [
+        "D#",
+        "C#",
+        "B",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 113,
+      "progression": [
+        "E",
+        "D",
+        "C",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 114,
+      "progression": [
+        "F",
+        "D#",
+        "C#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 115,
+      "progression": [
+        "F#",
+        "E",
+        "D",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 116,
+      "progression": [
+        "G",
+        "F",
+        "D#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 117,
+      "progression": [
+        "G#",
+        "F#",
+        "E",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 118,
+      "progression": [
+        "A",
+        "G",
+        "F",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 119,
+      "progression": [
+        "A#",
+        "G#",
+        "F#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 120,
+      "progression": [
+        "B",
+        "A",
+        "G",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "bVII",
+        "bVI",
+        "bVII"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "dark",
+      "song_name": "I-bVII-bVI-bVII",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 121,
+      "progression": [
+        "C",
+        "D#",
+        "A#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "original"
+    },
+    {
+      "id": 122,
+      "progression": [
+        "C#",
+        "E",
+        "B",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 123,
+      "progression": [
+        "D",
+        "F",
+        "C",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 124,
+      "progression": [
+        "D#",
+        "F#",
+        "C#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 125,
+      "progression": [
+        "E",
+        "G",
+        "D",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 126,
+      "progression": [
+        "F",
+        "G#",
+        "D#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 127,
+      "progression": [
+        "F#",
+        "A",
+        "E",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 128,
+      "progression": [
+        "G",
+        "A#",
+        "F",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 129,
+      "progression": [
+        "G#",
+        "B",
+        "F#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 130,
+      "progression": [
+        "A",
+        "C",
+        "G",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 131,
+      "progression": [
+        "A#",
+        "C#",
+        "G#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 132,
+      "progression": [
+        "B",
+        "D",
+        "A",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "bIII",
+        "bVII",
+        "IV"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "rock",
+      "mood": "aggressive",
+      "song_name": "I-bIII-bVII-IV",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 133,
+      "progression": [
+        "Am",
+        "G",
+        "F",
+        "E"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Am",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "original"
+    },
+    {
+      "id": 134,
+      "progression": [
+        "A#m",
+        "G#",
+        "F#",
+        "F"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "A#m",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Am"
+    },
+    {
+      "id": 135,
+      "progression": [
+        "Bm",
+        "A",
+        "G",
+        "F#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Bm",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Am"
+    },
+    {
+      "id": 136,
+      "progression": [
+        "Cm",
+        "A#",
+        "G#",
+        "G"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Cm",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Am"
+    },
+    {
+      "id": 137,
+      "progression": [
+        "C#m",
+        "B",
+        "A",
+        "G#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "C#m",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Am"
+    },
+    {
+      "id": 138,
+      "progression": [
+        "Dm",
+        "C",
+        "A#",
+        "A"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Dm",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Am"
+    },
+    {
+      "id": 139,
+      "progression": [
+        "D#m",
+        "C#",
+        "B",
+        "A#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "D#m",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Am"
+    },
+    {
+      "id": 140,
+      "progression": [
+        "Em",
+        "D",
+        "C",
+        "B"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Em",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Am"
+    },
+    {
+      "id": 141,
+      "progression": [
+        "Fm",
+        "D#",
+        "C#",
+        "C"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Fm",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Am"
+    },
+    {
+      "id": 142,
+      "progression": [
+        "F#m",
+        "E",
+        "D",
+        "C#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "F#m",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Am"
+    },
+    {
+      "id": 143,
+      "progression": [
+        "Gm",
+        "F",
+        "D#",
+        "D"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Gm",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Am"
+    },
+    {
+      "id": 144,
+      "progression": [
+        "G#m",
+        "F#",
+        "E",
+        "D#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "G#m",
+      "scale_type": "minor",
+      "genre": "rock",
+      "mood": "dramatic",
+      "song_name": "Minor Rock Progression",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Am"
+    },
+    {
+      "id": 145,
+      "progression": [
+        "C7",
+        "C7",
+        "C7",
+        "C7",
+        "F7",
+        "F7",
+        "C7",
+        "C7",
+        "G7",
+        "F7",
+        "C7",
+        "G7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "original"
+    },
+    {
+      "id": 146,
+      "progression": [
+        "C#7",
+        "C#7",
+        "C#7",
+        "C#7",
+        "F#7",
+        "F#7",
+        "C#7",
+        "C#7",
+        "G#7",
+        "F#7",
+        "C#7",
+        "G#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 147,
+      "progression": [
+        "D7",
+        "D7",
+        "D7",
+        "D7",
+        "G7",
+        "G7",
+        "D7",
+        "D7",
+        "A7",
+        "G7",
+        "D7",
+        "A7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 148,
+      "progression": [
+        "D#7",
+        "D#7",
+        "D#7",
+        "D#7",
+        "G#7",
+        "G#7",
+        "D#7",
+        "D#7",
+        "A#7",
+        "G#7",
+        "D#7",
+        "A#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 149,
+      "progression": [
+        "E7",
+        "E7",
+        "E7",
+        "E7",
+        "A7",
+        "A7",
+        "E7",
+        "E7",
+        "B7",
+        "A7",
+        "E7",
+        "B7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 150,
+      "progression": [
+        "F7",
+        "F7",
+        "F7",
+        "F7",
+        "A#7",
+        "A#7",
+        "F7",
+        "F7",
+        "C7",
+        "A#7",
+        "F7",
+        "C7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 151,
+      "progression": [
+        "F#7",
+        "F#7",
+        "F#7",
+        "F#7",
+        "B7",
+        "B7",
+        "F#7",
+        "F#7",
+        "C#7",
+        "B7",
+        "F#7",
+        "C#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 152,
+      "progression": [
+        "G7",
+        "G7",
+        "G7",
+        "G7",
+        "C7",
+        "C7",
+        "G7",
+        "G7",
+        "D7",
+        "C7",
+        "G7",
+        "D7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 153,
+      "progression": [
+        "G#7",
+        "G#7",
+        "G#7",
+        "G#7",
+        "C#7",
+        "C#7",
+        "G#7",
+        "G#7",
+        "D#7",
+        "C#7",
+        "G#7",
+        "D#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 154,
+      "progression": [
+        "A7",
+        "A7",
+        "A7",
+        "A7",
+        "D7",
+        "D7",
+        "A7",
+        "A7",
+        "E7",
+        "D7",
+        "A7",
+        "E7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 155,
+      "progression": [
+        "A#7",
+        "A#7",
+        "A#7",
+        "A#7",
+        "D#7",
+        "D#7",
+        "A#7",
+        "A#7",
+        "F7",
+        "D#7",
+        "A#7",
+        "F7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 156,
+      "progression": [
+        "B7",
+        "B7",
+        "B7",
+        "B7",
+        "E7",
+        "E7",
+        "B7",
+        "B7",
+        "F#7",
+        "E7",
+        "B7",
+        "F#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "I7",
+        "I7",
+        "I7",
+        "IV7",
+        "IV7",
+        "I7",
+        "I7",
+        "V7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "bluesy",
+      "song_name": "12-Bar Blues",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 157,
+      "progression": [
+        "C7",
+        "F7",
+        "C7",
+        "G7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "original"
+    },
+    {
+      "id": 158,
+      "progression": [
+        "C#7",
+        "F#7",
+        "C#7",
+        "G#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 159,
+      "progression": [
+        "D7",
+        "G7",
+        "D7",
+        "A7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 160,
+      "progression": [
+        "D#7",
+        "G#7",
+        "D#7",
+        "A#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 161,
+      "progression": [
+        "E7",
+        "A7",
+        "E7",
+        "B7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 162,
+      "progression": [
+        "F7",
+        "A#7",
+        "F7",
+        "C7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 163,
+      "progression": [
+        "F#7",
+        "B7",
+        "F#7",
+        "C#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 164,
+      "progression": [
+        "G7",
+        "C7",
+        "G7",
+        "D7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 165,
+      "progression": [
+        "G#7",
+        "C#7",
+        "G#7",
+        "D#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 166,
+      "progression": [
+        "A7",
+        "D7",
+        "A7",
+        "E7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 167,
+      "progression": [
+        "A#7",
+        "D#7",
+        "A#7",
+        "F7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 168,
+      "progression": [
+        "B7",
+        "E7",
+        "B7",
+        "F#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "V7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "groovy",
+      "song_name": "Simple Blues",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 169,
+      "progression": [
+        "C7",
+        "F7",
+        "C7",
+        "C7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "original"
+    },
+    {
+      "id": 170,
+      "progression": [
+        "C#7",
+        "F#7",
+        "C#7",
+        "C#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 171,
+      "progression": [
+        "D7",
+        "G7",
+        "D7",
+        "D7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 172,
+      "progression": [
+        "D#7",
+        "G#7",
+        "D#7",
+        "D#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 173,
+      "progression": [
+        "E7",
+        "A7",
+        "E7",
+        "E7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 174,
+      "progression": [
+        "F7",
+        "A#7",
+        "F7",
+        "F7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 175,
+      "progression": [
+        "F#7",
+        "B7",
+        "F#7",
+        "F#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 176,
+      "progression": [
+        "G7",
+        "C7",
+        "G7",
+        "G7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 177,
+      "progression": [
+        "G#7",
+        "C#7",
+        "G#7",
+        "G#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 178,
+      "progression": [
+        "A7",
+        "D7",
+        "A7",
+        "A7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 179,
+      "progression": [
+        "A#7",
+        "D#7",
+        "A#7",
+        "A#7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 180,
+      "progression": [
+        "B7",
+        "E7",
+        "B7",
+        "B7"
+      ],
+      "roman_numerals": [
+        "I7",
+        "IV7",
+        "I7",
+        "I7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "blues",
+      "mood": "laid-back",
+      "song_name": "Blues Turnaround",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 181,
+      "progression": [
+        "Dm7",
+        "G7",
+        "Cmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "original"
+    },
+    {
+      "id": 182,
+      "progression": [
+        "D#m7",
+        "G#7",
+        "C#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 183,
+      "progression": [
+        "Em7",
+        "A7",
+        "Dmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 184,
+      "progression": [
+        "Fm7",
+        "A#7",
+        "D#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 185,
+      "progression": [
+        "F#m7",
+        "B7",
+        "Emaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 186,
+      "progression": [
+        "Gm7",
+        "C7",
+        "Fmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 187,
+      "progression": [
+        "G#m7",
+        "C#7",
+        "F#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 188,
+      "progression": [
+        "Am7",
+        "D7",
+        "Gmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 189,
+      "progression": [
+        "A#m7",
+        "D#7",
+        "G#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 190,
+      "progression": [
+        "Bm7",
+        "E7",
+        "Amaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 191,
+      "progression": [
+        "Cm7",
+        "F7",
+        "A#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 192,
+      "progression": [
+        "C#m7",
+        "F#7",
+        "Bmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "sophisticated",
+      "song_name": "ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 193,
+      "progression": [
+        "Cmaj7",
+        "Am7",
+        "Dm7",
+        "G7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "original"
+    },
+    {
+      "id": 194,
+      "progression": [
+        "C#maj7",
+        "A#m7",
+        "D#m7",
+        "G#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 195,
+      "progression": [
+        "Dmaj7",
+        "Bm7",
+        "Em7",
+        "A7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 196,
+      "progression": [
+        "D#maj7",
+        "Cm7",
+        "Fm7",
+        "A#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 197,
+      "progression": [
+        "Emaj7",
+        "C#m7",
+        "F#m7",
+        "B7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 198,
+      "progression": [
+        "Fmaj7",
+        "Dm7",
+        "Gm7",
+        "C7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 199,
+      "progression": [
+        "F#maj7",
+        "D#m7",
+        "G#m7",
+        "C#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 200,
+      "progression": [
+        "Gmaj7",
+        "Em7",
+        "Am7",
+        "D7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 201,
+      "progression": [
+        "G#maj7",
+        "Fm7",
+        "A#m7",
+        "D#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 202,
+      "progression": [
+        "Amaj7",
+        "F#m7",
+        "Bm7",
+        "E7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 203,
+      "progression": [
+        "A#maj7",
+        "Gm7",
+        "Cm7",
+        "F7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 204,
+      "progression": [
+        "Bmaj7",
+        "G#m7",
+        "C#m7",
+        "F#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "vi7",
+        "ii7",
+        "V7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "smooth",
+      "song_name": "I-vi-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 205,
+      "progression": [
+        "Cmaj7",
+        "A7",
+        "Dm7",
+        "G7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "original"
+    },
+    {
+      "id": 206,
+      "progression": [
+        "C#maj7",
+        "A#7",
+        "D#m7",
+        "G#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 207,
+      "progression": [
+        "Dmaj7",
+        "B7",
+        "Em7",
+        "A7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 208,
+      "progression": [
+        "D#maj7",
+        "C7",
+        "Fm7",
+        "A#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 209,
+      "progression": [
+        "Emaj7",
+        "C#7",
+        "F#m7",
+        "B7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 210,
+      "progression": [
+        "Fmaj7",
+        "D7",
+        "Gm7",
+        "C7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 211,
+      "progression": [
+        "F#maj7",
+        "D#7",
+        "G#m7",
+        "C#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 212,
+      "progression": [
+        "Gmaj7",
+        "E7",
+        "Am7",
+        "D7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 213,
+      "progression": [
+        "G#maj7",
+        "F7",
+        "A#m7",
+        "D#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 214,
+      "progression": [
+        "Amaj7",
+        "F#7",
+        "Bm7",
+        "E7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 215,
+      "progression": [
+        "A#maj7",
+        "G7",
+        "Cm7",
+        "F7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 216,
+      "progression": [
+        "Bmaj7",
+        "G#7",
+        "C#m7",
+        "F#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "VI7",
+        "ii7",
+        "V7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "jazzy",
+      "song_name": "I-VI-ii-V (Rhythm Changes)",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 217,
+      "progression": [
+        "Cmaj7",
+        "Dm7",
+        "Em7",
+        "Fmaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "original"
+    },
+    {
+      "id": 218,
+      "progression": [
+        "C#maj7",
+        "D#m7",
+        "Fm7",
+        "F#maj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 219,
+      "progression": [
+        "Dmaj7",
+        "Em7",
+        "F#m7",
+        "Gmaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 220,
+      "progression": [
+        "D#maj7",
+        "Fm7",
+        "Gm7",
+        "G#maj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 221,
+      "progression": [
+        "Emaj7",
+        "F#m7",
+        "G#m7",
+        "Amaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 222,
+      "progression": [
+        "Fmaj7",
+        "Gm7",
+        "Am7",
+        "A#maj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 223,
+      "progression": [
+        "F#maj7",
+        "G#m7",
+        "A#m7",
+        "Bmaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 224,
+      "progression": [
+        "Gmaj7",
+        "Am7",
+        "Bm7",
+        "Cmaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 225,
+      "progression": [
+        "G#maj7",
+        "A#m7",
+        "Cm7",
+        "C#maj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 226,
+      "progression": [
+        "Amaj7",
+        "Bm7",
+        "C#m7",
+        "Dmaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 227,
+      "progression": [
+        "A#maj7",
+        "Cm7",
+        "Dm7",
+        "D#maj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 228,
+      "progression": [
+        "Bmaj7",
+        "C#m7",
+        "D#m7",
+        "Emaj7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "ii7",
+        "iii7",
+        "IVmaj7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "mellow",
+      "song_name": "Diatonic Seventh Ascent",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 229,
+      "progression": [
+        "Cm7",
+        "Fm7",
+        "A#7",
+        "D#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "original"
+    },
+    {
+      "id": 230,
+      "progression": [
+        "C#m7",
+        "F#m7",
+        "B7",
+        "Emaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Bb"
+    },
+    {
+      "id": 231,
+      "progression": [
+        "Dm7",
+        "Gm7",
+        "C7",
+        "Fmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Bb"
+    },
+    {
+      "id": 232,
+      "progression": [
+        "D#m7",
+        "G#m7",
+        "C#7",
+        "F#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Bb"
+    },
+    {
+      "id": 233,
+      "progression": [
+        "Em7",
+        "Am7",
+        "D7",
+        "Gmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Bb"
+    },
+    {
+      "id": 234,
+      "progression": [
+        "Fm7",
+        "A#m7",
+        "D#7",
+        "G#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Bb"
+    },
+    {
+      "id": 235,
+      "progression": [
+        "F#m7",
+        "Bm7",
+        "E7",
+        "Amaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Bb"
+    },
+    {
+      "id": 236,
+      "progression": [
+        "Gm7",
+        "Cm7",
+        "F7",
+        "A#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Bb"
+    },
+    {
+      "id": 237,
+      "progression": [
+        "G#m7",
+        "C#m7",
+        "F#7",
+        "Bmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Bb"
+    },
+    {
+      "id": 238,
+      "progression": [
+        "Am7",
+        "Dm7",
+        "G7",
+        "Cmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Bb"
+    },
+    {
+      "id": 239,
+      "progression": [
+        "A#m7",
+        "D#m7",
+        "G#7",
+        "C#maj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Bb"
+    },
+    {
+      "id": 240,
+      "progression": [
+        "Bm7",
+        "Em7",
+        "A7",
+        "Dmaj7"
+      ],
+      "roman_numerals": [
+        "ii7",
+        "V7",
+        "I7",
+        "IVmaj7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "jazz",
+      "mood": "minor-jazz",
+      "song_name": "Minor ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Bb"
+    },
+    {
+      "id": 241,
+      "progression": [
+        "Am",
+        "F",
+        "G",
+        "Am"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Am",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "original"
+    },
+    {
+      "id": 242,
+      "progression": [
+        "A#m",
+        "F#",
+        "G#",
+        "A#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "A#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Am"
+    },
+    {
+      "id": 243,
+      "progression": [
+        "Bm",
+        "G",
+        "A",
+        "Bm"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Bm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Am"
+    },
+    {
+      "id": 244,
+      "progression": [
+        "Cm",
+        "G#",
+        "A#",
+        "Cm"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Cm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Am"
+    },
+    {
+      "id": 245,
+      "progression": [
+        "C#m",
+        "A",
+        "B",
+        "C#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "C#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Am"
+    },
+    {
+      "id": 246,
+      "progression": [
+        "Dm",
+        "A#",
+        "C",
+        "Dm"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Dm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Am"
+    },
+    {
+      "id": 247,
+      "progression": [
+        "D#m",
+        "B",
+        "C#",
+        "D#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "D#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Am"
+    },
+    {
+      "id": 248,
+      "progression": [
+        "Em",
+        "C",
+        "D",
+        "Em"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Em",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Am"
+    },
+    {
+      "id": 249,
+      "progression": [
+        "Fm",
+        "C#",
+        "D#",
+        "Fm"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Fm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Am"
+    },
+    {
+      "id": 250,
+      "progression": [
+        "F#m",
+        "D",
+        "E",
+        "F#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "F#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Am"
+    },
+    {
+      "id": 251,
+      "progression": [
+        "Gm",
+        "D#",
+        "F",
+        "Gm"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "Gm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Am"
+    },
+    {
+      "id": 252,
+      "progression": [
+        "G#m",
+        "E",
+        "F#",
+        "G#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "VI",
+        "VII",
+        "i"
+      ],
+      "key": "G#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "sad",
+      "song_name": "i-VI-VII-i",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Am"
+    },
+    {
+      "id": 253,
+      "progression": [
+        "Am",
+        "Dm",
+        "E",
+        "Am"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Am",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "original"
+    },
+    {
+      "id": 254,
+      "progression": [
+        "A#m",
+        "D#m",
+        "F",
+        "A#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "A#m",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Am"
+    },
+    {
+      "id": 255,
+      "progression": [
+        "Bm",
+        "Em",
+        "F#",
+        "Bm"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Bm",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Am"
+    },
+    {
+      "id": 256,
+      "progression": [
+        "Cm",
+        "Fm",
+        "G",
+        "Cm"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Cm",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Am"
+    },
+    {
+      "id": 257,
+      "progression": [
+        "C#m",
+        "F#m",
+        "G#",
+        "C#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "C#m",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Am"
+    },
+    {
+      "id": 258,
+      "progression": [
+        "Dm",
+        "Gm",
+        "A",
+        "Dm"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Dm",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Am"
+    },
+    {
+      "id": 259,
+      "progression": [
+        "D#m",
+        "G#m",
+        "A#",
+        "D#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "D#m",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Am"
+    },
+    {
+      "id": 260,
+      "progression": [
+        "Em",
+        "Am",
+        "B",
+        "Em"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Em",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Am"
+    },
+    {
+      "id": 261,
+      "progression": [
+        "Fm",
+        "A#m",
+        "C",
+        "Fm"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Fm",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Am"
+    },
+    {
+      "id": 262,
+      "progression": [
+        "F#m",
+        "Bm",
+        "C#",
+        "F#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "F#m",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Am"
+    },
+    {
+      "id": 263,
+      "progression": [
+        "Gm",
+        "Cm",
+        "D",
+        "Gm"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "Gm",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Am"
+    },
+    {
+      "id": 264,
+      "progression": [
+        "G#m",
+        "C#m",
+        "D#",
+        "G#m"
+      ],
+      "roman_numerals": [
+        "i",
+        "iv",
+        "V",
+        "i"
+      ],
+      "key": "G#m",
+      "scale_type": "minor",
+      "genre": "classical",
+      "mood": "serious",
+      "song_name": "Harmonic Minor i-iv-V-i",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Am"
+    },
+    {
+      "id": 265,
+      "progression": [
+        "Am",
+        "C",
+        "G",
+        "F"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Am",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "original"
+    },
+    {
+      "id": 266,
+      "progression": [
+        "A#m",
+        "C#",
+        "G#",
+        "F#"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "A#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Am"
+    },
+    {
+      "id": 267,
+      "progression": [
+        "Bm",
+        "D",
+        "A",
+        "G"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Bm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Am"
+    },
+    {
+      "id": 268,
+      "progression": [
+        "Cm",
+        "D#",
+        "A#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Cm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Am"
+    },
+    {
+      "id": 269,
+      "progression": [
+        "C#m",
+        "E",
+        "B",
+        "A"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "C#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Am"
+    },
+    {
+      "id": 270,
+      "progression": [
+        "Dm",
+        "F",
+        "C",
+        "A#"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Dm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Am"
+    },
+    {
+      "id": 271,
+      "progression": [
+        "D#m",
+        "F#",
+        "C#",
+        "B"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "D#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Am"
+    },
+    {
+      "id": 272,
+      "progression": [
+        "Em",
+        "G",
+        "D",
+        "C"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Em",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Am"
+    },
+    {
+      "id": 273,
+      "progression": [
+        "Fm",
+        "G#",
+        "D#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Fm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Am"
+    },
+    {
+      "id": 274,
+      "progression": [
+        "F#m",
+        "A",
+        "E",
+        "D"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "F#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Am"
+    },
+    {
+      "id": 275,
+      "progression": [
+        "Gm",
+        "A#",
+        "F",
+        "D#"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "Gm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Am"
+    },
+    {
+      "id": 276,
+      "progression": [
+        "G#m",
+        "B",
+        "F#",
+        "E"
+      ],
+      "roman_numerals": [
+        "i",
+        "III",
+        "VII",
+        "VI"
+      ],
+      "key": "G#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "emotional",
+      "song_name": "i-III-VII-VI",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Am"
+    },
+    {
+      "id": 277,
+      "progression": [
+        "Am",
+        "Em",
+        "F",
+        "C"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Am",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "original"
+    },
+    {
+      "id": 278,
+      "progression": [
+        "A#m",
+        "Fm",
+        "F#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "A#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Am"
+    },
+    {
+      "id": 279,
+      "progression": [
+        "Bm",
+        "F#m",
+        "G",
+        "D"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Bm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Am"
+    },
+    {
+      "id": 280,
+      "progression": [
+        "Cm",
+        "Gm",
+        "G#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Cm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Am"
+    },
+    {
+      "id": 281,
+      "progression": [
+        "C#m",
+        "G#m",
+        "A",
+        "E"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "C#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Am"
+    },
+    {
+      "id": 282,
+      "progression": [
+        "Dm",
+        "Am",
+        "A#",
+        "F"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Dm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Am"
+    },
+    {
+      "id": 283,
+      "progression": [
+        "D#m",
+        "A#m",
+        "B",
+        "F#"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "D#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Am"
+    },
+    {
+      "id": 284,
+      "progression": [
+        "Em",
+        "Bm",
+        "C",
+        "G"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Em",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Am"
+    },
+    {
+      "id": 285,
+      "progression": [
+        "Fm",
+        "Cm",
+        "C#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Fm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Am"
+    },
+    {
+      "id": 286,
+      "progression": [
+        "F#m",
+        "C#m",
+        "D",
+        "A"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "F#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Am"
+    },
+    {
+      "id": 287,
+      "progression": [
+        "Gm",
+        "Dm",
+        "D#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "Gm",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Am"
+    },
+    {
+      "id": 288,
+      "progression": [
+        "G#m",
+        "D#m",
+        "E",
+        "B"
+      ],
+      "roman_numerals": [
+        "i",
+        "v",
+        "VI",
+        "III"
+      ],
+      "key": "G#m",
+      "scale_type": "minor",
+      "genre": "pop",
+      "mood": "reflective",
+      "song_name": "i-v-VI-III",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Am"
+    },
+    {
+      "id": 289,
+      "progression": [
+        "Cmaj7",
+        "Fmaj7",
+        "Dm7",
+        "G7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "original"
+    },
+    {
+      "id": 290,
+      "progression": [
+        "C#maj7",
+        "F#maj7",
+        "D#m7",
+        "G#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 291,
+      "progression": [
+        "Dmaj7",
+        "Gmaj7",
+        "Em7",
+        "A7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 292,
+      "progression": [
+        "D#maj7",
+        "G#maj7",
+        "Fm7",
+        "A#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 293,
+      "progression": [
+        "Emaj7",
+        "Amaj7",
+        "F#m7",
+        "B7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 294,
+      "progression": [
+        "Fmaj7",
+        "A#maj7",
+        "Gm7",
+        "C7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 295,
+      "progression": [
+        "F#maj7",
+        "Bmaj7",
+        "G#m7",
+        "C#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 296,
+      "progression": [
+        "Gmaj7",
+        "Cmaj7",
+        "Am7",
+        "D7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 297,
+      "progression": [
+        "G#maj7",
+        "C#maj7",
+        "A#m7",
+        "D#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 298,
+      "progression": [
+        "Amaj7",
+        "Dmaj7",
+        "Bm7",
+        "E7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 299,
+      "progression": [
+        "A#maj7",
+        "D#maj7",
+        "Cm7",
+        "F7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 300,
+      "progression": [
+        "Bmaj7",
+        "Emaj7",
+        "C#m7",
+        "F#7"
+      ],
+      "roman_numerals": [
+        "Imaj7",
+        "IVmaj7",
+        "ii7",
+        "V7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "soulful",
+      "song_name": "R&B I-IV-ii-V",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 301,
+      "progression": [
+        "Am7",
+        "Dm7",
+        "G7",
+        "Cmaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "original"
+    },
+    {
+      "id": 302,
+      "progression": [
+        "A#m7",
+        "D#m7",
+        "G#7",
+        "C#maj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 303,
+      "progression": [
+        "Bm7",
+        "Em7",
+        "A7",
+        "Dmaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 304,
+      "progression": [
+        "Cm7",
+        "Fm7",
+        "A#7",
+        "D#maj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 305,
+      "progression": [
+        "C#m7",
+        "F#m7",
+        "B7",
+        "Emaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 306,
+      "progression": [
+        "Dm7",
+        "Gm7",
+        "C7",
+        "Fmaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 307,
+      "progression": [
+        "D#m7",
+        "G#m7",
+        "C#7",
+        "F#maj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 308,
+      "progression": [
+        "Em7",
+        "Am7",
+        "D7",
+        "Gmaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 309,
+      "progression": [
+        "Fm7",
+        "A#m7",
+        "D#7",
+        "G#maj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 310,
+      "progression": [
+        "F#m7",
+        "Bm7",
+        "E7",
+        "Amaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 311,
+      "progression": [
+        "Gm7",
+        "Cm7",
+        "F7",
+        "A#maj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 312,
+      "progression": [
+        "G#m7",
+        "C#m7",
+        "F#7",
+        "Bmaj7"
+      ],
+      "roman_numerals": [
+        "vi7",
+        "ii7",
+        "V7",
+        "Imaj7"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "rnb",
+      "mood": "groovy",
+      "song_name": "vi-ii-V-I",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 313,
+      "progression": [
+        "Am",
+        "G",
+        "F",
+        "E"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Am",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "original"
+    },
+    {
+      "id": 314,
+      "progression": [
+        "A#m",
+        "G#",
+        "F#",
+        "F"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "A#m",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "Am"
+    },
+    {
+      "id": 315,
+      "progression": [
+        "Bm",
+        "A",
+        "G",
+        "F#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Bm",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "Am"
+    },
+    {
+      "id": 316,
+      "progression": [
+        "Cm",
+        "A#",
+        "G#",
+        "G"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Cm",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "Am"
+    },
+    {
+      "id": 317,
+      "progression": [
+        "C#m",
+        "B",
+        "A",
+        "G#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "C#m",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "Am"
+    },
+    {
+      "id": 318,
+      "progression": [
+        "Dm",
+        "C",
+        "A#",
+        "A"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Dm",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "Am"
+    },
+    {
+      "id": 319,
+      "progression": [
+        "D#m",
+        "C#",
+        "B",
+        "A#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "D#m",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "Am"
+    },
+    {
+      "id": 320,
+      "progression": [
+        "Em",
+        "D",
+        "C",
+        "B"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Em",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "Am"
+    },
+    {
+      "id": 321,
+      "progression": [
+        "Fm",
+        "D#",
+        "C#",
+        "C"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Fm",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "Am"
+    },
+    {
+      "id": 322,
+      "progression": [
+        "F#m",
+        "E",
+        "D",
+        "C#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "F#m",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "Am"
+    },
+    {
+      "id": 323,
+      "progression": [
+        "Gm",
+        "F",
+        "D#",
+        "D"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "Gm",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "Am"
+    },
+    {
+      "id": 324,
+      "progression": [
+        "G#m",
+        "F#",
+        "E",
+        "D#"
+      ],
+      "roman_numerals": [
+        "i",
+        "VII",
+        "VI",
+        "V"
+      ],
+      "key": "G#m",
+      "scale_type": "minor",
+      "genre": "edm",
+      "mood": "energetic",
+      "song_name": "EDM Minor Progression",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "Am"
+    },
+    {
+      "id": 325,
+      "progression": [
+        "C",
+        "Am",
+        "G",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "original"
+    },
+    {
+      "id": 326,
+      "progression": [
+        "C#",
+        "A#m",
+        "G#",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 327,
+      "progression": [
+        "D",
+        "Bm",
+        "A",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 328,
+      "progression": [
+        "D#",
+        "Cm",
+        "A#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 329,
+      "progression": [
+        "E",
+        "C#m",
+        "B",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 330,
+      "progression": [
+        "F",
+        "Dm",
+        "C",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 331,
+      "progression": [
+        "F#",
+        "D#m",
+        "C#",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 332,
+      "progression": [
+        "G",
+        "Em",
+        "D",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 333,
+      "progression": [
+        "G#",
+        "Fm",
+        "D#",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 334,
+      "progression": [
+        "A",
+        "F#m",
+        "E",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 335,
+      "progression": [
+        "A#",
+        "Gm",
+        "F",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 336,
+      "progression": [
+        "B",
+        "G#m",
+        "F#",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "vi",
+        "V",
+        "IV"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "edm",
+      "mood": "uplifting",
+      "song_name": "EDM I-vi-V-IV",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 337,
+      "progression": [
+        "C",
+        "G",
+        "Am",
+        "Em",
+        "F",
+        "C",
+        "F",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "original"
+    },
+    {
+      "id": 338,
+      "progression": [
+        "C#",
+        "G#",
+        "A#m",
+        "Fm",
+        "F#",
+        "C#",
+        "F#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 339,
+      "progression": [
+        "D",
+        "A",
+        "Bm",
+        "F#m",
+        "G",
+        "D",
+        "G",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 340,
+      "progression": [
+        "D#",
+        "A#",
+        "Cm",
+        "Gm",
+        "G#",
+        "D#",
+        "G#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 341,
+      "progression": [
+        "E",
+        "B",
+        "C#m",
+        "G#m",
+        "A",
+        "E",
+        "A",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 342,
+      "progression": [
+        "F",
+        "C",
+        "Dm",
+        "Am",
+        "A#",
+        "F",
+        "A#",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 343,
+      "progression": [
+        "F#",
+        "C#",
+        "D#m",
+        "A#m",
+        "B",
+        "F#",
+        "B",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 344,
+      "progression": [
+        "G",
+        "D",
+        "Em",
+        "Bm",
+        "C",
+        "G",
+        "C",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 345,
+      "progression": [
+        "G#",
+        "D#",
+        "Fm",
+        "Cm",
+        "C#",
+        "G#",
+        "C#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 346,
+      "progression": [
+        "A",
+        "E",
+        "F#m",
+        "C#m",
+        "D",
+        "A",
+        "D",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 347,
+      "progression": [
+        "A#",
+        "F",
+        "Gm",
+        "Dm",
+        "D#",
+        "A#",
+        "D#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 348,
+      "progression": [
+        "B",
+        "F#",
+        "G#m",
+        "D#m",
+        "E",
+        "B",
+        "E",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "V",
+        "vi",
+        "iii",
+        "IV",
+        "I",
+        "IV",
+        "V"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "pop",
+      "mood": "epic",
+      "song_name": "8-Chord Pop Progression",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    },
+    {
+      "id": 349,
+      "progression": [
+        "C",
+        "Dm",
+        "Em",
+        "F",
+        "G",
+        "Am",
+        "A#",
+        "C"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "C",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "original"
+    },
+    {
+      "id": 350,
+      "progression": [
+        "C#",
+        "D#m",
+        "Fm",
+        "F#",
+        "G#",
+        "A#m",
+        "B",
+        "C#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "C#",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 1,
+      "original_key": "C"
+    },
+    {
+      "id": 351,
+      "progression": [
+        "D",
+        "Em",
+        "F#m",
+        "G",
+        "A",
+        "Bm",
+        "C",
+        "D"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "D",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 2,
+      "original_key": "C"
+    },
+    {
+      "id": 352,
+      "progression": [
+        "D#",
+        "Fm",
+        "Gm",
+        "G#",
+        "A#",
+        "Cm",
+        "C#",
+        "D#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "D#",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 3,
+      "original_key": "C"
+    },
+    {
+      "id": 353,
+      "progression": [
+        "E",
+        "F#m",
+        "G#m",
+        "A",
+        "B",
+        "C#m",
+        "D",
+        "E"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "E",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 4,
+      "original_key": "C"
+    },
+    {
+      "id": 354,
+      "progression": [
+        "F",
+        "Gm",
+        "Am",
+        "A#",
+        "C",
+        "Dm",
+        "D#",
+        "F"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "F",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 5,
+      "original_key": "C"
+    },
+    {
+      "id": 355,
+      "progression": [
+        "F#",
+        "G#m",
+        "A#m",
+        "B",
+        "C#",
+        "D#m",
+        "E",
+        "F#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "F#",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 6,
+      "original_key": "C"
+    },
+    {
+      "id": 356,
+      "progression": [
+        "G",
+        "Am",
+        "Bm",
+        "C",
+        "D",
+        "Em",
+        "F",
+        "G"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "G",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 7,
+      "original_key": "C"
+    },
+    {
+      "id": 357,
+      "progression": [
+        "G#",
+        "A#m",
+        "Cm",
+        "C#",
+        "D#",
+        "Fm",
+        "F#",
+        "G#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "G#",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 8,
+      "original_key": "C"
+    },
+    {
+      "id": 358,
+      "progression": [
+        "A",
+        "Bm",
+        "C#m",
+        "D",
+        "E",
+        "F#m",
+        "G",
+        "A"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "A",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 9,
+      "original_key": "C"
+    },
+    {
+      "id": 359,
+      "progression": [
+        "A#",
+        "Cm",
+        "Dm",
+        "D#",
+        "F",
+        "Gm",
+        "G#",
+        "A#"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "A#",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 10,
+      "original_key": "C"
+    },
+    {
+      "id": 360,
+      "progression": [
+        "B",
+        "C#m",
+        "D#m",
+        "E",
+        "F#",
+        "G#m",
+        "A",
+        "B"
+      ],
+      "roman_numerals": [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "bVII",
+        "I"
+      ],
+      "key": "B",
+      "scale_type": "major",
+      "genre": "progressive",
+      "mood": "journey",
+      "song_name": "Ascending Scale Journey",
+      "source": "transposed",
+      "transposed_semitones": 11,
+      "original_key": "C"
+    }
+  ],
+  "metadata": {
+    "version": "1.1",
+    "total_progressions": 360,
+    "base_progressions": 30,
+    "augmentation_method": "transposition to all 12 keys",
+    "last_updated": "2025-10-15",
+    "description": "Augmented chord progression dataset with transpositions"
+  }
+}

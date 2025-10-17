@@ -1,0 +1,12 @@
+{
+  "uplifting": 0,
+  "happy": 1,
+  "melancholic": 2,
+  "sad": 3,
+  "energetic": 4,
+  "chill": 5,
+  "aggressive": 6,
+  "romantic": 7,
+  "nostalgic": 8,
+  "mysterious": 9
+}

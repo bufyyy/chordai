@@ -1,0 +1,12 @@
+{
+  "model_type": "chord_progression_generator",
+  "max_sequence_length": 12,
+  "chord_vocab_size": 279,
+  "genre_count": 8,
+  "mood_count": 10,
+  "key_count": 12,
+  "scale_type_count": 2,
+  "embedding_dim": 128,
+  "lstm_units": 256,
+  "version": "1.0.0"
+}
