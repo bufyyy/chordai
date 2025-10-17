@@ -46,8 +46,12 @@ const ModelLoader = () => {
 
       setModelLoadProgress(20);
 
-      // Load model (handles both real model and demo mode)
-      const result = await modelService.loadModel('/model/model.json', '/model/metadata');
+      // Load model from GitHub Release (handles both real model and demo mode)
+      const GITHUB_RELEASE_URL = 'https://github.com/bufyyy/chordai/releases/download/v1.0.0';
+      const result = await modelService.loadModel(
+        `${GITHUB_RELEASE_URL}/model.json`,
+        `${GITHUB_RELEASE_URL}/metadata`
+      );
 
       setModelLoadProgress(90);
       setModelLoadProgress(100);
