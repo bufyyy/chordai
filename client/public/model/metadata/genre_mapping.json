@@ -1,10 +1,10 @@
 {
-  "pop": 0,
-  "rock": 1,
-  "jazz": 2,
-  "blues": 3,
-  "rnb": 4,
-  "edm": 5,
-  "classical": 6,
-  "progressive": 7
+  "blues": 0,
+  "classical": 1,
+  "edm": 2,
+  "jazz": 3,
+  "pop": 4,
+  "progressive": 5,
+  "rnb": 6,
+  "rock": 7
 }
