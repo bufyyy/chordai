@@ -51,6 +51,7 @@ export class ModelService {
 
       // Try to load the model
       try {
+        console.log('Loading model from:', modelPath);
         this.model = await tf.loadLayersModel(modelPath);
         console.log('✅ Model loaded successfully');
 
@@ -61,6 +62,7 @@ export class ModelService {
         this.isLoading = false;
         return { success: true, mode: 'model' };
       } catch (modelError) {
+        console.error('❌ Model loading error:', modelError);
         console.warn('⚠️ Model file not found, using DEMO mode');
         this.model = 'DEMO_MODE';
         this.isLoaded = true;
