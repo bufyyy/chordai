@@ -46,11 +46,11 @@ const ModelLoader = () => {
 
       setModelLoadProgress(20);
 
-      // Load model from GitHub Release (handles both real model and demo mode)
-      const GITHUB_RELEASE_URL = 'https://github.com/bufyyy/chordai/releases/download/v1.0.0';
+      // Load model from jsDelivr CDN (GitHub with CORS support)
+      const CDN_BASE_URL = 'https://cdn.jsdelivr.net/gh/bufyyy/chordai@main/client/public';
       const result = await modelService.loadModel(
-        `${GITHUB_RELEASE_URL}/model.json`,
-        `${GITHUB_RELEASE_URL}/metadata`
+        `${CDN_BASE_URL}/model/model.json`,
+        `${CDN_BASE_URL}/model/metadata`
       );
 
       setModelLoadProgress(90);
