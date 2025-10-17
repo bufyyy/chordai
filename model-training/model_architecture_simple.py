@@ -44,16 +44,18 @@ class ChordProgressionModel:
         print("="*70)
 
         # ==================== INPUT LAYERS ====================
+        # Explicit dtype and batch_size for TensorFlow.js compatibility
 
         chord_input = layers.Input(
             shape=(self.max_sequence_length,),
+            dtype='int32',
             name='chord_sequence_input'
         )
 
-        genre_input = layers.Input(shape=(1,), name='genre_input')
-        mood_input = layers.Input(shape=(1,), name='mood_input')
-        key_input = layers.Input(shape=(1,), name='key_input')
-        scale_type_input = layers.Input(shape=(1,), name='scale_type_input')
+        genre_input = layers.Input(shape=(1,), dtype='int32', name='genre_input')
+        mood_input = layers.Input(shape=(1,), dtype='int32', name='mood_input')
+        key_input = layers.Input(shape=(1,), dtype='int32', name='key_input')
+        scale_type_input = layers.Input(shape=(1,), dtype='int32', name='scale_type_input')
 
         # ==================== EMBEDDING LAYERS ====================
 
