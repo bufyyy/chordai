@@ -26,7 +26,8 @@ model-training/logs/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
-*.ipynb
+# Allow training notebook
+!ChordAI_Training_Colab.ipynb
 
 # IDEs
 .vscode/
