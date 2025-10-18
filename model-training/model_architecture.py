@@ -92,10 +92,11 @@ class ChordProgressionModel:
         # ==================== EMBEDDING LAYERS ====================
 
         # Chord embedding: convert chord IDs to dense vectors
+        # Note: mask_zero removed due to TensorFlow 2.19+ BroadcastTo compatibility issues
+        # Padding will be handled in loss calculation instead
         chord_embedding = layers.Embedding(
             input_dim=self.vocab_size,
             output_dim=self.embedding_dim,
-            mask_zero=True,  # Mask padding tokens
             name='chord_embedding'
         )(chord_input)
 
@@ -165,8 +166,7 @@ class ChordProgressionModel:
 
         # ==================== LSTM LAYERS ====================
 
-        # Masking is automatically propagated from chord_embedding (mask_zero=True)
-        # through Concatenate and into LSTM layers
+        # LSTM layers without masking (padding handled in loss function)
 
         # First LSTM layer
         lstm_1 = layers.LSTM(
