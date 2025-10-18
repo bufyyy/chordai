@@ -76,16 +76,18 @@ class ChordProgressionModel:
         # ==================== INPUT LAYERS ====================
 
         # Chord sequence input (shape: [batch_size, max_sequence_length])
+        # Add explicit dtype for TensorFlow.js compatibility
         chord_input = layers.Input(
             shape=(self.max_sequence_length,),
+            dtype='int32',
             name='chord_sequence_input'
         )
 
         # Conditioning inputs (categorical)
-        genre_input = layers.Input(shape=(1,), name='genre_input')
-        mood_input = layers.Input(shape=(1,), name='mood_input')
-        key_input = layers.Input(shape=(1,), name='key_input')
-        scale_type_input = layers.Input(shape=(1,), name='scale_type_input')
+        genre_input = layers.Input(shape=(1,), dtype='int32', name='genre_input')
+        mood_input = layers.Input(shape=(1,), dtype='int32', name='mood_input')
+        key_input = layers.Input(shape=(1,), dtype='int32', name='key_input')
+        scale_type_input = layers.Input(shape=(1,), dtype='int32', name='scale_type_input')
 
         # ==================== EMBEDDING LAYERS ====================
 
@@ -162,6 +164,9 @@ class ChordProgressionModel:
         print(f"Combined Input Shape: [batch, {self.max_sequence_length}, {self.embedding_dim * 2}]")
 
         # ==================== LSTM LAYERS ====================
+
+        # Masking is automatically propagated from chord_embedding (mask_zero=True)
+        # through Concatenate and into LSTM layers
 
         # First LSTM layer
         lstm_1 = layers.LSTM(
