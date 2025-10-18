@@ -46,11 +46,10 @@ const ModelLoader = () => {
 
       setModelLoadProgress(20);
 
-      // Load model from jsDelivr CDN (GitHub with CORS support)
-      const CDN_BASE_URL = 'https://cdn.jsdelivr.net/gh/bufyyy/chordai@main/client/public';
+      // Load model from local public folder (served by Vercel)
       const result = await modelService.loadModel(
-        `${CDN_BASE_URL}/model/model.json`,
-        `${CDN_BASE_URL}/model/metadata`
+        '/model/model.json',
+        '/model/metadata'
       );
 
       setModelLoadProgress(90);
