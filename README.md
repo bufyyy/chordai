@@ -86,7 +86,7 @@ ChordAI uses an LSTM neural network trained on **1,080+ chord progressions** fro
 
 ### Live Application
 
-🚀 **Try it now**: [chordai-demo.com](#) *(Coming soon)*
+🚀 **Try it now**: [https://chordai.vercel.app](#) 
 
 ### Screenshots
 
@@ -409,9 +409,8 @@ MIT License - see [LICENSE](./LICENSE)
 
 ## 📞 Contact
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-- Discord: [Join Server](#)
+- GitHub: [@bufyyy](https://github.com/bufyyy)
+- Email: bugrafiridinoglu@gmail.com
 
 ---
 
