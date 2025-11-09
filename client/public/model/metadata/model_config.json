@@ -1,0 +1,69 @@
+{
+  "model_version": "1.0",
+  "model_type": "lstm_chord_progression",
+  "input_specs": {
+    "chord_sequence": {
+      "shape": [
+        null,
+        12
+      ],
+      "dtype": "int32",
+      "name": "chord_sequence_input"
+    },
+    "genre": {
+      "shape": [
+        null,
+        1
+      ],
+      "dtype": "int32",
+      "name": "genre_input"
+    },
+    "mood": {
+      "shape": [
+        null,
+        1
+      ],
+      "dtype": "int32",
+      "name": "mood_input"
+    },
+    "key": {
+      "shape": [
+        null,
+        1
+      ],
+      "dtype": "int32",
+      "name": "key_input"
+    },
+    "scale_type": {
+      "shape": [
+        null,
+        1
+      ],
+      "dtype": "int32",
+      "name": "scale_type_input"
+    }
+  },
+  "output_specs": {
+    "shape": [
+      null,
+      12,
+      279
+    ],
+    "dtype": "float32",
+    "description": "Probability distribution over chord vocabulary for each position"
+  },
+  "vocab_sizes": {
+    "chords": 279,
+    "genres": 8,
+    "moods": 27,
+    "keys": 24,
+    "scale_types": 2
+  },
+  "max_sequence_length": 12,
+  "special_tokens": {
+    "pad_id": 0,
+    "start_id": 1,
+    "end_id": 2,
+    "unk_id": 3
+  }
+}

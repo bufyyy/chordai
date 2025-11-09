@@ -1,0 +1,94 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Model training outputs
+model-training/output/
+model-training/checkpoints/
+model-training/logs/
+*.h5
+*.pb
+*.keras
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+# Allow training notebook
+!ChordAI_Training_Colab.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+client/dist/
+client/build/
+server/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Testing
+coverage/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Playwright
+client/playwright-report/
+client/test-results/
+client/playwright/.cache/
+
+# Vite
+client/.vite/
+client/dist/
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+
+# IDE (ek)
+*.sublime-project
+*.sublime-workspace
+
+# OS (ek)
+.DS_Store
+Thumbs.db
+desktop.ini

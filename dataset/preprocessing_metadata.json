@@ -1,0 +1,15 @@
+{
+  "preprocessing_date": "2025-10-15 21:16:03",
+  "total_progressions": 1080,
+  "train_samples": 864,
+  "val_samples": 162,
+  "test_samples": 54,
+  "max_sequence_length": 12,
+  "vocab_sizes": {
+    "chords": 279,
+    "genres": 8,
+    "moods": 27,
+    "keys": 24,
+    "scale_types": 2
+  }
+}
