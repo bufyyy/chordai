@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useStore from '../store/useStore';
-import { getModelService } from '../services/modelService';
+import modelService from '../services/modelService';
 
 const ModelLoader = () => {
   const {
@@ -30,7 +30,8 @@ const ModelLoader = () => {
   const loadModel = async () => {
     try {
       // Get model service instance
-      const modelService = getModelService();
+      // modelService is already the instance
+
 
       // Check if already loaded
       if (modelService.isReady()) {

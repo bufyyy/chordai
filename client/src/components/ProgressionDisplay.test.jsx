@@ -16,10 +16,10 @@ vi.mock('../utils/storage', () => ({
 
 // Mock model service
 vi.mock('../services/modelService', () => ({
-  getModelService: vi.fn(() => ({
+  default: {
     generateProgression: vi.fn(() => Promise.resolve(['C', 'F', 'G', 'C'])),
     generateVariation: vi.fn(() => Promise.resolve(['C', 'Am', 'F', 'G'])),
-  })),
+  },
 }));
 
 describe('ProgressionDisplay', () => {
