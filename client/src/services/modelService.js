@@ -1,6 +1,32 @@
 import * as tf from '@tensorflow/tfjs';
 import { Key } from '@tonaljs/tonal';
 
+// Define custom NotEqual layer for masking
+class NotEqual extends tf.layers.Layer {
+  constructor(config) {
+    super(config);
+  }
+
+  computeOutputShape(inputShape) {
+    return inputShape;
+  }
+
+  call(inputs) {
+    return tf.tidy(() => {
+      // inputs is usually a tensor, check if it's not equal to 0
+      // The model json shows it comparing against 0
+      return tf.notEqual(inputs[0], 0);
+    });
+  }
+
+  static get className() {
+    return 'NotEqual';
+  }
+}
+
+// Register the custom layer
+tf.serialization.registerClass(NotEqual);
+
 class ModelService {
   constructor() {
     this.model = null;
@@ -28,7 +54,7 @@ class ModelService {
 
     try {
       console.log('Loading model and mappings...');
-      
+
       // Load mappings and model in parallel
       const [mappingsResponse, model] = await Promise.all([
         fetch(this.mappingsPath),
@@ -37,7 +63,7 @@ class ModelService {
 
       this.mappings = await mappingsResponse.json();
       this.model = model;
-      
+
       this.isLoaded = true;
       console.log('Model and mappings loaded successfully');
       return true;
@@ -64,7 +90,7 @@ class ModelService {
 
     return tf.tidy(() => {
       // 1. Preprocessing
-      
+
       // Map chords to IDs
       const chordToId = this.mappings.chord_to_id;
       const sequenceIds = currentChords.map(chord => {
@@ -95,28 +121,28 @@ class ModelService {
       // Create tensors
       // Input 1: Chord Sequence [1, 8]
       const chordTensor = tf.tensor2d([paddedSequence], [1, SEQUENCE_LENGTH]);
-      
+
       // Input 2: Genre [1, 1]
       const genreTensor = tf.tensor2d([[genreId]], [1, 1]);
 
       // 2. Prediction
       const prediction = this.model.predict([chordTensor, genreTensor]);
-      
+
       // 3. Post-processing (Temperature Sampling)
-      
+
       // Map adventure (0-100) to temperature (0.2 - 1.2)
       // 0 -> 0.2 (Conservative)
       // 100 -> 1.2 (Creative/Random)
       const temperature = 0.2 + (adventure / 100);
-      
+
       // Get logits (assuming model outputs logits or probabilities, usually softmaxed)
       // If model outputs probabilities, we need to take log to get logits for sampling
       // Let's assume the model output is a softmax probability distribution
       const probabilities = prediction.squeeze();
-      
+
       // Sample from distribution
       const predictedId = this.sampleWithTemperature(probabilities, temperature);
-      
+
       // Convert ID back to Chord Name
       const idToChord = this.mappings.id_to_chord;
       const predictedChord = idToChord[predictedId.toString()]; // Keys in JSON are strings
@@ -133,11 +159,11 @@ class ModelService {
    */
   sampleWithTemperature(probabilities, temperature) {
     const probs = probabilities.arraySync();
-    
+
     // Apply temperature
     // log(p) / T
     const logits = probs.map(p => Math.log(p + 1e-10) / temperature);
-    
+
     // Softmax again
     const maxLogit = Math.max(...logits);
     const expLogits = logits.map(l => Math.exp(l - maxLogit));
@@ -153,7 +179,7 @@ class ModelService {
         return i;
       }
     }
-    
+
     return scaledProbs.length - 1;
   }
 
@@ -164,15 +190,15 @@ class ModelService {
    */
   detectKey(chordList) {
     if (!chordList || chordList.length === 0) return 'C Major';
-    
+
     // Use tonaljs to detect key
     const detected = Key.detect(chordList);
-    
+
     if (detected && detected.length > 0) {
       // Return the most likely key
       return detected[0];
     }
-    
+
     return 'Unknown';
   }
 }
