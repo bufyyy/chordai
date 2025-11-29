@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
-import { Key } from '@tonaljs/tonal';
+import { Chord } from '@tonaljs/tonal';
 
 // Define custom NotEqual layer for masking
 class NotEqual extends tf.layers.Layer {
@@ -191,15 +191,26 @@ class ModelService {
   detectKey(chordList) {
     if (!chordList || chordList.length === 0) return 'C Major';
 
-    // Use tonaljs to detect key
-    const detected = Key.detect(chordList);
+    try {
+      // Simple heuristic: Assume the first chord is the tonic
+      // This is often true for generated progressions starting on I
+      const firstChord = chordList[0];
+      const chordInfo = Chord.get(firstChord);
 
-    if (detected && detected.length > 0) {
-      // Return the most likely key
-      return detected[0];
+      if (chordInfo && chordInfo.tonic) {
+        // Determine if major or minor
+        // The 'quality' property from tonaljs can be 'Major', 'Minor', 'Major7', etc.
+        // For simplicity, we'll check the chord name for 'm' to infer minor,
+        // as tonaljs's quality might be more specific than just 'Major' or 'Minor' for the key.
+        const isMinor = firstChord.includes('m') && !firstChord.includes('maj');
+
+        return `${chordInfo.tonic} ${isMinor ? 'Minor' : 'Major'}`;
+      }
+    } catch (e) {
+      console.warn('Key detection failed:', e);
     }
 
-    return 'Unknown';
+    return 'C Major'; // Fallback
   }
 }
 
