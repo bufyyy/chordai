@@ -83,22 +83,38 @@ class ModelService {
    * @param {number} adventure - Adventure slider value (0-100)
    * @returns {Promise<string>} - The predicted chord name
    */
+  /**
+   * Predict the next chord in the sequence
+   * @param {string[]} currentChords - Array of chord names
+   * @param {string} genre - Selected genre
+   * @param {number} adventure - Adventure slider value (0-100)
+   * @returns {Promise<string>} - The predicted chord name
+   */
   async predictNextChord(currentChords, genre, adventure) {
     if (!this.isLoaded) {
       await this.loadModel();
     }
 
     return tf.tidy(() => {
-      // 1. Preprocessing
+      // --- 1. Diagnostic Logging: Raw Input ---
+      console.group('Model Prediction Debug');
+      console.log('Raw Input Chords:', currentChords);
+      console.log('Raw Input Genre:', genre);
+      console.log('Adventure Value:', adventure);
 
-      // Map chords to IDs
+      // --- 2. Preprocessing & Mapping Verification ---
       const chordToId = this.mappings.chord_to_id;
       const sequenceIds = currentChords.map(chord => {
-        // Handle potential unknown chords
-        return chordToId[chord] || 0; // 0 is usually padding/unknown, assuming 0 is safe default if not found
+        const id = chordToId[chord];
+        if (id === undefined) {
+          console.warn(`Chord '${chord}' not found in mappings. Using default ID 0.`);
+          return 0; // Default/Unknown ID
+        }
+        return id;
       });
+      console.log('Mapped Sequence IDs:', sequenceIds);
 
-      // Pad sequence to length 8 (pre-padding with 0)
+      // Pad sequence to length 8
       const SEQUENCE_LENGTH = 8;
       let paddedSequence = [];
       if (sequenceIds.length >= SEQUENCE_LENGTH) {
@@ -108,46 +124,83 @@ class ModelService {
         const padding = new Array(paddingCount).fill(0);
         paddedSequence = [...padding, ...sequenceIds];
       }
+      console.log('Final Padded Sequence (Input to Tensor):', paddedSequence);
 
-      // Map genre to ID
+      // Map genre
       const genreToId = this.mappings.genre_to_id;
-      // Default to first genre if not found or 'pop' if available, otherwise 0
       let genreId = genreToId[genre];
       if (genreId === undefined) {
-        console.warn(`Genre '${genre}' not found in mappings, defaulting to 0`);
+        console.warn(`Genre '${genre}' not found in mappings. Defaulting to 0.`);
         genreId = 0;
       }
+      console.log('Mapped Genre ID:', genreId);
 
-      // Create tensors
-      // Input 1: Chord Sequence [1, 8]
+      // --- 3. Tensor Creation & Shape Check ---
       const chordTensor = tf.tensor2d([paddedSequence], [1, SEQUENCE_LENGTH]);
-
-      // Input 2: Genre [1, 1]
       const genreTensor = tf.tensor2d([[genreId]], [1, 1]);
 
-      // 2. Prediction
+      console.log('Chord Tensor Shape:', chordTensor.shape);
+      console.log('Genre Tensor Shape:', genreTensor.shape);
+
+      if (chordTensor.shape[0] !== 1 || chordTensor.shape[1] !== 8) {
+        console.error('INVALID CHORD TENSOR SHAPE');
+      }
+      if (genreTensor.shape[0] !== 1 || genreTensor.shape[1] !== 1) {
+        console.error('INVALID GENRE TENSOR SHAPE');
+      }
+
+      // --- 4. Prediction ---
       const prediction = this.model.predict([chordTensor, genreTensor]);
+      let probabilities = prediction.squeeze(); // 1D tensor
 
-      // 3. Post-processing (Temperature Sampling)
+      // --- 5. Repetition Penalty ---
+      // Reduce probability of the last chord in the sequence to avoid immediate repetition
+      if (sequenceIds.length > 0) {
+        const lastChordId = sequenceIds[sequenceIds.length - 1];
+        // Only apply if the last chord is valid and within range
+        if (lastChordId !== undefined) {
+          const penaltyFactor = 0.1; // Reduce probability by 90%
+          console.log(`Applying repetition penalty to ID ${lastChordId}`);
 
-      // Map adventure (0-100) to temperature (0.2 - 1.2)
-      // 0 -> 0.2 (Conservative)
-      // 100 -> 1.2 (Creative/Random)
-      const temperature = 0.2 + (adventure / 100);
+          const buffer = probabilities.bufferSync();
+          // We are modifying the buffer directly, but we need to be careful with tf.tidy
+          // It's better to do this with tensor ops or array manipulation
+          const probsArray = probabilities.arraySync();
+          probsArray[lastChordId] *= penaltyFactor;
 
-      // Get logits (assuming model outputs logits or probabilities, usually softmaxed)
-      // If model outputs probabilities, we need to take log to get logits for sampling
-      // Let's assume the model output is a softmax probability distribution
-      const probabilities = prediction.squeeze();
+          // Re-normalize
+          const sum = probsArray.reduce((a, b) => a + b, 0);
+          const normalizedProbs = probsArray.map(p => p / sum);
+          probabilities = tf.tensor1d(normalizedProbs);
+        }
+      }
 
-      // Sample from distribution
+      // --- 6. Logging Raw Probabilities ---
+      const finalProbs = probabilities.arraySync();
+      const top5 = finalProbs
+        .map((p, i) => ({ p, i }))
+        .sort((a, b) => b.p - a.p)
+        .slice(0, 5)
+        .map(item => ({
+          chord: this.mappings.id_to_chord[item.i],
+          prob: item.p.toFixed(4)
+        }));
+      console.log('Top 5 Predictions:', top5);
+
+      // --- 7. Sampling ---
+      const temperature = 0.2 + (adventure / 100); // 0.2 to 1.2
+      console.log('Sampling Temperature:', temperature);
+
       const predictedId = this.sampleWithTemperature(probabilities, temperature);
 
-      // Convert ID back to Chord Name
       const idToChord = this.mappings.id_to_chord;
-      const predictedChord = idToChord[predictedId.toString()]; // Keys in JSON are strings
+      const predictedChord = idToChord[predictedId.toString()];
 
-      return predictedChord || 'C'; // Fallback to C if something goes wrong
+      console.log('Selected ID:', predictedId);
+      console.log('Predicted Chord:', predictedChord);
+      console.groupEnd();
+
+      return predictedChord || 'C';
     });
   }
 
@@ -160,9 +213,11 @@ class ModelService {
   sampleWithTemperature(probabilities, temperature) {
     const probs = probabilities.arraySync();
 
-    // Apply temperature
-    // log(p) / T
-    const logits = probs.map(p => Math.log(p + 1e-10) / temperature);
+    // Avoid division by zero or extremely low temperature
+    const temp = Math.max(temperature, 0.01);
+
+    // Apply temperature: log(p) / T
+    const logits = probs.map(p => Math.log(p + 1e-10) / temp);
 
     // Softmax again
     const maxLogit = Math.max(...logits);
