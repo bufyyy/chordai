@@ -34,10 +34,11 @@ const ModelLoader = () => {
 
 
       // Check if already loaded
-      if (modelService.isReady()) {
+      // Check if already loaded
+      if (modelService.isLoaded) {
         console.log('Model already loaded, skipping...');
         setModel(modelService.model);
-        setPreprocessor(modelService.preprocessor);
+        setPreprocessor(modelService.mappings);
         setModelLoading(false);
         return;
       }
@@ -48,27 +49,20 @@ const ModelLoader = () => {
       setModelLoadProgress(20);
 
       // Load model from local public folder (served by Vercel)
-      const result = await modelService.loadModel(
-        '/model/model.json',
-        '/model/metadata'
-      );
+      await modelService.loadModel();
 
       setModelLoadProgress(90);
       setModelLoadProgress(100);
 
       // Save to store
       const model = modelService.model;
-      const preprocessor = modelService.preprocessor;
+      const mappings = modelService.mappings;
 
       setModel(model);
-      setPreprocessor(preprocessor);
+      setPreprocessor(mappings);
       setModelLoading(false);
 
-      if (result.mode === 'demo') {
-        console.log('✅ Running in DEMO mode');
-      } else {
-        console.log('✅ Model loaded successfully');
-      }
+      console.log('✅ Model loaded successfully');
 
     } catch (error) {
       console.error('Error loading model:', error);
