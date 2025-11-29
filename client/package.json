@@ -18,7 +18,8 @@
     "prepare": "cd .. && husky client/.husky || true"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "^4.11.0",
+    "@tensorflow/tfjs": "^4.22.0",
+    "@tonaljs/tonal": "^4.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tone": "^14.7.77",

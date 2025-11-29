@@ -1,86 +1,76 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
-import { getModelService } from '../services/modelService';
+import modelService from '../services/modelService';
 
 const InputForm = () => {
   const {
-    model,
-    preprocessor,
     genre,
-    mood,
-    key,
-    scaleType,
-    progressionLength,
-    temperature,
+    adventure,
+    octave,
+    count,
     isGenerating,
     setGenre,
-    setMood,
-    setKey,
-    setScaleType,
-    setProgressionLength,
-    setTemperature,
+    setAdventure,
+    setOctave,
+    setCount,
     setCurrentProgression,
+    setDetectedKey,
     setIsGenerating,
   } = useStore();
 
-  const [samplingStrategy, setSamplingStrategy] = useState('temperature');
-  const [topK, setTopK] = useState(10);
-  const [topP, setTopP] = useState(0.9);
+  const [availableGenres, setAvailableGenres] = useState([]);
 
-  const genres = ['pop', 'rock', 'jazz', 'blues', 'rnb', 'edm', 'classical', 'progressive'];
-  const moods = [
-    'uplifting',
-    'happy',
-    'melancholic',
-    'sad',
-    'energetic',
-    'chill',
-    'aggressive',
-    'romantic',
-    'nostalgic',
-    'mysterious',
-  ];
-  const keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-  const scaleTypes = ['major', 'minor'];
-  const samplingStrategies = [
-    { value: 'temperature', label: 'Temperature', description: 'Classic temperature sampling' },
-    { value: 'topk', label: 'Top-K', description: 'Sample from top K candidates' },
-    { value: 'nucleus', label: 'Nucleus (Top-P)', description: 'Sample from cumulative probability' },
-  ];
+  // Fetch genres on mount
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        // Ensure model is loaded to get mappings
+        await modelService.loadModel();
+        if (modelService.mappings && modelService.mappings.genre_to_id) {
+          const genres = Object.keys(modelService.mappings.genre_to_id);
+          setAvailableGenres(genres);
+          // Set default genre if current is not in list
+          if (!genres.includes(genre) && genres.length > 0) {
+            setGenre(genres[0]);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load genres:', error);
+      }
+    };
+
+    fetchGenres();
+  }, [setGenre, genre]);
 
   const handleGenerate = async () => {
-    if (!model || !preprocessor || isGenerating) return;
+    if (isGenerating) return;
 
     setIsGenerating(true);
+    setCurrentProgression({ chords: [] }); // Clear previous
+    setDetectedKey(null);
 
     try {
-      const modelService = getModelService();
+      let currentChords = [];
 
-      // Prepare sampling parameters
-      const samplingParams = {};
-      if (samplingStrategy === 'topk') {
-        samplingParams.k = topK;
-      } else if (samplingStrategy === 'nucleus') {
-        samplingParams.p = topP;
+      // Generation Loop
+      for (let i = 0; i < count; i++) {
+        const nextChord = await modelService.predictNextChord(currentChords, genre, adventure);
+        currentChords.push(nextChord);
+
+        // Update state progressively
+        setCurrentProgression({
+          chords: [...currentChords],
+          metadata: { genre, adventure, octave }
+        });
+
+        // Small delay to visualize the generation (optional, but nice)
+        await new Promise(r => setTimeout(r, 100));
       }
 
-      // Generate progression
-      const progression = await modelService.generateProgression(
-        genre,
-        mood,
-        key,
-        scaleType,
-        progressionLength,
-        temperature,
-        samplingStrategy,
-        samplingParams
-      );
+      // Detect Key
+      const detectedKey = modelService.detectKey(currentChords);
+      setDetectedKey(detectedKey);
 
-      // Convert array to object format expected by store
-      setCurrentProgression({
-        chords: progression,
-        metadata: { genre, mood, key, scaleType }
-      });
     } catch (error) {
       console.error('Error generating progression:', error);
       alert('Failed to generate progression. Please try again.');
@@ -103,166 +93,29 @@ const InputForm = () => {
             className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
             disabled={isGenerating}
           >
-            {genres.map((g) => (
-              <option key={g} value={g}>
-                {g.charAt(0).toUpperCase() + g.slice(1)}
-              </option>
-            ))}
+            {availableGenres.length > 0 ? (
+              availableGenres.map((g) => (
+                <option key={g} value={g}>
+                  {g.charAt(0).toUpperCase() + g.slice(1)}
+                </option>
+              ))
+            ) : (
+              <option>Loading genres...</option>
+            )}
           </select>
         </div>
 
-        {/* Mood Selection */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Mood</label>
-          <select
-            value={mood}
-            onChange={(e) => setMood(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-            disabled={isGenerating}
-          >
-            {moods.map((m) => (
-              <option key={m} value={m}>
-                {m.charAt(0).toUpperCase() + m.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Key & Scale Type */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Key</label>
-            <select
-              value={key}
-              onChange={(e) => setKey(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-              disabled={isGenerating}
-            >
-              {keys.map((k) => (
-                <option key={k} value={k}>
-                  {k}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Scale</label>
-            <select
-              value={scaleType}
-              onChange={(e) => setScaleType(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-              disabled={isGenerating}
-            >
-              {scaleTypes.map((s) => (
-                <option key={s} value={s}>
-                  {s.charAt(0).toUpperCase() + s.slice(1)}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* Progression Length */}
+        {/* Adventure Slider */}
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">
-            Progression Length: <span className="text-blue-400">{progressionLength} chords</span>
+            Adventure: <span className="text-purple-400">{adventure}%</span>
           </label>
           <input
             type="range"
-            min="4"
-            max="8"
-            value={progressionLength}
-            onChange={(e) => setProgressionLength(Number(e.target.value))}
-            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
-            disabled={isGenerating}
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>4</span>
-            <span>8</span>
-          </div>
-        </div>
-
-        {/* Sampling Strategy */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Sampling Strategy
-          </label>
-          <select
-            value={samplingStrategy}
-            onChange={(e) => setSamplingStrategy(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-            disabled={isGenerating}
-          >
-            {samplingStrategies.map((strategy) => (
-              <option key={strategy.value} value={strategy.value}>
-                {strategy.label}
-              </option>
-            ))}
-          </select>
-          <p className="text-xs text-gray-500 mt-2">
-            {samplingStrategies.find(s => s.value === samplingStrategy)?.description}
-          </p>
-        </div>
-
-        {/* Sampling Parameters */}
-        {samplingStrategy === 'topk' && (
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Top-K: <span className="text-green-400">{topK}</span>
-            </label>
-            <input
-              type="range"
-              min="1"
-              max="50"
-              value={topK}
-              onChange={(e) => setTopK(Number(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
-              disabled={isGenerating}
-            />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
-              <span>1</span>
-              <span>25</span>
-              <span>50</span>
-            </div>
-          </div>
-        )}
-
-        {samplingStrategy === 'nucleus' && (
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Top-P (Nucleus): <span className="text-green-400">{topP.toFixed(2)}</span>
-            </label>
-            <input
-              type="range"
-              min="0.5"
-              max="1.0"
-              step="0.05"
-              value={topP}
-              onChange={(e) => setTopP(Number(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
-              disabled={isGenerating}
-            />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
-              <span>0.5</span>
-              <span>0.75</span>
-              <span>1.0</span>
-            </div>
-          </div>
-        )}
-
-        {/* Temperature */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Temperature: <span className="text-purple-400">{temperature.toFixed(1)}</span>
-          </label>
-          <input
-            type="range"
-            min="0.5"
-            max="1.5"
-            step="0.1"
-            value={temperature}
-            onChange={(e) => setTemperature(Number(e.target.value))}
+            min="0"
+            max="100"
+            value={adventure}
+            onChange={(e) => setAdventure(Number(e.target.value))}
             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             disabled={isGenerating}
           />
@@ -273,15 +126,43 @@ const InputForm = () => {
           </div>
         </div>
 
+        {/* Count & Octave */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Count</label>
+            <input
+              type="number"
+              min="1"
+              max="16"
+              value={count}
+              onChange={(e) => setCount(Number(e.target.value))}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              disabled={isGenerating}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Octave</label>
+            <input
+              type="number"
+              min="1"
+              max="7"
+              value={octave}
+              onChange={(e) => setOctave(Number(e.target.value))}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              disabled={isGenerating}
+            />
+          </div>
+        </div>
+
         {/* Generate Button */}
         <button
           onClick={handleGenerate}
-          disabled={isGenerating || !model}
-          className={`w-full py-4 rounded-lg font-semibold text-white transition-all duration-300 ${
-            isGenerating || !model
+          disabled={isGenerating}
+          className={`w-full py-4 rounded-lg font-semibold text-white transition-all duration-300 ${isGenerating
               ? 'bg-gray-700 cursor-not-allowed'
               : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105'
-          }`}
+            }`}
         >
           {isGenerating ? (
             <div className="flex items-center justify-center">
@@ -315,8 +196,7 @@ const InputForm = () => {
         {/* Info */}
         <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
           <p className="text-sm text-blue-300">
-            <span className="font-semibold">💡 Tip:</span> Higher creativity values produce more
-            unique progressions, while lower values stick to common patterns.
+            <span className="font-semibold">💡 Tip:</span> Use the Adventure slider to control how unpredictable the AI should be.
           </p>
         </div>
       </div>

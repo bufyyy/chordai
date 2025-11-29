@@ -10,6 +10,11 @@ const useStore = create((set, get) => ({
 
   // User input state
   genre: 'pop',
+  adventure: 50, // 0-100
+  octave: 4,
+  count: 4,
+
+  // Legacy/Unused but kept to avoid breaking other components immediately if referenced
   mood: 'uplifting',
   key: 'C',
   scaleType: 'major',
@@ -20,6 +25,7 @@ const useStore = create((set, get) => ({
   currentProgression: null,
   progressionHistory: [],
   isGenerating: false,
+  detectedKey: null,
 
   // Audio playback state
   isPlaying: false,
@@ -42,6 +48,11 @@ const useStore = create((set, get) => ({
 
   // Actions - Input
   setGenre: (genre) => set({ genre }),
+  setAdventure: (adventure) => set({ adventure }),
+  setOctave: (octave) => set({ octave }),
+  setCount: (count) => set({ count }),
+
+  // Legacy actions
   setMood: (mood) => set({ mood }),
   setKey: (key) => set({ key }),
   setScaleType: (scaleType) => set({ scaleType }),
@@ -53,6 +64,8 @@ const useStore = create((set, get) => ({
     set({ currentProgression: progression });
   },
 
+  setDetectedKey: (key) => set({ detectedKey: key }),
+
   addToHistory: (progression) => {
     const history = get().progressionHistory;
     set({
@@ -60,7 +73,7 @@ const useStore = create((set, get) => ({
     });
   },
 
-  clearProgression: () => set({ currentProgression: null }),
+  clearProgression: () => set({ currentProgression: null, detectedKey: null }),
 
   setIsGenerating: (isGenerating) => set({ isGenerating }),
 
@@ -103,11 +116,9 @@ const useStore = create((set, get) => ({
     const state = get();
     return {
       genre: state.genre,
-      mood: state.mood,
-      key: state.key,
-      scaleType: state.scaleType,
-      progressionLength: state.progressionLength,
-      temperature: state.temperature,
+      adventure: state.adventure,
+      octave: state.octave,
+      count: state.count,
     };
   },
 }));

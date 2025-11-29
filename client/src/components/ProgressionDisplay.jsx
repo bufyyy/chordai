@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
-import { getModelService } from '../services/modelService';
 import { saveToHistory, saveToFavorites, isInFavorites, removeFromFavorites } from '../utils/storage';
 
-const ChordCard = ({ chord, index, chordInfo, isPlaying }) => {
+const ChordCard = ({ chord, index, octave, isPlaying }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -13,63 +12,31 @@ const ChordCard = ({ chord, index, chordInfo, isPlaying }) => {
       onMouseLeave={() => setShowTooltip(false)}
     >
       <div
-        className={`glass rounded-xl p-6 transition-all duration-300 ${
-          isPlaying
+        className={`glass rounded-xl p-6 transition-all duration-300 ${isPlaying
             ? 'ring-4 ring-blue-500 shadow-2xl scale-105'
             : 'hover:scale-105 glass-hover'
-        }`}
+          }`}
       >
         {/* Chord Index */}
         <div className="text-xs text-gray-500 mb-2">Chord {index + 1}</div>
 
-        {/* Chord Name */}
+        {/* Chord Name + Octave */}
         <div className="text-3xl font-bold text-white mb-2">
-          {chord.replace('b', '♭').replace('#', '♯')}
+          {chord.replace('b', '♭').replace('#', '♯')}<span className="text-xl text-gray-400">{octave}</span>
         </div>
 
-        {/* Roman Numeral */}
-        <div className="text-sm text-purple-400 font-semibold">{chordInfo.romanNumeral}</div>
-
-        {/* Function */}
-        <div className="text-xs text-gray-400 mt-1">{chordInfo.function}</div>
+        {/* Placeholder for Roman Numeral if we want it back later */}
+        {/* <div className="text-sm text-purple-400 font-semibold">I</div> */}
       </div>
-
-      {/* Tooltip */}
-      {showTooltip && (
-        <div className="absolute z-10 w-64 p-4 bg-gray-800 border border-gray-700 rounded-lg shadow-2xl -top-2 left-full ml-4 animate-fade-in">
-          <div className="text-sm">
-            <div className="font-semibold text-white mb-2">{chord}</div>
-            <div className="text-gray-400 space-y-1">
-              <div>
-                <span className="text-purple-400">Function:</span> {chordInfo.function}
-              </div>
-              <div>
-                <span className="text-blue-400">Description:</span> {chordInfo.description}
-              </div>
-            </div>
-          </div>
-          {/* Arrow */}
-          <div className="absolute top-4 -left-2 w-4 h-4 bg-gray-800 border-l border-t border-gray-700 transform rotate-45" />
-        </div>
-      )}
     </div>
   );
 };
 
 const ProgressionDisplay = () => {
   const {
-    model,
-    preprocessor,
     currentProgression,
-    genre,
-    mood,
-    key,
-    scaleType,
-    temperature,
-    isGenerating,
+    detectedKey,
     currentChordIndex,
-    setCurrentProgression,
-    setIsGenerating,
   } = useStore();
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -78,6 +45,8 @@ const ProgressionDisplay = () => {
   const [toastMessage, setToastMessage] = useState('');
 
   const chords = currentProgression?.chords || [];
+  const metadata = currentProgression?.metadata || {};
+  const { genre, octave } = metadata;
 
   // Check if current progression is favorited
   useEffect(() => {
@@ -92,74 +61,17 @@ const ProgressionDisplay = () => {
       const entry = saveToHistory({
         chords: chords,
         genre,
-        mood,
-        key,
-        scaleType,
+        detectedKey,
+        octave
       });
       if (entry) {
         setProgressionId(entry.id);
       }
     }
-  }, [chords, genre, mood, key, scaleType]);
-
-  const handleRegenerate = async () => {
-    if (!model || !preprocessor || isGenerating) return;
-
-    setIsGenerating(true);
-
-    try {
-      const modelService = getModelService();
-      const progression = await modelService.generateProgression(
-        genre,
-        mood,
-        key,
-        scaleType,
-        chords.length,
-        temperature
-      );
-
-      // Convert array to object format
-      setCurrentProgression({
-        chords: progression,
-        metadata: { genre, mood, key, scaleType }
-      });
-    } catch (error) {
-      console.error('Error regenerating:', error);
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  const handleGenerateVariation = async () => {
-    if (!model || !preprocessor || isGenerating || chords.length === 0) return;
-
-    setIsGenerating(true);
-
-    try {
-      const modelService = getModelService();
-      const variation = await modelService.generateVariation(
-        chords,
-        genre,
-        mood,
-        key,
-        scaleType,
-        temperature * 1.2 // Slightly higher temperature for variation
-      );
-
-      // Convert array to object format
-      setCurrentProgression({
-        chords: variation,
-        metadata: { genre, mood, key, scaleType }
-      });
-    } catch (error) {
-      console.error('Error generating variation:', error);
-    } finally {
-      setIsGenerating(false);
-    }
-  };
+  }, [chords, genre, detectedKey, octave]);
 
   const handleCopyProgression = () => {
-    const text = chords.join(' - ');
+    const text = chords.map(c => c + octave).join(' - ');
     navigator.clipboard.writeText(text);
     showToastNotification('Copied to clipboard!');
   };
@@ -178,7 +90,7 @@ const ProgressionDisplay = () => {
       const result = saveToFavorites({
         id: progressionId,
         chords: chords,
-        metadata: { genre, mood, key, scaleType },
+        metadata: { genre, detectedKey, octave },
       });
       if (result) {
         setIsFavorite(true);
@@ -219,20 +131,6 @@ const ProgressionDisplay = () => {
     );
   }
 
-  // Get chord info for each chord using modelService
-  const modelService = getModelService();
-  const getChordInfo = (chord) => {
-    // Simple chord info for display
-    return {
-      name: chord,
-      romanNumeral: 'I', // Simplified for now
-      function: 'Tonic',
-      description: model === 'DEMO_MODE' ? 'Demo mode chord' : 'Generated chord',
-    };
-  };
-
-  const chordInfos = chords.map((chord) => getChordInfo(chord));
-
   return (
     <div className="glass rounded-2xl p-6 shadow-xl relative">
       {/* Toast Notification */}
@@ -258,11 +156,10 @@ const ProgressionDisplay = () => {
         <div className="flex gap-2">
           <button
             onClick={handleToggleFavorite}
-            className={`px-4 py-2 rounded-lg transition-all text-sm font-medium ${
-              isFavorite
+            className={`px-4 py-2 rounded-lg transition-all text-sm font-medium ${isFavorite
                 ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
                 : 'bg-gray-800 hover:bg-gray-700 text-gray-300'
-            }`}
+              }`}
             title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           >
             <svg
@@ -299,22 +196,6 @@ const ProgressionDisplay = () => {
               />
             </svg>
           </button>
-
-          <button
-            onClick={handleGenerateVariation}
-            disabled={isGenerating}
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg transition-colors text-sm font-medium"
-          >
-            Variation
-          </button>
-
-          <button
-            onClick={handleRegenerate}
-            disabled={isGenerating}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg transition-colors text-sm font-medium"
-          >
-            Regenerate
-          </button>
         </div>
       </div>
 
@@ -325,7 +206,7 @@ const ProgressionDisplay = () => {
             key={index}
             chord={chord}
             index={index}
-            chordInfo={chordInfos[index]}
+            octave={octave}
             isPlaying={index === currentChordIndex}
           />
         ))}
@@ -333,22 +214,21 @@ const ProgressionDisplay = () => {
 
       {/* Progression Info */}
       <div className="flex flex-wrap gap-4 text-sm">
-        <div className="px-4 py-2 bg-gray-800 rounded-lg">
-          <span className="text-gray-400">Key:</span>{' '}
-          <span className="text-white font-semibold">
-            {key} {scaleType}
+        {/* Detected Key Badge */}
+        <div className="px-4 py-2 bg-gradient-to-r from-green-600 to-teal-600 rounded-lg shadow-lg animate-pulse-slow">
+          <span className="text-white/80 mr-2">Detected Key:</span>
+          <span className="text-white font-bold text-lg">
+            {detectedKey || 'Analyzing...'}
           </span>
         </div>
-        <div className="px-4 py-2 bg-gray-800 rounded-lg">
-          <span className="text-gray-400">Genre:</span>{' '}
+
+        <div className="px-4 py-2 bg-gray-800 rounded-lg flex items-center">
+          <span className="text-gray-400 mr-2">Genre:</span>
           <span className="text-white font-semibold capitalize">{genre}</span>
         </div>
-        <div className="px-4 py-2 bg-gray-800 rounded-lg">
-          <span className="text-gray-400">Mood:</span>{' '}
-          <span className="text-white font-semibold capitalize">{mood}</span>
-        </div>
-        <div className="px-4 py-2 bg-gray-800 rounded-lg">
-          <span className="text-gray-400">Length:</span>{' '}
+
+        <div className="px-4 py-2 bg-gray-800 rounded-lg flex items-center">
+          <span className="text-gray-400 mr-2">Length:</span>
           <span className="text-white font-semibold">{chords.length} chords</span>
         </div>
       </div>
@@ -357,7 +237,7 @@ const ProgressionDisplay = () => {
       <div className="mt-6 p-4 bg-gray-800 rounded-lg">
         <div className="text-gray-400 text-sm mb-2">Progression notation:</div>
         <div className="text-white font-mono text-lg">
-          {chords.join(' → ')}
+          {chords.map(c => c + octave).join(' → ')}
         </div>
       </div>
     </div>
