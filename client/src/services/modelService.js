@@ -103,12 +103,12 @@ class ModelService {
       console.log('Adventure Value:', adventure);
 
       // --- 2. Preprocessing & Mapping Verification ---
-      const chordToId = this.mappings.chord_to_id;
+      // Normalize chords to match model vocabulary (e.g., F# -> Fs, Am -> Amin)
       const sequenceIds = currentChords.map(chord => {
-        const id = chordToId[chord];
-        if (id === undefined) {
-          console.warn(`Chord '${chord}' not found in mappings. Using default ID 0.`);
-          return 0; // Default/Unknown ID
+        const id = this.normalizeChord(chord);
+        if (id === undefined || id === null) {
+          console.warn(`Chord '${chord}' could not be mapped even after normalization. Using default ID 1 (C).`);
+          return 1; // Default to C (ID 1)
         }
         return id;
       });
@@ -266,6 +266,49 @@ class ModelService {
     }
 
     return 'C Major'; // Fallback
+  }
+  /**
+   * Normalize chord string to match model vocabulary
+   * @param {string} chordInput 
+   * @returns {number|null} Mapped ID or null if not found
+   */
+  normalizeChord(chordInput) {
+    if (!chordInput) return null;
+    const chordToId = this.mappings.chord_to_id;
+
+    // 1. Direct match check
+    if (chordToId[chordInput] !== undefined) {
+      return chordToId[chordInput];
+    }
+
+    // 2. Normalize: Replace '#' with 's'
+    let normalized = chordInput.replace(/#/g, 's');
+
+    // 3. Normalize: Handle minor ('m' -> 'min')
+    // Safe heuristic: if it ends with 'm' (and not 'dim'), replace with 'min'
+    if (normalized.endsWith('m') && !normalized.endsWith('dim')) {
+      normalized = normalized.slice(0, -1) + 'min';
+    }
+
+    // Handle slash chords: "A/C#m" -> "A/Csmin", "Am/G" -> "Amin/G"
+    if (normalized.includes('/')) {
+      const parts = normalized.split('/');
+      // Check first part for minor
+      if (parts[0].endsWith('m') && !parts[0].endsWith('dim')) {
+        parts[0] = parts[0].slice(0, -1) + 'min';
+      }
+      normalized = parts.join('/');
+    }
+
+    // Check again
+    if (chordToId[normalized] !== undefined) {
+      console.log(`Normalized '${chordInput}' to '${normalized}'`);
+      return chordToId[normalized];
+    }
+
+    // 4. Fallback: Log and return null
+    console.warn(`Could not normalize chord: ${chordInput}. Tried: ${normalized}`);
+    return null;
   }
 }
 
