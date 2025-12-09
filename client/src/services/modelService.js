@@ -95,6 +95,29 @@ class ModelService {
       await this.loadModel();
     }
 
+    // --- Smart Seeding for First Chord ---
+    // If no chords exist yet, pick a seed chord algorithmically to avoid model bias (e.g. constant "B")
+    if (!currentChords || currentChords.length === 0) {
+      const BASIC_CHORDS = ["C", "G", "Am", "F", "D", "Dm", "E", "Em", "A", "Bb"];
+      let pool = [];
+
+      const randomVal = Math.random() * 100;
+
+      if (randomVal < adventure) {
+        // High adventure: Pick from ALL available chords (excluding special tokens)
+        pool = Object.keys(this.mappings.chord_to_id).filter(c => c !== 'UNK' && c !== 'PAD');
+        console.log(`[Smart Seed] Adventure Roll (${randomVal.toFixed(1)} < ${adventure}): Using FULL pool (${pool.length} chords)`);
+      } else {
+        // Low adventure: Pick from BASIC chords
+        pool = BASIC_CHORDS;
+        console.log(`[Smart Seed] Adventure Roll (${randomVal.toFixed(1)} >= ${adventure}): Using BASIC pool`);
+      }
+
+      const seedChord = pool[Math.floor(Math.random() * pool.length)];
+      console.log(`[Smart Seed] Selected: ${seedChord}`);
+      return seedChord;
+    }
+
     return tf.tidy(() => {
       // --- 1. Diagnostic Logging: Raw Input ---
       console.group('Model Prediction Debug');
