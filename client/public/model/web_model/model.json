@@ -299,7 +299,7 @@
             ],
             "weights": [
                 {
-                    "name": "sequential/dense/kernel",
+                    "name": "dense/kernel",
                     "shape": [
                         128,
                         765
@@ -307,14 +307,14 @@
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/dense/bias",
+                    "name": "dense/bias",
                     "shape": [
                         765
                     ],
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/embedding/embeddings",
+                    "name": "embedding/embeddings",
                     "shape": [
                         765,
                         64
@@ -322,7 +322,7 @@
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/lstm/lstm_cell/kernel",
+                    "name": "lstm/lstm_cell/kernel",
                     "shape": [
                         64,
                         512
@@ -330,7 +330,7 @@
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/lstm/lstm_cell/recurrent_kernel",
+                    "name": "lstm/lstm_cell/recurrent_kernel",
                     "shape": [
                         128,
                         512
@@ -338,22 +338,14 @@
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/lstm/lstm_cell/bias",
+                    "name": "lstm/lstm_cell/bias",
                     "shape": [
                         512
                     ],
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/lstm_1/lstm_cell/kernel",
-                    "shape": [
-                        128,
-                        512
-                    ],
-                    "dtype": "float32"
-                },
-                {
-                    "name": "sequential/lstm_1/lstm_cell/recurrent_kernel",
+                    "name": "lstm_1/lstm_cell/kernel",
                     "shape": [
                         128,
                         512
@@ -361,7 +353,15 @@
                     "dtype": "float32"
                 },
                 {
-                    "name": "sequential/lstm_1/lstm_cell/bias",
+                    "name": "lstm_1/lstm_cell/recurrent_kernel",
+                    "shape": [
+                        128,
+                        512
+                    ],
+                    "dtype": "float32"
+                },
+                {
+                    "name": "lstm_1/lstm_cell/bias",
                     "shape": [
                         512
                     ],
