@@ -21,13 +21,14 @@ const InputForm = () => {
   const [availableGenres, setAvailableGenres] = useState([]);
 
   // Fetch genres on mount
+  // Fetch genres on mount
   useEffect(() => {
     const fetchGenres = async () => {
       try {
         // Ensure model is loaded to get mappings
         await modelService.loadModel();
-        if (modelService.mappings && modelService.mappings.genre_to_id) {
-          const genres = Object.keys(modelService.mappings.genre_to_id);
+        if (modelService.genres && modelService.genres.length > 0) {
+          const genres = modelService.genres;
           setAvailableGenres(genres);
           // Set default genre if current is not in list
           if (!genres.includes(genre) && genres.length > 0) {
@@ -160,8 +161,8 @@ const InputForm = () => {
           onClick={handleGenerate}
           disabled={isGenerating}
           className={`w-full py-4 rounded-lg font-semibold text-white transition-all duration-300 ${isGenerating
-              ? 'bg-gray-700 cursor-not-allowed'
-              : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105'
+            ? 'bg-gray-700 cursor-not-allowed'
+            : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105'
             }`}
         >
           {isGenerating ? (

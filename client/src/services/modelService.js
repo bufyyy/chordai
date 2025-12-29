@@ -1,36 +1,12 @@
 import * as tf from '@tensorflow/tfjs';
 import { Chord } from '@tonaljs/tonal';
 
-// Define custom NotEqual layer for masking
-class NotEqual extends tf.layers.Layer {
-  constructor(config) {
-    super(config);
-  }
-
-  computeOutputShape(inputShape) {
-    return inputShape;
-  }
-
-  call(inputs) {
-    return tf.tidy(() => {
-      // inputs is usually a tensor, check if it's not equal to 0
-      // The model json shows it comparing against 0
-      return tf.notEqual(inputs[0], 0);
-    });
-  }
-
-  static get className() {
-    return 'NotEqual';
-  }
-}
-
-// Register the custom layer
-tf.serialization.registerClass(NotEqual);
-
 class ModelService {
   constructor() {
     this.model = null;
-    this.mappings = null;
+    this.mappings = null; // Will hold token_to_int
+    this.idToToken = null;
+    this.genres = [];
     this.isLoaded = false;
     this.isLoading = false;
     this.modelPath = '/model/web_model/model.json';
@@ -43,7 +19,6 @@ class ModelService {
   async loadModel() {
     if (this.isLoaded) return true;
     if (this.isLoading) {
-      // Wait for existing load to finish
       while (this.isLoading) {
         await new Promise(resolve => setTimeout(resolve, 100));
       }
@@ -55,14 +30,29 @@ class ModelService {
     try {
       console.log('Loading model and mappings...');
 
-      // Load mappings and model in parallel
       const [mappingsResponse, model] = await Promise.all([
         fetch(this.mappingsPath),
         tf.loadLayersModel(this.modelPath)
       ]);
 
-      this.mappings = await mappingsResponse.json();
+      const rawMappings = await mappingsResponse.json();
+      this.mappings = rawMappings.token_to_int;
       this.model = model;
+
+      // Generate reverse mapping (id -> token)
+      this.idToToken = {};
+      Object.keys(this.mappings).forEach(token => {
+        this.idToToken[this.mappings[token]] = token;
+      });
+
+      // Extract genres dynamically from tokens
+      // Tokens look like "<GENRE=pop>"
+      this.genres = Object.keys(this.mappings)
+        .filter(token => token.startsWith('<GENRE='))
+        .map(token => token.replace('<GENRE=', '').replace('>', ''))
+        .sort();
+
+      console.log('Loaded Genres:', this.genres);
 
       this.isLoaded = true;
       console.log('Model and mappings loaded successfully');
@@ -90,53 +80,82 @@ class ModelService {
 
     return tf.tidy(() => {
       // 1. Preprocessing
-      const chordToId = this.mappings.chord_to_id;
-      const sequenceIds = currentChords.map(chord => {
-        const id = chordToId[chord];
-        return id !== undefined ? id : 0; // Default to 0 if unknown
+      const tokenToInt = this.mappings;
+
+      // Normalize genre token
+      // User passes "pop", we need "<GENRE=pop>"
+      const genreLower = genre ? genre.toLowerCase() : 'pop';
+      const genreToken = `<GENRE=${genreLower}>`;
+      let genreId = tokenToInt[genreToken];
+
+      if (genreId === undefined) {
+        console.warn(`Genre '${genre}' not found. Defaulting to 'pop'.`);
+        genreId = tokenToInt['<GENRE=pop>'];
+        if (genreId === undefined) {
+          // Ultimate fallback if pop is missing (unlikely)
+          // Use the first available genre ID or 0
+          const firstGenre = Object.keys(tokenToInt).find(k => k.startsWith('<GENRE='));
+          genreId = firstGenre ? tokenToInt[firstGenre] : 0;
+        }
+      }
+
+      // Convert chords to IDs
+      const chordIds = currentChords.map(chord => {
+        // The mappings likely use exact strings from dataset.
+        const id = tokenToInt[chord];
+        // Fallback to PAD (14) if unknown
+        // We should ideally have an UNK token, but PAD is safer than crashing.
+        const PAD_ID = tokenToInt['<PAD>'] !== undefined ? tokenToInt['<PAD>'] : 14;
+        return id !== undefined ? id : PAD_ID;
       });
 
-      // Pad sequence to length 8
-      const SEQUENCE_LENGTH = 8;
-      let paddedSequence = [];
-      if (sequenceIds.length >= SEQUENCE_LENGTH) {
-        paddedSequence = sequenceIds.slice(sequenceIds.length - SEQUENCE_LENGTH);
+      // Construct Sequence: [GENRE, CHORD_1, CHORD_2, CHORD_3, CHORD_4]
+      // Total Length = 5
+      const SEQUENCE_LENGTH = 5;
+      const CHORD_HISTORY_LEN = SEQUENCE_LENGTH - 1; // 4 chords
+
+      // Determine PAD ID
+      const padId = tokenToInt['<PAD>'] !== undefined ? tokenToInt['<PAD>'] : 14;
+
+      // Prepare chord history (Last 4)
+      let historyIds = [];
+      if (chordIds.length >= CHORD_HISTORY_LEN) {
+        historyIds = chordIds.slice(chordIds.length - CHORD_HISTORY_LEN);
       } else {
-        const paddingCount = SEQUENCE_LENGTH - sequenceIds.length;
-        const padding = new Array(paddingCount).fill(0);
-        paddedSequence = [...padding, ...sequenceIds];
+        // Pre-pad with <PAD> if history is short
+        const paddingCount = CHORD_HISTORY_LEN - chordIds.length;
+        const padding = new Array(paddingCount).fill(padId);
+        historyIds = [...padding, ...chordIds];
       }
 
-      // Map genre
-      const genreToId = this.mappings.genre_to_id;
-      let genreId = genreToId[genre];
-      if (genreId === undefined) {
-        genreId = 0;
-      }
+      // Combine: [Genre, ...History]
+      const inputIds = [genreId, ...historyIds];
 
-      // Create tensors
-      const chordTensor = tf.tensor2d([paddedSequence], [1, SEQUENCE_LENGTH]);
-      const genreTensor = tf.tensor2d([[genreId]], [1, 1]);
+      // Create tensor [1, 5]
+      const inputTensor = tf.tensor2d([inputIds], [1, SEQUENCE_LENGTH]);
 
       // 2. Prediction
-      const prediction = this.model.predict([chordTensor, genreTensor]);
+      const prediction = this.model.predict(inputTensor);
       let probabilities = prediction.squeeze();
       let probsArray = probabilities.arraySync();
 
       // 3. Hard Ban Repetition Penalty
-      if (sequenceIds.length > 0) {
-        const lastChordId = sequenceIds[sequenceIds.length - 1];
-        if (lastChordId !== undefined && lastChordId < probsArray.length) {
-          // Force probability of the last chord to 0
-          probsArray[lastChordId] = 0;
+      // Ban the last played chord from being predicted
+      // NOTE: We only ban valid CHORDS, not special tokens.
+      if (historyIds.length > 0) {
+        const lastChordId = historyIds[historyIds.length - 1];
 
+        // Ensure we don't ban special tokens usually, but if the last token was a chord, ban it.
+        // We can check if the ID corresponds to a chord (not starting with <)
+        // But simply banning the ID is effective enough.
+
+        if (lastChordId !== undefined && lastChordId < probsArray.length && lastChordId !== padId) {
+          probsArray[lastChordId] = 0;
           // Renormalize
           const sum = probsArray.reduce((a, b) => a + b, 0);
           if (sum > 0) {
             probsArray = probsArray.map(p => p / sum);
           }
-
-          // Update probabilities tensor
           probabilities = tf.tensor1d(probsArray);
         }
       }
@@ -145,10 +164,16 @@ class ModelService {
       const temperature = 0.2 + (adventure / 100);
       const predictedId = this.sampleWithTemperature(probabilities, temperature);
 
-      const idToChord = this.mappings.id_to_chord;
-      const rawChord = idToChord[predictedId.toString()] || 'C';
+      const predictedToken = this.idToToken[predictedId];
 
-      return this.formatChord(rawChord);
+      // Post-processing
+      // If predicted token is special (<PAD>, <END>, <START>, <GENRE...>), retry or fallback?
+      if (!predictedToken || predictedToken.startsWith('<')) {
+        // Fallback to C major if model predicts a special token
+        return 'C';
+      }
+
+      return this.formatChord(predictedToken);
     });
   }
 
@@ -173,7 +198,7 @@ class ModelService {
   sampleWithTemperature(probabilities, temperature) {
     const probs = probabilities.arraySync();
 
-    // Avoid division by zero or extremely low temperature
+    // Avoid division by zero
     const temp = Math.max(temperature, 0.01);
 
     // Apply temperature: log(p) / T
@@ -208,23 +233,16 @@ class ModelService {
 
     try {
       // Simple heuristic: Assume the first chord is the tonic
-      // This is often true for generated progressions starting on I
       const firstChord = chordList[0];
       const chordInfo = Chord.get(firstChord);
 
       if (chordInfo && chordInfo.tonic) {
-        // Determine if major or minor
-        // The 'quality' property from tonaljs can be 'Major', 'Minor', 'Major7', etc.
-        // For simplicity, we'll check the chord name for 'm' to infer minor,
-        // as tonaljs's quality might be more specific than just 'Major' or 'Minor' for the key.
         const isMinor = firstChord.includes('m') && !firstChord.includes('maj');
-
         return `${chordInfo.tonic} ${isMinor ? 'Minor' : 'Major'}`;
       }
     } catch (e) {
       console.warn('Key detection failed:', e);
     }
-
     return 'C Major'; // Fallback
   }
 }
