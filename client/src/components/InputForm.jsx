@@ -19,18 +19,16 @@ const InputForm = () => {
   } = useStore();
 
   const [availableGenres, setAvailableGenres] = useState([]);
+  const [startChord, setStartChord] = useState('');
 
-  // Fetch genres on mount
   // Fetch genres on mount
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        // Ensure model is loaded to get mappings
         await modelService.loadModel();
         if (modelService.genres && modelService.genres.length > 0) {
           const genres = modelService.genres;
           setAvailableGenres(genres);
-          // Set default genre if current is not in list
           if (!genres.includes(genre) && genres.length > 0) {
             setGenre(genres[0]);
           }
@@ -47,24 +45,47 @@ const InputForm = () => {
     if (isGenerating) return;
 
     setIsGenerating(true);
-    setCurrentProgression({ chords: [] }); // Clear previous
+    setCurrentProgression({ chords: [] });
     setDetectedKey(null);
 
     try {
       let currentChords = [];
 
+      // Determine Starting Chord
+      // If user provided input, use it. Otherwise, pick random.
+      let initialChord = startChord.trim();
+      if (!initialChord) {
+        initialChord = modelService.getRandomStartChord(adventure);
+      }
+
+      // Validate user input? 
+      // For now, accept it. If invalid, modelService maps it to PAD ID, which is fine (sort of).
+      // Ideally we should valid against modelService.chords.
+
+      currentChords.push(initialChord);
+
+      // Update state immediately with the first chord
+      setCurrentProgression({
+        chords: [...currentChords],
+        metadata: { genre, adventure, octave }
+      });
+      await new Promise(r => setTimeout(r, 100));
+
       // Generation Loop
-      for (let i = 0; i < count; i++) {
+      // We already have 1 chord. Generate 'count' MORE? Or 'count' TOTAL?
+      // User input usually implies "I want a 4 chord progression".
+      // So loop (count - 1) times.
+      const loops = Math.max(0, count - 1);
+
+      for (let i = 0; i < loops; i++) {
         const nextChord = await modelService.predictNextChord(currentChords, genre, adventure);
         currentChords.push(nextChord);
 
-        // Update state progressively
         setCurrentProgression({
           chords: [...currentChords],
           metadata: { genre, adventure, octave }
         });
 
-        // Small delay to visualize the generation (optional, but nice)
         await new Promise(r => setTimeout(r, 100));
       }
 
@@ -85,6 +106,22 @@ const InputForm = () => {
       <h2 className="text-2xl font-bold mb-6 gradient-text">Create Your Progression</h2>
 
       <div className="space-y-6">
+
+        {/* Start Chord Input */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Start Chord <span className="text-xs text-gray-500">(Optional)</span>
+          </label>
+          <input
+            type="text"
+            value={startChord}
+            onChange={(e) => setStartChord(e.target.value)}
+            placeholder="e.g. C, Am, G7 (Empty = Random)"
+            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder-gray-600"
+            disabled={isGenerating}
+          />
+        </div>
+
         {/* Genre Selection */}
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">Genre</label>
@@ -121,9 +158,9 @@ const InputForm = () => {
             disabled={isGenerating}
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>Conservative</span>
-            <span>Balanced</span>
-            <span>Creative</span>
+            <span>Safe</span>
+            <span>Natural</span>
+            <span>Experimental</span>
           </div>
         </div>
 
