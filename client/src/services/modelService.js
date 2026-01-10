@@ -38,8 +38,6 @@ class ModelService {
       this.model = model;
 
       console.log('[DEBUG] Mappings Loaded:', Object.keys(this.mappings).length, 'tokens');
-      console.log('[DEBUG] Model Summary:');
-      this.model.summary(); // Prints model layers to console
 
       // Generate reverse mapping
       this.idToToken = {};
@@ -58,7 +56,6 @@ class ModelService {
 
       console.log('[DEBUG] Available Genres:', this.genres);
       console.log('[DEBUG] Available Chords Count:', this.chords.length);
-      console.log('[DEBUG] Sample Chords:', this.chords.slice(0, 10));
       console.log('[DEBUG] Special Token IDs:', {
         PAD: this.mappings['<PAD>'],
         START: this.mappings['<START>'],
@@ -77,13 +74,18 @@ class ModelService {
     }
   }
 
+  /**
+   * Predict the next chord in the sequence
+   * IMPORTANT: Returns RAW chord name from vocabulary (e.g., "Fs" not "F#")
+   * Use formatChordForDisplay() to convert for UI display
+   */
   async predictNextChord(currentChords, genre, adventure) {
     if (!this.isLoaded) {
       await this.loadModel();
     }
 
     console.log('[DEBUG] ========== predictNextChord ==========');
-    console.log('[DEBUG] Input:', { currentChords, genre, adventure });
+    console.log('[DEBUG] Input:', JSON.stringify({ currentChords, genre, adventure }));
 
     return tf.tidy(() => {
       const tokenToInt = this.mappings;
@@ -106,12 +108,15 @@ class ModelService {
         }
       }
 
-      // Convert chords to IDs
+      // Convert chords to IDs (chords should be in RAW vocabulary format)
       const chordIds = currentChords.map(chord => {
         const id = tokenToInt[chord];
-        const resolved = id !== undefined ? id : PAD_ID;
-        console.log('[DEBUG] Chord:', chord, '-> ID:', id, (id === undefined ? '(UNKNOWN -> PAD)' : ''));
-        return resolved;
+        if (id === undefined) {
+          console.warn('[DEBUG] Chord NOT FOUND in vocab:', chord, '-> Using PAD');
+        } else {
+          console.log('[DEBUG] Chord:', chord, '-> ID:', id);
+        }
+        return id !== undefined ? id : PAD_ID;
       });
 
       // Sequence Construction
@@ -132,16 +137,13 @@ class ModelService {
       console.log('[DEBUG] Input Tokens:', inputIds.map(id => this.idToToken[id]));
 
       const inputTensor = tf.tensor2d([inputIds], [1, SEQUENCE_LENGTH]);
-      console.log('[DEBUG] Input Tensor Shape:', inputTensor.shape);
 
       // Prediction
       const prediction = this.model.predict(inputTensor);
       let probabilities = prediction.squeeze();
       let probsArray = probabilities.arraySync();
 
-      console.log('[DEBUG] Output Shape:', prediction.shape);
-
-      // Find top 5 predictions BEFORE any penalty
+      // Find top 5 predictions BEFORE penalty
       const top5Before = probsArray
         .map((p, i) => ({ p, i, token: this.idToToken[i] }))
         .sort((a, b) => b.p - a.p)
@@ -184,18 +186,25 @@ class ModelService {
         return 'C';
       }
 
-      const formatted = this.formatChord(predictedToken);
-      console.log('[DEBUG] Final Output:', formatted);
+      // Return RAW token (not formatted) - this is critical for proper lookups
+      console.log('[DEBUG] Final Output (RAW):', predictedToken);
       console.log('[DEBUG] ==========================================');
-      return formatted;
+      return predictedToken;
     });
   }
 
-  formatChord(chord) {
+  /**
+   * Format chord for UI display only
+   * Converts vocabulary notation to standard music notation:
+   * - "Fs" -> "F#", "Cs" -> "C#" (sharps)
+   * - But preserves "sus" -> "sus" (suspended chords)
+   */
+  formatChordForDisplay(chord) {
     if (!chord) return chord;
-    return chord
-      .replace('min', 'm')
-      .replace(/s/g, '#');
+
+    // Only replace 's' with '#' when it follows a note letter (A-G) and optional 'b'
+    // This preserves "sus" while converting "Fs" to "F#"
+    return chord.replace(/^([A-G]b?)s/, '$1#');
   }
 
   sampleWithTopP(probabilities, topP, temperature) {
@@ -240,6 +249,10 @@ class ModelService {
     return renormalizedTop[0].i;
   }
 
+  /**
+   * Get a random starting chord based on adventurousness
+   * Returns RAW chord name from vocabulary
+   */
   getRandomStartChord(adventure) {
     console.log('[DEBUG] getRandomStartChord called with adventure:', adventure);
     if (!this.chords || this.chords.length === 0) {
@@ -250,12 +263,12 @@ class ModelService {
     let candidates = [];
 
     if (adventure < 30) {
-      candidates = this.chords.filter(c => /^[A-G][b#]?(m)?$/.test(c));
+      candidates = this.chords.filter(c => /^[A-G][bs]?(m)?$/.test(c));
       if (candidates.length === 0) candidates = ['C', 'G', 'F', 'Am'];
       console.log('[DEBUG] Low Adventure - Simple Triads:', candidates.length, 'candidates');
     }
     else if (adventure < 70) {
-      candidates = this.chords.filter(c => /^[A-G][b#]?(m)?(7|sus|dim)?$/.test(c));
+      candidates = this.chords.filter(c => /^[A-G][bs]?(m)?(7|sus|dim)?$/.test(c));
       console.log('[DEBUG] Medium Adventure - Including 7ths:', candidates.length, 'candidates');
     }
     else {
@@ -264,15 +277,17 @@ class ModelService {
     }
 
     const randomIndex = Math.floor(Math.random() * candidates.length);
-    const result = this.formatChord(candidates[randomIndex]);
-    console.log('[DEBUG] Selected Start Chord:', result);
+    const result = candidates[randomIndex];
+    console.log('[DEBUG] Selected Start Chord (RAW):', result);
+    // Return RAW chord - no formatting!
     return result;
   }
 
   detectKey(chordList) {
     if (!chordList || chordList.length === 0) return 'C Major';
     try {
-      const firstChord = chordList[0];
+      // Convert raw chord to display format for Tonal.js parsing
+      const firstChord = this.formatChordForDisplay(chordList[0]);
       const chordInfo = Chord.get(firstChord);
       if (chordInfo && chordInfo.tonic) {
         const isMinor = firstChord.includes('m') && !firstChord.includes('maj');
