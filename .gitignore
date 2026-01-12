@@ -92,3 +92,15 @@ client/dist/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Documents (not part of codebase)
+*.docx
+*.doc
+*.pdf
+*.txt
+!README.txt
+!LICENSE.txt
+
+# Misc project files
+örnek*
+Örnek*
