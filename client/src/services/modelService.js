@@ -203,8 +203,8 @@ class ModelService {
     if (!chord) return chord;
 
     // Only replace 's' with '#' when it follows a note letter (A-G) and optional 'b'
-    // This preserves "sus" while converting "Fs" to "F#"
-    return chord.replace(/^([A-G]b?)s/, '$1#');
+    // AND is NOT followed by 'us' (which would make it part of 'sus')
+    return chord.replace(/^([A-G]b?)s(?!us)/, '$1#');
   }
 
   sampleWithTopP(probabilities, topP, temperature) {
