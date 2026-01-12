@@ -6,12 +6,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react)](https://reactjs.org/)
-[![TensorFlow.js](https://img.shields.io/badge/TensorFlow.js-4.11-FF6F00?logo=tensorflow)](https://www.tensorflow.org/js)
+[![TensorFlow.js](https://img.shields.io/badge/TensorFlow.js-4.22-FF6F00?logo=tensorflow)](https://www.tensorflow.org/js)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?logo=vite)](https://vitejs.dev/)
-[![Tests](https://img.shields.io/badge/tests-passing-success)](https://github.com/yourusername/chordai)
-[![Coverage](https://img.shields.io/badge/coverage-85%25-success)](https://github.com/yourusername/chordai)
 
-[Live Demo](#) • [Documentation](./docs) • [Report Bug](https://github.com/yourusername/chordai/issues) • [Request Feature](https://github.com/yourusername/chordai/issues)
+[Live Demo](https://chordai.vercel.app) • [Report Bug](https://github.com/bufyyy/chordai/issues) • [Request Feature](https://github.com/bufyyy/chordai/issues)
 
 </div>
 
@@ -21,21 +19,17 @@
 
 - [About](#about)
 - [Features](#features)
-- [Demo](#demo)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Architecture](#architecture)
-- [Testing](#testing)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
 - [License](#license)
 
 ---
 
 ## 🎯 About
 
-ChordAI is an intelligent chord progression generator that leverages deep learning to create musically coherent and genre-specific chord progressions. Built with TensorFlow.js and React, it runs entirely in the browser with no backend required.
+ChordAI is an intelligent chord progression generator that leverages deep learning to create musically coherent and genre-specific chord progressions. Built with TensorFlow.js and React, it runs **entirely in the browser** with no backend required.
 
 ### The Problem
 
@@ -43,7 +37,7 @@ Musicians and composers often face creative blocks when writing chord progressio
 
 ### The Solution
 
-ChordAI uses an LSTM neural network trained on **1,080+ chord progressions** from various genres to generate new, unique progressions that maintain musical coherence while offering creative variety.
+ChordAI uses an **LSTM neural network** trained on chord progressions from various genres to generate new, unique progressions that maintain musical coherence while offering creative variety.
 
 ---
 
@@ -51,52 +45,32 @@ ChordAI uses an LSTM neural network trained on **1,080+ chord progressions** fro
 
 ### 🎹 Core Functionality
 
-- **AI-Powered Generation**: LSTM model trained on real song progressions
-- **8 Genres**: Pop, Rock, Jazz, Blues, R&B, EDM, Classical, Progressive
-- **10+ Moods**: Uplifting, Melancholic, Energetic, Dark, Romantic, and more
-- **Custom Parameters**: Key (24 options), scale type, length (4-12), temperature
-- **Advanced Sampling**: Temperature, Top-K, and Nucleus (Top-P) strategies
+- **AI-Powered Generation**: LSTM model running client-side with TensorFlow.js
+- **13 Genres**: Classical, Disco, Electronic, Funk, Hip Hop, Jazz, Latin, Metal, Pop, Punk, Reggae, Rock, Soul
+- **Start Chord Selection**: Choose a starting chord or let AI pick one based on adventure level
+- **Adventure Slider**: Control creativity from Safe (predictable) to Experimental (chaotic)
+- **Progressive Display**: Watch chords generate one-by-one in real-time
 
-### 🎼 Audio Playback
+### 🎛️ Sampling Controls
 
-- **4 Synthesizers**: Piano, Pad, Synth, Electric
-- **Real-time Playback**: High-quality audio with Tone.js
-- **Interactive Controls**: Play, stop, loop, tempo (60-180 BPM), volume
-- **Individual Preview**: Click any chord to hear it
-- **MIDI Export**: Download as standard .mid files
+- **Temperature Scaling**: Low adventure = conservative, high adventure = creative
+- **Top-P (Nucleus) Sampling**: Dynamic probability-based chord selection
+- **Repetition Penalty**: Hard ban on immediate chord repetition for variety
 
 ### 💾 Data Management
 
-- **Auto-Save History**: Last 20 progressions automatically saved
-- **Favorites System**: Star and name your favorite progressions
-- **Import/Export**: Backup and restore all data
+- **Auto-Save History**: Progressions automatically saved to browser storage
+- **Favorites System**: Star your favorite progressions
+- **Copy to Clipboard**: One-click copy with proper chord notation
 - **LocalStorage**: Everything stays on your device
 
 ### 🎨 User Experience
 
 - **Modern UI**: Glassmorphism design with smooth animations
-- **Dark Mode**: Eye-friendly interface
-- **Fully Responsive**: Desktop, tablet, mobile
-- **Toast Notifications**: Clear feedback for actions
-- **Keyboard Shortcuts**: Space (play), R (regenerate), V (variation)
-
----
-
-## 🎬 Demo
-
-### Live Application
-
-🚀 **Try it now**: [https://chordai.vercel.app](#) 
-
-### Screenshots
-
-| Main Interface | Progression Display |
-|---------------|---------------------|
-| ![Main](./docs/screenshots/main.png) | ![Display](./docs/screenshots/progression.png) |
-
-| Audio Playback | Library Sidebar |
-|----------------|-----------------|
-| ![Audio](./docs/screenshots/audio.png) | ![Library](./docs/screenshots/library.png) |
+- **Dark Mode**: Eye-friendly dark interface
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Real-time Feedback**: Toast notifications for all actions
+- **Detected Key Display**: Automatic key detection for generated progressions
 
 ---
 
@@ -104,31 +78,21 @@ ChordAI uses an LSTM neural network trained on **1,080+ chord progressions** fro
 
 ### Frontend
 - **React 18.2** with Hooks
-- **Vite 5.0** for blazing-fast dev
+- **Vite 5.0** for fast development
 - **Zustand** for state management
-- **Tailwind CSS 3.3** with custom design
+- **Tailwind CSS** with custom glassmorphism design
 
 ### Machine Learning
-- **TensorFlow.js 4.11**
-- **LSTM Model** (2-3M parameters)
-- **Training Data**: 1,080 progressions
-- **Chord Vocabulary**: 279 unique chords
+- **TensorFlow.js 4.22**
+- **Sequential LSTM Model** (~378K parameters)
+- **Chord Vocabulary**: 765 tokens (749 chords + 16 special tokens)
+- **Input Sequence**: 5 tokens (Genre, Start, History)
+- **Special Tokens**: `<GENRE=...>`, `<START>`, `<PAD>`, `<END>`
 
 ### Audio
-- **Tone.js 14.7**
-- **Polyphonic Synthesizers**
-- **Effects Chain**: Reverb + Chorus
-- **MIDI Export**
-
-### Testing
-- **Vitest** with React Testing Library
-- **Playwright** for E2E tests
-- **85%+ Code Coverage**
-
-### Code Quality
-- **ESLint** + **Prettier**
-- **Husky** + **lint-staged**
-- **Pre-commit Hooks**
+- **Tone.js 14.9** for audio synthesis
+- **Polyphonic Piano Synth**
+- **Real-time Playback**
 
 ---
 
@@ -138,13 +102,13 @@ ChordAI uses an LSTM neural network trained on **1,080+ chord progressions** fro
 
 - Node.js 16+
 - npm 7+
-- Modern browser
+- Modern browser (Chrome, Firefox, Edge, Safari)
 
 ### Installation
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/chordai.git
+git clone https://github.com/bufyyy/chordai.git
 cd chordai
 
 # Install dependencies
@@ -154,28 +118,15 @@ npm install
 # Start development server
 npm run dev
 
-# Open browser
-# Navigate to http://localhost:3000
+# Open browser at http://localhost:5173
 ```
 
-### Optional: Train Your Own Model
+### Model Files
 
-See [TRAINING.md](./docs/TRAINING.md) for detailed instructions.
-
-```bash
-# Prepare dataset
-cd data-collection
-python generate_base_dataset.py
-python augment_transposition.py
-python augment_variations.py
-
-# Train model
-cd ../model-training
-python train_model.py
-
-# Convert for web
-python convert_pipeline.py --model models/chord_model_final.h5
-```
+The model files are included in the repository:
+- `client/public/model/web_model/model.json` - Model architecture
+- `client/public/model/web_model/group1-shard1of1.bin` - Model weights (~1.5MB)
+- `client/public/model/mappings.json` - Token vocabulary
 
 ---
 
@@ -183,48 +134,39 @@ python convert_pipeline.py --model models/chord_model_final.h5
 
 ### Basic Workflow
 
-1. **Select Parameters**
-   - Genre (Pop, Rock, Jazz, etc.)
-   - Mood (Uplifting, Melancholic, etc.)
-   - Key and Scale Type
-   - Length (4-12 chords)
+1. **Set Start Chord** (Optional)
+   - Enter a chord like "C", "Am", "G7"
+   - Leave empty for AI to pick based on adventure level
 
-2. **Generate**
+2. **Select Genre**
+   - Choose from 13 available genres
+   - Genre conditions the model's output style
+
+3. **Adjust Adventure**
+   - Safe (0%): Common, predictable progressions
+   - Natural (50%): Balanced creativity
+   - Experimental (100%): Wild, unusual choices
+
+4. **Set Count**
+   - Choose how many chords to generate (1-16)
+
+5. **Generate**
    - Click "Generate Progression"
-   - View chords with roman numeral analysis
+   - Watch chords appear progressively
+   - See detected key automatically
 
-3. **Listen & Refine**
-   - Play progression
-   - Adjust tempo/volume
-   - Try different synth sounds
-   - Generate variations
-
-4. **Save & Export**
+6. **Save & Share**
    - Star to save as favorite
-   - Export as MIDI
    - Copy to clipboard
+   - View in history
 
-### Advanced: Sampling Strategies
+### Chord Notation
 
-Control generation creativity:
-
-- **Temperature** (0.5-2.0)
-  - Low: Conservative, predictable
-  - High: Creative, experimental
-
-- **Top-K** (5-50)
-  - Choose from top K likely chords
-
-- **Nucleus Top-P** (0.7-0.95)
-  - Dynamic probability-based selection
-
-### Keyboard Shortcuts
-
-- `Space`: Play/Stop
-- `R`: Regenerate
-- `V`: Variation
-- `L`: Open Library
-- `C`: Copy
+The model uses a specific notation that gets converted for display:
+- Sharps: `Fs` → `F#`, `Cs` → `C#`
+- Flats: `Bb`, `Eb`, `Ab` (standard notation)
+- Suspended: `Fsus4`, `Asus2` (preserved correctly)
+- Extensions: `Am7`, `Cmaj9`, `G13`
 
 ---
 
@@ -234,123 +176,83 @@ Control generation creativity:
 
 ```
 chordai/
-├── client/                 # React app
-│   ├── public/model/      # TensorFlow.js model
-│   ├── src/
-│   │   ├── components/    # React components
-│   │   ├── services/      # Business logic
-│   │   ├── store/         # Zustand state
-│   │   ├── utils/         # Helpers
-│   │   └── test/          # Tests
-│   └── e2e/               # Playwright tests
-├── data-collection/       # Dataset scripts
-├── model-training/        # Python training
-└── docs/                  # Documentation
+├── client/                    # React application
+│   ├── public/
+│   │   └── model/            # TensorFlow.js model files
+│   │       ├── web_model/    # Model JSON + weights
+│   │       └── mappings.json # Token vocabulary
+│   └── src/
+│       ├── components/       # React components
+│       │   ├── InputForm.jsx       # User input controls
+│       │   ├── ProgressionDisplay.jsx # Chord display
+│       │   ├── ModelLoader.jsx     # Model loading UI
+│       │   └── ChordPlayer.jsx     # Audio playback
+│       ├── services/
+│       │   └── modelService.js     # AI inference logic
+│       ├── store/
+│       │   └── useStore.js         # Zustand state
+│       └── utils/
+│           └── storage.js          # LocalStorage helpers
+└── docs/                     # Documentation
 ```
 
-### Component Hierarchy
+### Model Architecture
 
 ```
-App
-├── ModelLoader
-├── Sidebar (History + Favorites)
-├── InputForm
-├── ProgressionDisplay
-└── ChordPlayer
+Input: [Genre, Start, Chord1, Chord2, Chord3] (length 5)
+         ↓
+    Embedding (765 → 64)
+         ↓
+    LSTM (128 units, return_sequences=true)
+         ↓
+    Dropout (0.2)
+         ↓
+    LSTM (128 units)
+         ↓
+    Dropout (0.2)
+         ↓
+    Dense (765, softmax)
+         ↓
+Output: Probability distribution over 765 tokens
 ```
 
-### Data Flow
+### Inference Flow
 
 ```
-Input → Store → ModelService → TensorFlow.js
-                                     ↓
-                              Generated Chords
-                                     ↓
-                       ProgressionDisplay + Audio
+User Input → InputForm → modelService.predictNextChord()
+                              ↓
+                    1. Build token sequence
+                    2. Run TensorFlow.js inference
+                    3. Apply repetition penalty
+                    4. Top-P sampling with temperature
+                    5. Decode token to chord name
+                              ↓
+                    ProgressionDisplay (formatted)
 ```
-
-For detailed API documentation, see [API_DOCS.md](./docs/API_DOCS.md).
 
 ---
 
-## 🧪 Testing
+## 📊 Model Details
 
-### Run Tests
+| Property | Value |
+|----------|-------|
+| Architecture | Sequential LSTM |
+| Total Parameters | 378,045 |
+| Input Shape | [batch, 5] |
+| Output Shape | [batch, 765] |
+| Vocabulary Size | 765 tokens |
+| Available Genres | 13 |
+| Chord Types | 749 |
+| Model Size | ~1.5 MB |
 
-```bash
-# Unit tests
-npm run test
-npm run test:ui              # With UI
-npm run test:coverage        # Coverage report
+### Special Tokens
 
-# E2E tests
-npm run test:e2e
-npm run test:e2e:ui          # Interactive mode
-
-# Linting
-npm run lint
-npm run lint:fix
-```
-
-### Coverage
-
-Current: **85%**
-
-- Utils: 92%
-- Services: 88%
-- Components: 78%
-- Store: 95%
-
-### CI/CD
-
-Tests run automatically on:
-- Pull requests
-- Commits to main
-- Nightly builds
-
----
-
-## 📚 Documentation
-
-- **[API Documentation](./docs/API_DOCS.md)** - Complete API reference
-- **[Training Guide](./docs/TRAINING.md)** - Model training details
-- **[Architecture Guide](./docs/ARCHITECTURE.md)** - System design
-- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute
-- **[Changelog](./CHANGELOG.md)** - Version history
-
----
-
-## 🤝 Contributing
-
-Contributions welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-### Ways to Contribute
-
-- 🐛 Report bugs
-- 💡 Suggest features
-- 📝 Improve docs
-- 🧪 Add tests
-- 🎵 Contribute chord progressions
-
-### Development
-
-```bash
-# Fork & clone
-git clone https://github.com/YOUR_USERNAME/chordai.git
-
-# Create branch
-git checkout -b feature/YourFeature
-
-# Make changes
-# Run tests
-npm run test
-
-# Commit
-git commit -m 'Add YourFeature'
-
-# Push & create PR
-git push origin feature/YourFeature
-```
+| Token | ID | Purpose |
+|-------|-----|---------|
+| `<END>` | 0 | End of sequence |
+| `<GENRE=...>` | 1-13 | Genre conditioning |
+| `<PAD>` | 14 | Padding |
+| `<START>` | 15 | Sequence start |
 
 ---
 
@@ -362,48 +264,10 @@ MIT License - see [LICENSE](./LICENSE)
 
 ## 🙏 Acknowledgments
 
-- **TensorFlow.js Team** - ML framework
-- **Tone.js Team** - Audio engine
+- **TensorFlow.js Team** - Client-side ML framework
+- **Tone.js Team** - Web audio synthesis
 - **React Team** - UI library
-- **Community** - Chord progression data
-- **Inspiration** - Hooktheory, Autochords
-
----
-
-## 📊 Project Stats
-
-- **Lines of Code**: ~8,500
-- **Components**: 12
-- **Tests**: 150+
-- **Training Data**: 1,080 progressions
-- **Chord Vocabulary**: 279
-- **Model Size**: 2-4 MB (quantized)
-- **Inference Speed**: 20-40ms (desktop)
-
----
-
-## 🗺️ Roadmap
-
-### v1.1 (Next)
-- [ ] Progression library (famous songs)
-- [ ] Export as PNG/PDF
-- [ ] Share via URL
-- [ ] Tutorial flow
-- [ ] Settings panel
-
-### v1.2
-- [ ] User accounts
-- [ ] Cloud sync
-- [ ] MIDI input
-- [ ] Advanced voicings
-- [ ] Custom scales
-
-### v2.0
-- [ ] Full song structure
-- [ ] Melody generation
-- [ ] Rhythm patterns
-- [ ] VST plugin
-- [ ] Mobile app
+- **Vercel** - Hosting platform
 
 ---
 
@@ -411,6 +275,7 @@ MIT License - see [LICENSE](./LICENSE)
 
 - GitHub: [@bufyyy](https://github.com/bufyyy)
 - Email: bugrafiridinoglu@gmail.com
+- Live App: [chordai.vercel.app](https://chordai.vercel.app)
 
 ---
 
