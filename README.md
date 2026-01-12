@@ -37,7 +37,7 @@ Musicians and composers often face creative blocks when writing chord progressio
 
 ### The Solution
 
-ChordAI uses an **LSTM neural network** trained on chord progressions from various genres to generate new, unique progressions that maintain musical coherence while offering creative variety.
+ChordAI uses an **LSTM neural network** trained on **600,000+ songs** from various genres to generate new, unique progressions that maintain musical coherence while offering creative variety.
 
 ---
 

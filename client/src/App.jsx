@@ -274,9 +274,9 @@ function App() {
               {/* Footer */}
               <div className="mt-8 text-sm text-gray-500">
                 <p>
-                  Powered by TensorFlow.js • Trained on 1,080 chord progressions • Open source on{' '}
+                  Powered by TensorFlow.js • Trained on 600,000+ songs • Open source on{' '}
                   <a
-                    href="https://github.com"
+                    href="https://github.com/bufyyy/chordai"
                     className="text-blue-400 hover:text-blue-300 transition-colors"
                   >
                     GitHub
