@@ -14,12 +14,6 @@ const useStore = create((set, get) => ({
   octave: 4,
   count: 4,
 
-  // Legacy/Unused but kept to avoid breaking other components immediately if referenced
-  mood: 'uplifting',
-  key: 'C',
-  scaleType: 'major',
-  progressionLength: 4,
-  temperature: 1.0,
 
   // Generated progression state
   currentProgression: null,
@@ -52,12 +46,6 @@ const useStore = create((set, get) => ({
   setOctave: (octave) => set({ octave }),
   setCount: (count) => set({ count }),
 
-  // Legacy actions
-  setMood: (mood) => set({ mood }),
-  setKey: (key) => set({ key }),
-  setScaleType: (scaleType) => set({ scaleType }),
-  setProgressionLength: (length) => set({ progressionLength: length }),
-  setTemperature: (temperature) => set({ temperature }),
 
   // Actions - Progression
   setCurrentProgression: (progression) => {

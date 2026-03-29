@@ -72,27 +72,6 @@ export function downloadAsJson(progression) {
   downloadFile(content, filename, 'application/json');
 }
 
-/**
- * Export progression as MIDI file
- * Simplified version - creates a basic MIDI sequence
- */
-export function exportAsMidi(progression) {
-  // This is a placeholder for MIDI export
-  // In a real implementation, you would use a library like 'midi-writer-js'
-  // or 'tone.js' MIDI export functionality
-
-  console.warn('MIDI export is not fully implemented yet');
-
-  // For now, just download as JSON with MIDI extension
-  const content = JSON.stringify({
-    format: 'ChordAI-MIDI-JSON',
-    progression: progression,
-    note: 'This is a JSON representation. Full MIDI export coming soon.',
-  }, null, 2);
-
-  const filename = `chordai-progression-${Date.now()}.mid.json`;
-  downloadFile(content, filename, 'application/json');
-}
 
 /**
  * Generate shareable URL with encoded progression
@@ -423,7 +402,7 @@ export default {
   exportAsJson,
   downloadAsTxt,
   downloadAsJson,
-  exportAsMidi,
+
   exportAsPng,
   exportAsPdf,
   generateShareUrl,
