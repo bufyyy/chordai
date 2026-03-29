@@ -7,7 +7,7 @@
  * Export progression as plain text
  */
 export function exportAsTxt(progression) {
-  const { chords, metadata } = progression;
+  const { chords, metadata = {} } = progression;
 
   let text = '=== ChordAI - Generated Progression ===\n\n';
   text += `Chords: ${chords.join(' - ')}\n`;

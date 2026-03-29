@@ -87,7 +87,7 @@ describe('Toast Component', () => {
     expect(removeToast).toHaveBeenCalledWith(1);
   });
 
-  it('should auto-dismiss after duration', async () => {
+  it('should auto-dismiss after duration', () => {
     vi.useFakeTimers();
     const removeToast = vi.fn();
 
@@ -110,9 +110,7 @@ describe('Toast Component', () => {
     // Fast-forward time
     vi.advanceTimersByTime(2000);
 
-    await waitFor(() => {
-      expect(removeToast).toHaveBeenCalledWith(1);
-    });
+    expect(removeToast).toHaveBeenCalledWith(1);
 
     vi.useRealTimers();
   });

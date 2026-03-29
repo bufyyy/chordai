@@ -93,18 +93,19 @@ describe('exportUtils', () => {
     });
 
     it('should handle encoding errors gracefully', () => {
-      const badProgression = {
+      // Override btoa to simulate encoding failure
+      const originalBtoa = global.btoa;
+      global.btoa = () => { throw new Error('encoding failed'); };
+
+      const progression = {
         chords: ['C'],
-        metadata: {
-          circular: {},
-        },
+        metadata: { genre: 'pop' },
       };
-      // Create circular reference
-      badProgression.metadata.circular = badProgression;
 
-      const url = generateShareUrl(badProgression);
-
+      const url = generateShareUrl(progression);
       expect(url).toBeNull();
+
+      global.btoa = originalBtoa;
     });
   });
 

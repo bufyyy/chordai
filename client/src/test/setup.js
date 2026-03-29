@@ -1,4 +1,4 @@
-import { expect, afterEach, vi } from 'vitest';
+import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
@@ -41,6 +41,19 @@ global.AudioContext = vi.fn().mockImplementation(() => ({
   resume: vi.fn().mockResolvedValue(undefined),
 }));
 
+// Helper: create a chainable mock object (for Tone.js nodes)
+const createChainableMock = () => {
+  const mock = {
+    connect: vi.fn().mockReturnThis(),
+    disconnect: vi.fn().mockReturnThis(),
+    dispose: vi.fn(),
+    toDestination: vi.fn().mockReturnThis(),
+    triggerAttackRelease: vi.fn(),
+    set: vi.fn(),
+  };
+  return vi.fn().mockImplementation(() => mock);
+};
+
 // Mock TensorFlow.js
 vi.mock('@tensorflow/tfjs', () => ({
   ready: vi.fn().mockResolvedValue(undefined),
@@ -54,12 +67,12 @@ vi.mock('@tensorflow/tfjs', () => ({
 // Mock Tone.js
 vi.mock('tone', () => ({
   start: vi.fn().mockResolvedValue(undefined),
-  Reverb: vi.fn(),
-  Chorus: vi.fn(),
-  Volume: vi.fn(),
-  PolySynth: vi.fn(),
-  Synth: vi.fn(),
-  FMSynth: vi.fn(),
+  Reverb: createChainableMock(),
+  Chorus: createChainableMock(),
+  Volume: createChainableMock(),
+  PolySynth: createChainableMock(),
+  Synth: createChainableMock(),
+  FMSynth: createChainableMock(),
   Transport: {
     bpm: { value: 120 },
     start: vi.fn(),
@@ -71,7 +84,7 @@ vi.mock('tone', () => ({
   Draw: {
     schedule: vi.fn((fn) => fn()),
   },
-  Frequency: vi.fn((midi) => ({
+  Frequency: vi.fn(() => ({
     toFrequency: () => 440,
   })),
 }));
