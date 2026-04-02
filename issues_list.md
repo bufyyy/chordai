@@ -44,7 +44,7 @@ Architecture / Code Quality Issues
 
 21. ModelLoader retry button passes wrong argument ModelLoader.jsx line 128: onClick={loadModel} calls the function without the isCancelled flag, which defaults to false, so it works — but the function signature expects it as a parameter and doesn't re-clear the modelError state before retrying. (Done)
 
-22. ModelLoader progress jumps are not granular ModelLoader.jsx lines 50-56: Progress goes 0 → 20 → 90 → 100 with no intermediate steps. The "Loading vocabularies" stage (50%) is never shown because progress skips from 20 directly to 90.
+22. ModelLoader progress jumps are not granular ModelLoader.jsx lines 50-56: Progress goes 0 → 20 → 90 → 100 with no intermediate steps. The "Loading vocabularies" stage (50%) is never shown because progress skips from 20 directly to 90. (Done)
 
 23. No input validation on start chord InputForm.jsx line 61-63: User-typed start chords are passed directly to the model. If the chord doesn't exist in the vocabulary, it silently maps to PAD_ID, which can produce poor predictions.
 

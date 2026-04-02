@@ -68,3 +68,6 @@
 - Improved model loader retry flow: explicit retry handler now clears error state and retries with explicit cancel flag.
   - Location: `client/src/components/ModelLoader.jsx`
 
+- Added granular model-loading progress stage at 50% so vocab-loading step is surfaced in UI.
+  - Location: `client/src/components/ModelLoader.jsx`
+

@@ -49,6 +49,8 @@ const ModelLoader = () => {
       setModelError(null);
 
       setModelLoadProgress(20);
+      // Show intermediate stage for vocab loading before model completes.
+      setModelLoadProgress(50);
 
       // Load model from local public folder (served by Vercel)
       await modelService.loadModel();
