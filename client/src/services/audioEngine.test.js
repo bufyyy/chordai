@@ -14,7 +14,7 @@ describe('AudioEngine', () => {
       expect(audioEngine).toBeDefined();
       expect(audioEngine.initialized).toBe(false);
       expect(audioEngine.isPlaying).toBe(false);
-      expect(audioEngine.currentSynthType).toBe('piano');
+      expect(audioEngine.currentSynthType).toBe('acoustic-piano');
     });
   });
 
@@ -97,18 +97,18 @@ describe('AudioEngine', () => {
   });
 
   describe('synth types', () => {
-    it('should support multiple synth types', () => {
-      const types = ['piano', 'pad', 'synth', 'electric'];
+    it('should support multiple synth types', async () => {
+      const types = ['acoustic-piano', 'electric-piano', 'pad', 'organ', 'strings', 'synth-lead', 'electric'];
 
-      types.forEach((type) => {
-        expect(() => audioEngine.createSynth(type)).not.toThrow();
+      for (const type of types) {
+        await expect(audioEngine.createSynth(type)).resolves.toBeUndefined();
         expect(audioEngine.currentSynthType).toBe(type);
-      });
+      }
     });
 
-    it('should default to piano for unknown type', () => {
-      audioEngine.createSynth('unknown');
-      expect(audioEngine.currentSynthType).toBe('piano');
+    it('should default to acoustic piano for unknown type', async () => {
+      await audioEngine.createSynth('unknown');
+      expect(audioEngine.currentSynthType).toBe('acoustic-piano');
     });
   });
 
@@ -120,7 +120,7 @@ describe('AudioEngine', () => {
       expect(state.isPlaying).toBe(false);
       expect(state.isLooping).toBe(false);
       expect(state.currentChordIndex).toBe(-1);
-      expect(state.synthType).toBe('piano');
+      expect(state.synthType).toBe('acoustic-piano');
       expect(state.initialized).toBe(false);
     });
 

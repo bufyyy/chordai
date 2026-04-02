@@ -13,10 +13,11 @@ export class AudioEngine {
     this.sequence = null;
     this.isPlaying = false;
     this.isLooping = false;
-    this.currentSynthType = 'piano';
+    this.currentSynthType = 'acoustic-piano';
     this.currentChordIndex = -1;
     this.onChordChange = null;
     this.onPlaybackEnd = null;
+    this.samplerLoaded = false;
 
     // Initialize on first user interaction
     this.initialized = false;
@@ -81,7 +82,7 @@ export class AudioEngine {
       this.volume = new Tone.Volume(-6).connect(this.chorus);
 
       // Create default synth
-      this.createSynth(this.currentSynthType);
+      await this.createSynth(this.currentSynthType);
 
       // Apply settings after nodes exist
       this.applyAudioQuality(this.audioQuality);
@@ -96,14 +97,53 @@ export class AudioEngine {
   /**
    * Create synthesizer based on type
    */
-  createSynth(type = 'piano') {
+  async createSynth(type = 'acoustic-piano') {
     // Dispose old synth if exists
     if (this.synth) {
       this.synth.dispose();
     }
 
     switch (type) {
-      case 'piano':
+      case 'acoustic-piano': {
+        this.samplerLoaded = false;
+        this.synth = new Tone.Sampler({
+          urls: {
+            A1: 'A1.mp3',
+            C2: 'C2.mp3',
+            'D#2': 'Ds2.mp3',
+            'F#2': 'Fs2.mp3',
+            A2: 'A2.mp3',
+            C3: 'C3.mp3',
+            'D#3': 'Ds3.mp3',
+            'F#3': 'Fs3.mp3',
+            A3: 'A3.mp3',
+            C4: 'C4.mp3',
+            'D#4': 'Ds4.mp3',
+            'F#4': 'Fs4.mp3',
+            A4: 'A4.mp3',
+            C5: 'C5.mp3',
+            'D#5': 'Ds5.mp3',
+            'F#5': 'Fs5.mp3',
+            A5: 'A5.mp3',
+            C6: 'C6.mp3',
+            'D#6': 'Ds6.mp3',
+            'F#6': 'Fs6.mp3',
+            A6: 'A6.mp3',
+            C7: 'C7.mp3',
+            'D#7': 'Ds7.mp3',
+            'F#7': 'Fs7.mp3',
+            A7: 'A7.mp3',
+            C8: 'C8.mp3',
+          },
+          baseUrl: 'https://tonejs.github.io/audio/salamander/',
+          onload: () => {
+            this.samplerLoaded = true;
+          },
+        }).connect(this.volume);
+        break;
+      }
+
+      case 'electric-piano':
         this.synth = new Tone.PolySynth(Tone.Synth, {
           oscillator: {
             type: 'triangle',
@@ -131,7 +171,7 @@ export class AudioEngine {
         }).connect(this.volume);
         break;
 
-      case 'synth':
+      case 'synth-lead':
         this.synth = new Tone.PolySynth(Tone.Synth, {
           oscillator: {
             type: 'square',
@@ -143,6 +183,22 @@ export class AudioEngine {
             release: 1,
           },
         }).connect(this.volume);
+        break;
+
+      case 'organ':
+        this.synth = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: 'sine', partialCount: 3 },
+          envelope: { attack: 0.05, decay: 0.1, sustain: 0.9, release: 0.4 },
+        }).connect(this.volume);
+        this.samplerLoaded = true;
+        break;
+
+      case 'strings':
+        this.synth = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: 'sawtooth' },
+          envelope: { attack: 0.8, decay: 0.3, sustain: 0.7, release: 3.0 },
+        }).connect(this.volume);
+        this.samplerLoaded = true;
         break;
 
       case 'electric':
@@ -159,13 +215,17 @@ export class AudioEngine {
             type: 'square',
           },
         }).connect(this.volume);
+        this.samplerLoaded = true;
         break;
 
       default:
-        this.createSynth('piano');
+        await this.createSynth('acoustic-piano');
         return;
     }
 
+    if (type !== 'acoustic-piano') {
+      this.samplerLoaded = true;
+    }
     this.currentSynthType = type;
   }
 
@@ -174,7 +234,7 @@ export class AudioEngine {
    */
   async changeSynthType(type) {
     await this.initialize();
-    this.createSynth(type);
+    await this.createSynth(type);
   }
 
   /**
@@ -288,6 +348,10 @@ export class AudioEngine {
    */
   async playChord(chordName, duration = '2n', octave = 4) {
     await this.initialize();
+    if (this.currentSynthType === 'acoustic-piano' && !this.samplerLoaded) {
+      console.warn('Sampler still loading...');
+      return;
+    }
 
     const midiNotes = this.chordToMidi(chordName, octave);
     const frequencies = midiNotes.map(midi => this.midiToFrequency(midi));
@@ -300,6 +364,10 @@ export class AudioEngine {
    */
   async playProgression(chords, tempo = 120, loop = false, octave = 4) {
     await this.initialize();
+    if (this.currentSynthType === 'acoustic-piano' && !this.samplerLoaded) {
+      console.warn('Sampler still loading...');
+      return;
+    }
 
     if (chords.length === 0) {
       throw new Error('No chords to play');

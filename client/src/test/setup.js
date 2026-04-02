@@ -71,6 +71,7 @@ vi.mock('tone', () => ({
   Chorus: createChainableMock(),
   Volume: createChainableMock(),
   PolySynth: createChainableMock(),
+  Sampler: createChainableMock(),
   Synth: createChainableMock(),
   FMSynth: createChainableMock(),
   Transport: {

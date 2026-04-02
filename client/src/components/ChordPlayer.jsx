@@ -14,7 +14,7 @@ const ChordPlayer = () => {
     setCurrentChordIndex,
   } = useStore();
 
-  const [synthType, setSynthType] = useState('piano');
+  const [synthType, setSynthType] = useState('acoustic-piano');
   const [volume, setVolume] = useState(-6);
   const [isLooping, setIsLooping] = useState(false);
   const [audioEngine, setAudioEngine] = useState(null);
@@ -63,7 +63,8 @@ const ChordPlayer = () => {
     if (!audioEngine || isPlaying) return;
 
     try {
-      await audioEngine.playChord(chord, '2n');
+      const progressionOctave = currentProgression?.metadata?.octave ?? 4;
+      await audioEngine.playChord(chord, '2n', progressionOctave);
     } catch (error) {
       console.error('Error playing chord:', error);
     }
@@ -112,9 +113,12 @@ const ChordPlayer = () => {
   };
 
   const synthTypes = [
-    { value: 'piano', label: 'Piano', icon: '🎹' },
+    { value: 'acoustic-piano', label: 'Piano', icon: '🎹' },
+    { value: 'electric-piano', label: 'EP', icon: '🎹' },
     { value: 'pad', label: 'Pad', icon: '🌊' },
-    { value: 'synth', label: 'Synth', icon: '🎛️' },
+    { value: 'organ', label: 'Organ', icon: '⛪' },
+    { value: 'strings', label: 'Strings', icon: '🎻' },
+    { value: 'synth-lead', label: 'Synth', icon: '🎛️' },
     { value: 'electric', label: 'Electric', icon: '⚡' },
   ];
 
@@ -202,13 +206,13 @@ const ChordPlayer = () => {
             <label className="block text-sm font-medium text-gray-300 mb-3">
               Instrument
             </label>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="flex gap-2 overflow-x-auto pb-2">
               {synthTypes.map((type) => (
                 <button
                   key={type.value}
                   onClick={() => handleSynthChange(type.value)}
                   disabled={isPlaying}
-                  className={`p-3 rounded-lg font-semibold transition-all ${
+                  className={`min-w-[88px] p-3 rounded-lg font-semibold transition-all ${
                     synthType === type.value
                       ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
                       : 'bg-gray-800 text-gray-300 hover:bg-gray-700'

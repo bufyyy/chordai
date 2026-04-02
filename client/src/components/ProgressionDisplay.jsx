@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
 import { saveToHistory, saveToFavorites, isInFavorites, removeFromFavorites } from '../utils/storage';
 import { getSettings } from '../utils/storage';
+import { exportAsPdf } from '../utils/exportUtils';
 import modelService from '../services/modelService';
 
 const ChordCard = ({ chord, index, octave, isPlaying }) => {
@@ -87,6 +88,15 @@ const ProgressionDisplay = () => {
     const text = chords.map(c => modelService.formatChordForDisplay(c) + octave).join(' - ');
     navigator.clipboard.writeText(text);
     showToastNotification('Copied to clipboard!');
+  };
+
+  const handleExportPdf = () => {
+    exportAsPdf({
+      chords,
+      metadata,
+      romanNumerals: currentProgression?.romanNumerals,
+    });
+    showToastNotification('PDF exported!');
   };
 
   const handleToggleFavorite = () => {
@@ -212,6 +222,26 @@ const ProgressionDisplay = () => {
                 strokeLinejoin="round"
                 strokeWidth={2}
                 d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+          </button>
+
+          <button
+            onClick={handleExportPdf}
+            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors text-sm font-medium"
+            title="Export as PDF"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 16v-8m0 8l-3-3m3 3l3-3M4 20h16"
               />
             </svg>
           </button>

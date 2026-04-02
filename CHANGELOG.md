@@ -1,6 +1,16 @@
 # Changelog
 
 ## 2026-04-02
+- Improved playback instrument realism with new sampler-based piano and expanded presets.
+  - Added `acoustic-piano` (Tone Sampler via Salamander samples), `electric-piano`, `organ`, `strings`, and `synth-lead`.
+  - Made synth creation async-aware and guarded playback while the piano sampler is still loading.
+  - Updated instrument selector UI defaults/options and made it horizontally scrollable for more presets.
+  - Location: `client/src/services/audioEngine.js`, `client/src/components/ChordPlayer.jsx`, `client/src/services/audioEngine.test.js`, `client/src/test/setup.js`
+
+- Added a visible `Export as PDF` action button in the progression action bar.
+  - Hooks into existing `exportAsPdf()` utility and shows a toast notification after export.
+  - Location: `client/src/components/ProgressionDisplay.jsx`
+
 - Fixed shared URL progressions to actually load into the app state.
   - `?p=` is decoded and the resulting chords/metadata are written to Zustand via `setCurrentProgression()`
   - syncs `genre`, `octave`, `count`, and `detectedKey`
