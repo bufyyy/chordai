@@ -30,7 +30,7 @@ Incomplete Features
 Architecture / Code Quality Issues
 14. Tutorial text mentions non-existent shortcut R for regenerate Tutorial.jsx line 74: Says "R (regenerate)" but no such shortcut is registered in App.jsx. (Done)
 
-15. Tutorial text mentions outdated parameters Tutorial.jsx line 38: Says "Select genre, mood, key, and scale type" but the current InputForm uses genre, adventure, count, and octave. Mood, key, and scale type are no longer user inputs.
+15. Tutorial text mentions outdated parameters Tutorial.jsx line 38: Says "Select genre, mood, key, and scale type" but the current InputForm uses genre, adventure, count, and octave. Mood, key, and scale type are no longer user inputs. (Done)
 
 16. Footer "How it works" text is outdated App.jsx line 242: Says "Select genre, mood, key, and other parameters" — same outdated reference to mood and key.
 

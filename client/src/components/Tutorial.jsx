@@ -35,7 +35,7 @@ function Tutorial() {
     {
       title: 'Choose Your Parameters',
       description:
-        'Select genre, mood, key, and scale type to customize your progression. Each parameter influences the AI generation.',
+        'Set your genre, adventure level, chord count, and octave (optionally a start chord) to customize the generation.',
       icon: (
         <svg className="w-12 h-12 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

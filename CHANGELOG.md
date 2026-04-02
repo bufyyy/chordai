@@ -47,3 +47,6 @@
 - Updated tutorial shortcut text to match actual implemented keyboard shortcuts (removed non-existent `R` regenerate key).
   - Location: `client/src/components/Tutorial.jsx`
 
+- Updated tutorial parameter guidance to match current input controls (genre, adventure, count, octave, optional start chord).
+  - Location: `client/src/components/Tutorial.jsx`
+
