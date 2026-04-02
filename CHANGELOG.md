@@ -59,3 +59,9 @@
 - Stabilized keyboard shortcut definitions in `App` using memoized callbacks/array to avoid listener re-registration on every render.
   - Location: `client/src/App.jsx`
 
+- Replaced hardcoded favorites localStorage key with shared `STORAGE_KEYS.FAVORITES`.
+  - Location: `client/src/components/FavoritesPanel.jsx`, `client/src/utils/storage.js`
+
+- Gated verbose model `[DEBUG]` logs to development mode to prevent console noise in production.
+  - Location: `client/src/services/modelService.js`
+

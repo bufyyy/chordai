@@ -38,9 +38,9 @@ Architecture / Code Quality Issues
 
 18. useKeyboardShortcuts re-registers listeners every render App.jsx passes a new inline array to useKeyboardShortcuts on every render. Since the dependency is [shortcuts] and the array reference changes each render, the event listener is torn down and re-added on every render cycle. (Done)
 
-19. FavoritesPanel hardcodes localStorage key FavoritesPanel.jsx line 59: Directly uses localStorage.setItem('chordai_favorites', ...) instead of using the STORAGE_KEYS constant from storage.js, making it fragile if the key name ever changes.
+19. FavoritesPanel hardcodes localStorage key FavoritesPanel.jsx line 59: Directly uses localStorage.setItem('chordai_favorites', ...) instead of using the STORAGE_KEYS constant from storage.js, making it fragile if the key name ever changes. (Done)
 
-20. Excessive console.log debug output in production modelService.js has ~30 console.log('[DEBUG]') statements that run on every prediction, cluttering the browser console in production.
+20. Excessive console.log debug output in production modelService.js has ~30 console.log('[DEBUG]') statements that run on every prediction, cluttering the browser console in production. (Done)
 
 21. ModelLoader retry button passes wrong argument ModelLoader.jsx line 128: onClick={loadModel} calls the function without the isCancelled flag, which defaults to false, so it works — but the function signature expects it as a parameter and doesn't re-clear the modelError state before retrying.
 

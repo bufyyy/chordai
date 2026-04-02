@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
-import { getFavorites, removeFromFavorites, clearFavorites } from '../utils/storage';
+import {
+  getFavorites,
+  removeFromFavorites,
+  clearFavorites,
+  STORAGE_KEYS,
+} from '../utils/storage';
 
 const FavoritesPanel = ({ isOpen }) => {
   const [favorites, setFavorites] = useState([]);
@@ -58,7 +63,7 @@ const FavoritesPanel = ({ isOpen }) => {
     const updated = allFavorites.map(fav =>
       fav.id === item.id ? { ...fav, name: editingName } : fav
     );
-    localStorage.setItem('chordai_favorites', JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(updated));
 
     setEditingId(null);
     loadFavorites();

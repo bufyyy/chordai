@@ -3,7 +3,7 @@
  * Handles history, favorites, and settings persistence
  */
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   HISTORY: 'chordai_history',
   FAVORITES: 'chordai_favorites',
   SETTINGS: 'chordai_settings',
