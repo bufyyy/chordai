@@ -38,3 +38,6 @@
 - Made `audioQuality` setting affect playback (latency hint + effect intensity presets).
   - Location: `client/src/services/audioEngine.js`, `client/src/App.jsx`, `client/src/components/Settings.jsx`
 
+- Enabled a real demo-mode fallback: when model loading fails, app now sets `model = 'DEMO_MODE'` and continues.
+  - Location: `client/src/components/ModelLoader.jsx`
+

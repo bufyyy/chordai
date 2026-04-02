@@ -46,6 +46,7 @@ const ModelLoader = () => {
 
       setModelLoading(true);
       setModelLoadProgress(0);
+      setModelError(null);
 
       setModelLoadProgress(20);
 
@@ -69,7 +70,11 @@ const ModelLoader = () => {
 
     } catch (error) {
       console.error('Error loading model:', error);
-      setModelError(error.message);
+
+      // Fall back to demo mode so the app remains usable when model files fail to load.
+      setModel('DEMO_MODE');
+      setPreprocessor(null);
+      setModelError(null);
       setModelLoading(false);
     }
   };

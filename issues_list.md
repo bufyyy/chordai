@@ -23,7 +23,7 @@ Incomplete Features
 
 11. Settings audioQuality has no effect Three quality options (High/Medium/Low) are offered in Settings but no code in audioEngine.js or anywhere else reads or acts on this value. (Done)
 
-12. Demo Mode is unreachable App.jsx line 29 checks model === 'DEMO_MODE' but nothing in the codebase ever sets the model to this string. The demo mode banner and fallback logic are dead code.
+12. Demo Mode is unreachable App.jsx line 29 checks model === 'DEMO_MODE' but nothing in the codebase ever sets the model to this string. The demo mode banner and fallback logic are dead code. (Done)
 
 13. exportAsPdf exports a PNG, not a PDF exportUtils.js line 303-397: The function creates a canvas and downloads it as a .png file, not an actual PDF.
 
