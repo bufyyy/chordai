@@ -299,13 +299,28 @@ class ModelService {
   detectKey(chordList) {
     if (!chordList || chordList.length === 0) return 'C Major';
     try {
-      // Convert raw chord to display format for Tonal.js parsing
-      const firstChord = this.formatChordForDisplay(chordList[0]);
-      const chordInfo = Chord.get(firstChord);
-      if (chordInfo && chordInfo.tonic) {
-        const isMinor = firstChord.includes('m') && !firstChord.includes('maj');
-        return `${chordInfo.tonic} ${isMinor ? 'Minor' : 'Major'}`;
-      }
+      const tonicScores = {};
+      const modeScores = { major: 0, minor: 0 };
+
+      chordList.forEach((rawChord, index) => {
+        const chord = this.formatChordForDisplay(rawChord);
+        const chordInfo = Chord.get(chord);
+        if (!chordInfo || !chordInfo.tonic) return;
+
+        const tonic = chordInfo.tonic;
+        const weight = index === 0 ? 1.2 : 1; // keep slight bias for the starting chord
+        tonicScores[tonic] = (tonicScores[tonic] || 0) + weight;
+
+        const lower = chord.toLowerCase();
+        const isMinor = lower.includes('m') && !lower.includes('maj');
+        modeScores[isMinor ? 'minor' : 'major'] += weight;
+      });
+
+      const bestTonic = Object.entries(tonicScores).sort((a, b) => b[1] - a[1])[0]?.[0];
+      if (!bestTonic) return 'C Major';
+
+      const bestMode = modeScores.minor > modeScores.major ? 'Minor' : 'Major';
+      return `${bestTonic} ${bestMode}`;
     } catch (e) {
       this.debugWarn('[DEBUG] Key detection failed:', e);
     }

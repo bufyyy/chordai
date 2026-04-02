@@ -74,3 +74,6 @@
 - Added start-chord validation against model vocabulary (with `#` → raw sharp token normalization) to prevent invalid PAD-based generations.
   - Location: `client/src/components/InputForm.jsx`
 
+- Improved key detection to analyze all chords in a progression via weighted tonic/mode voting (instead of only the first chord).
+  - Location: `client/src/services/modelService.js`
+
