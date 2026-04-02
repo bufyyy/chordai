@@ -1,4 +1,35 @@
 import * as Tone from 'tone';
+import { Chord, Note } from '@tonaljs/tonal';
+
+/**
+ * Match model vocabulary — same rule as modelService.formatChordForDisplay (s → # on root, not sus).
+ */
+function vocabChordToDisplay(raw) {
+  if (!raw || typeof raw !== 'string') return raw;
+  return raw.replace(/^([A-G]b?)s(?!us)/, '$1#');
+}
+
+/**
+ * Spell chord tones in ascending MIDI order. Uses the same root placement as the legacy engine:
+ * root MIDI = Note.chroma(root) + octave * 12 (e.g. C + octave 4 -> 48, not scientific "C4" == 60).
+ */
+function noteNamesToAscendingMidi(noteNames, octave) {
+  if (!noteNames?.length) return null;
+  const rootChroma = Note.chroma(noteNames[0]);
+  if (rootChroma === null || rootChroma === undefined) return null;
+  const baseMidi = rootChroma + octave * 12;
+  const midis = [baseMidi];
+  let prev = baseMidi;
+  for (let i = 1; i < noteNames.length; i++) {
+    const c = Note.chroma(noteNames[i]);
+    if (c == null || c === undefined) continue;
+    let candidate = c + octave * 12;
+    while (candidate <= prev) candidate += 12;
+    midis.push(candidate);
+    prev = candidate;
+  }
+  return midis.length ? midis : null;
+}
 
 /**
  * AudioEngine
@@ -250,6 +281,13 @@ export class AudioEngine {
    * Convert chord name to MIDI notes
    */
   chordToMidi(chordName, octave = 4) {
+    const displaySymbol = vocabChordToDisplay(chordName);
+    const tonalChord = Chord.get(displaySymbol);
+    if (!tonalChord.empty && tonalChord.notes?.length) {
+      const fromTonal = noteNamesToAscendingMidi(tonalChord.notes, octave);
+      if (fromTonal?.length) return fromTonal;
+    }
+
     const noteToMidi = {
       'C': 0, 'C#': 1, 'Db': 1,
       'D': 2, 'D#': 3, 'Eb': 3,
@@ -260,12 +298,12 @@ export class AudioEngine {
       'B': 11,
     };
 
-    // Parse chord name
-    const rootMatch = chordName.match(/^([A-G][#b]?)/);
+    // Parse chord name (display form so Fs → F# roots work)
+    const rootMatch = displaySymbol.match(/^([A-G][#b]?)/);
     if (!rootMatch) return [60, 64, 67]; // Default to C major
 
     const root = rootMatch[1];
-    const quality = chordName.slice(root.length);
+    const quality = displaySymbol.slice(root.length);
 
     const rootMidi = noteToMidi[root];
     if (rootMidi === undefined) return [60, 64, 67];
@@ -284,6 +322,8 @@ export class AudioEngine {
       intervals = [0, 4, 7, 9];
     } else if (quality === 'add9') {
       intervals = [0, 4, 7, 14];
+    } else if (quality === 'add11') {
+      intervals = [0, 4, 7, 17];
     } else if (quality === 'maj9') {
       intervals = [0, 4, 7, 11, 14];
     }
@@ -298,6 +338,12 @@ export class AudioEngine {
       intervals = [0, 3, 7, 9];
     } else if (quality === 'mmaj7' || quality === 'mM7') {
       intervals = [0, 3, 7, 11];
+    } else if (quality === 'madd11') {
+      intervals = [0, 3, 7, 17];
+    } else if (quality === 'mb9') {
+      intervals = [0, 3, 7, 13];
+    } else if (quality === 'm11b9') {
+      intervals = [0, 3, 7, 10, 13, 17];
     }
     // Dominant variations
     else if (quality === '7' || quality === 'dom7') {
@@ -320,6 +366,20 @@ export class AudioEngine {
       intervals = [0, 3, 6];
     } else if (quality === 'dim7' || quality === '°7') {
       intervals = [0, 3, 6, 9];
+    } else if (quality === 'dimb7') {
+      intervals = [0, 3, 6, 9];
+    } else if (quality === 'dim9') {
+      intervals = [0, 3, 6, 14];
+    } else if (quality === 'dimb9') {
+      intervals = [0, 3, 6, 13];
+    } else if (quality === 'dim13b9') {
+      intervals = [0, 3, 6, 9, 13, 20];
+    } else if (quality === 'dim11b9') {
+      intervals = [0, 3, 6, 10, 13, 17];
+    } else if (quality === 'dimadd11') {
+      intervals = [0, 3, 6, 17];
+    } else if (quality === 'dimadd13') {
+      intervals = [0, 3, 6, 20];
     } else if (quality === 'm7b5' || quality === 'ø7') {
       intervals = [0, 3, 6, 10];
     }

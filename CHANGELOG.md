@@ -1,6 +1,18 @@
 # Changelog
 
 ## 2026-04-02
+- Fixed playback so extended chord symbols (11th, add11, altered dominants, etc.) no longer fall back to a plain major triad.
+  - `chordToMidi` now resolves chords via `@tonaljs/tonal` after the same `s` → `#` vocabulary normalization as the UI, plus manual fallbacks where Tonal has no symbol (e.g. `add11`, `madd11`, `mb9`).
+  - Location: `client/src/services/audioEngine.js`
+
+- Per-chord editing: click a chord card to replace it with any chord from the model vocabulary (filterable list, grouped by root).
+  - Store action `replaceChord`; stale library `romanNumerals` cleared on edit so notation stays consistent.
+  - Added `displayToRawToken` on `modelService` for display ↔ raw token conversion (used by later features).
+  - Location: `client/src/store/useStore.js`, `client/src/components/ProgressionDisplay.jsx`, `client/src/components/ChordPicker.jsx`, `client/src/services/modelService.js`
+
+- Fixed individual chord preview in Playback to use the progression’s selected octave (same as “Play progression”).
+  - Location: `client/src/components/ChordPlayer.jsx`
+
 - Improved playback instrument realism with new sampler-based piano and expanded presets.
   - Added `acoustic-piano` (Tone Sampler via Salamander samples), `electric-piano`, `organ`, `strings`, and `synth-lead`.
   - Made synth creation async-aware and guarded playback while the piano sampler is still loading.

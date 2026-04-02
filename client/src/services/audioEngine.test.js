@@ -85,6 +85,22 @@ describe('AudioEngine', () => {
       const invalid = audioEngine.chordToMidi('InvalidChord', 4);
       expect(invalid).toEqual([60, 64, 67]); // Default C major
     });
+
+    it('should use distinct voicings for triads vs 11th and add11 chords', () => {
+      const triad = audioEngine.chordToMidi('A', 4);
+      const dom11 = audioEngine.chordToMidi('A11', 4);
+      const add11 = audioEngine.chordToMidi('Aadd11', 4);
+      expect(triad.length).toBe(3);
+      expect(dom11.length).toBeGreaterThan(triad.length);
+      expect(add11.length).toBe(4);
+      expect(triad).not.toEqual(dom11);
+      expect(triad).not.toEqual(add11);
+    });
+
+    it('should normalize vocabulary sharp tokens for Tonal (e.g. Fs11)', () => {
+      const fs11 = audioEngine.chordToMidi('Fs11', 4);
+      expect(fs11.length).toBeGreaterThan(3);
+    });
   });
 
   describe('midiToFrequency', () => {
