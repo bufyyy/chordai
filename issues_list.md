@@ -46,6 +46,6 @@ Architecture / Code Quality Issues
 
 22. ModelLoader progress jumps are not granular ModelLoader.jsx lines 50-56: Progress goes 0 → 20 → 90 → 100 with no intermediate steps. The "Loading vocabularies" stage (50%) is never shown because progress skips from 20 directly to 90. (Done)
 
-23. No input validation on start chord InputForm.jsx line 61-63: User-typed start chords are passed directly to the model. If the chord doesn't exist in the vocabulary, it silently maps to PAD_ID, which can produce poor predictions.
+23. No input validation on start chord InputForm.jsx line 61-63: User-typed start chords are passed directly to the model. If the chord doesn't exist in the vocabulary, it silently maps to PAD_ID, which can produce poor predictions. (Done)
 
 24. modelService.detectKey is overly simplistic modelService.js lines 286-300: Key detection only looks at the first chord and checks if it contains m. A chord like Cm7 → "C Minor" is correct, but Cmaj7 also contains m in maj, though the regex !firstChord.includes('maj') handles that. More importantly, a 4-chord progression's key should be detected from all chords, not just the first one.

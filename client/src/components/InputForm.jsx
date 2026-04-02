@@ -16,10 +16,26 @@ const InputForm = () => {
     setCurrentProgression,
     setDetectedKey,
     setIsGenerating,
+    addToast,
   } = useStore();
 
   const [availableGenres, setAvailableGenres] = useState([]);
   const [startChord, setStartChord] = useState('');
+
+  const normalizeStartChord = (input) => {
+    if (!input) return '';
+
+    const trimmed = input.trim();
+    if (!trimmed) return '';
+
+    const first = trimmed.charAt(0).toUpperCase();
+    const rest = trimmed.slice(1);
+    const normalizedCase = `${first}${rest}`;
+
+    // model vocabulary uses "s" for sharps (e.g., Fs, Cs)
+    const rawSharp = normalizedCase.replace(/^([A-G]b?)#(?!us)/, '$1s');
+    return rawSharp;
+  };
 
   // Fetch genres on mount
   useEffect(() => {
@@ -53,14 +69,23 @@ const InputForm = () => {
 
       // Determine Starting Chord
       // If user provided input, use it. Otherwise, pick random.
-      let initialChord = startChord.trim();
+      let initialChord = normalizeStartChord(startChord);
       if (!initialChord) {
         initialChord = modelService.getRandomStartChord(adventure);
       }
 
-      // Validate user input? 
-      // For now, accept it. If invalid, modelService maps it to PAD ID, which is fine (sort of).
-      // Ideally we should valid against modelService.chords.
+      // Validate user-provided start chord against the loaded vocabulary.
+      if (startChord.trim()) {
+        const isValidStartChord = modelService.chords?.includes(initialChord);
+        if (!isValidStartChord) {
+          addToast({
+            type: 'warning',
+            message: 'Start chord not found in model vocabulary. Try a simpler chord (e.g., C, Am, G7).',
+          });
+          setIsGenerating(false);
+          return;
+        }
+      }
 
       currentChords.push(initialChord);
 

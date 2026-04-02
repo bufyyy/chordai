@@ -71,3 +71,6 @@
 - Added granular model-loading progress stage at 50% so vocab-loading step is surfaced in UI.
   - Location: `client/src/components/ModelLoader.jsx`
 
+- Added start-chord validation against model vocabulary (with `#` → raw sharp token normalization) to prevent invalid PAD-based generations.
+  - Location: `client/src/components/InputForm.jsx`
+
