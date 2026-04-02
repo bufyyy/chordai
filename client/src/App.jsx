@@ -10,6 +10,7 @@ import Settings from './components/Settings';
 import ProgressionLibrary from './components/ProgressionLibrary';
 import useStore from './store/useStore';
 import useKeyboardShortcuts from './hooks/useKeyboardShortcuts';
+import { getAudioEngine } from './services/audioEngine';
 
 function App() {
   const {
@@ -24,6 +25,8 @@ function App() {
     addToast,
     isPlaying,
     setIsPlaying,
+    currentProgression,
+    tempo,
     octave,
     setGenre,
     setOctave,
@@ -39,8 +42,29 @@ function App() {
   useKeyboardShortcuts([
     {
       key: ' ',
-      action: () => {
-        setIsPlaying(!isPlaying);
+      action: async () => {
+        const engine = getAudioEngine();
+
+        // Stop
+        if (isPlaying) {
+          engine.stop();
+          setIsPlaying(false);
+          setCurrentChordIndex(-1);
+          return;
+        }
+
+        // Play
+        const chords = currentProgression?.chords || [];
+        if (chords.length === 0) return;
+
+        setIsPlaying(true);
+        try {
+          await engine.playProgression(chords, tempo, engine.isLooping);
+        } catch (error) {
+          console.error('Error playing progression (Space shortcut):', error);
+          setIsPlaying(false);
+          setCurrentChordIndex(-1);
+        }
       },
     },
     {

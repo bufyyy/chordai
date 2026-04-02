@@ -431,22 +431,21 @@ export class AudioEngine {
     events.push((tempo >> 16) & 0xFF, (tempo >> 8) & 0xFF, tempo & 0xFF);
 
     // Add chords
-    let currentTick = 0;
-    chords.forEach((chord, index) => {
+    chords.forEach((chord) => {
       const midiNotes = this.chordToMidi(chord, 4);
       const duration = ticksPerBeat * 4; // Whole note
 
-      // Note on events
+      // Note on events (all at delta 0 — simultaneous)
       midiNotes.forEach(note => {
         events.push(0x00, 0x90, note, 0x64); // Delta 0, Note on, Note, Velocity
       });
 
-      // Note off events
-      midiNotes.forEach(note => {
-        events.push(...this.encodeVariableLength(duration), 0x80, note, 0x40);
+      // Note off events — first note carries the duration delta,
+      // remaining notes have delta 0 (they all end at the same time)
+      midiNotes.forEach((note, noteIdx) => {
+        const delta = noteIdx === 0 ? duration : 0;
+        events.push(...this.encodeVariableLength(delta), 0x80, note, 0x40);
       });
-
-      currentTick += duration;
     });
 
     // End of track

@@ -16,24 +16,25 @@ const ModelLoader = () => {
 
   useEffect(() => {
     // Prevent double loading in React StrictMode
-    let mounted = true;
+    let isCancelled = false;
 
-    if (mounted) {
-      loadModel();
-    }
+    const initModel = async () => {
+      await loadModel(isCancelled);
+    };
+
+    initModel();
 
     return () => {
-      mounted = false;
+      isCancelled = true;
     };
   }, []);
 
-  const loadModel = async () => {
+  const loadModel = async (isCancelled = false) => {
     try {
       // Get model service instance
       // modelService is already the instance
 
 
-      // Check if already loaded
       // Check if already loaded
       if (modelService.isLoaded) {
         console.log('Model already loaded, skipping...');
@@ -54,7 +55,9 @@ const ModelLoader = () => {
       setModelLoadProgress(90);
       setModelLoadProgress(100);
 
-      // Save to store
+      // Save to store (skip if component unmounted in StrictMode)
+      if (isCancelled) return;
+
       const model = modelService.model;
       const mappings = modelService.mappings;
 

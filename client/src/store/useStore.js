@@ -14,6 +14,11 @@ const useStore = create((set, get) => ({
   octave: 4,
   count: 4,
 
+  // Legacy fields — used by ProgressionLibrary, HistoryPanel, FavoritesPanel
+  mood: 'uplifting',
+  key: 'C',
+  scaleType: 'major',
+
 
   // Generated progression state
   currentProgression: null,
@@ -32,6 +37,7 @@ const useStore = create((set, get) => ({
   // UI state
   isSettingsOpen: false,
   isLibraryOpen: false,
+  isSidebarOpen: false,
 
   // Actions - Model
   setModel: (model) => set({ model }),
@@ -45,6 +51,9 @@ const useStore = create((set, get) => ({
   setAdventure: (adventure) => set({ adventure }),
   setOctave: (octave) => set({ octave }),
   setCount: (count) => set({ count }),
+  setMood: (mood) => set({ mood }),
+  setKey: (key) => set({ key }),
+  setScaleType: (scaleType) => set({ scaleType }),
 
 
   // Actions - Progression
@@ -98,6 +107,7 @@ const useStore = create((set, get) => ({
   // Actions - UI
   setSettingsOpen: (isOpen) => set({ isSettingsOpen: isOpen }),
   setLibraryOpen: (isOpen) => set({ isLibraryOpen: isOpen }),
+  setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
 
   // Helper to get current input
   getCurrentInput: () => {
