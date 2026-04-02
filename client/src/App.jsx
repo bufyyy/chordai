@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import ModelLoader from './components/ModelLoader';
 import InputForm from './components/InputForm';
 import ProgressionDisplay from './components/ProgressionDisplay';
@@ -53,57 +53,62 @@ function App() {
     }
   }, [setTempo]);
 
+  const handleSpaceShortcut = useCallback(async () => {
+    const engine = getAudioEngine();
+
+    // Stop
+    if (isPlaying) {
+      engine.stop();
+      setIsPlaying(false);
+      setCurrentChordIndex(-1);
+      return;
+    }
+
+    // Play
+    const chords = currentProgression?.chords || [];
+    if (chords.length === 0) return;
+
+    setIsPlaying(true);
+    try {
+      const progressionOctave = currentProgression?.metadata?.octave ?? octave ?? 4;
+      await engine.playProgression(chords, tempo, engine.isLooping, progressionOctave);
+    } catch (error) {
+      console.error('Error playing progression (Space shortcut):', error);
+      setIsPlaying(false);
+      setCurrentChordIndex(-1);
+    }
+  }, [currentProgression, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
+
+  const handleLibraryShortcut = useCallback(() => {
+    setLibraryOpen(true);
+  }, [setLibraryOpen]);
+
+  const handleSettingsShortcut = useCallback(() => {
+    setSettingsOpen(true);
+  }, [setSettingsOpen]);
+
+  const handleEscapeShortcut = useCallback(() => {
+    setSettingsOpen(false);
+    setLibraryOpen(false);
+  }, [setLibraryOpen, setSettingsOpen]);
+
+  const shortcuts = useMemo(
+    () => [
+      { key: ' ', action: handleSpaceShortcut },
+      { key: 'l', action: handleLibraryShortcut },
+      { key: 's', ctrl: true, action: handleSettingsShortcut },
+      { key: 'escape', action: handleEscapeShortcut },
+    ],
+    [
+      handleEscapeShortcut,
+      handleLibraryShortcut,
+      handleSettingsShortcut,
+      handleSpaceShortcut,
+    ],
+  );
+
   // Keyboard shortcuts
-  useKeyboardShortcuts([
-    {
-      key: ' ',
-      action: async () => {
-        const engine = getAudioEngine();
-
-        // Stop
-        if (isPlaying) {
-          engine.stop();
-          setIsPlaying(false);
-          setCurrentChordIndex(-1);
-          return;
-        }
-
-        // Play
-        const chords = currentProgression?.chords || [];
-        if (chords.length === 0) return;
-
-        setIsPlaying(true);
-        try {
-          const progressionOctave = currentProgression?.metadata?.octave ?? octave ?? 4;
-          await engine.playProgression(chords, tempo, engine.isLooping, progressionOctave);
-        } catch (error) {
-          console.error('Error playing progression (Space shortcut):', error);
-          setIsPlaying(false);
-          setCurrentChordIndex(-1);
-        }
-      },
-    },
-    {
-      key: 'l',
-      action: () => {
-        setLibraryOpen(true);
-      },
-    },
-    {
-      key: 's',
-      ctrl: true,
-      action: () => {
-        setSettingsOpen(true);
-      },
-    },
-    {
-      key: 'escape',
-      action: () => {
-        setSettingsOpen(false);
-        setLibraryOpen(false);
-      },
-    },
-  ]);
+  useKeyboardShortcuts(shortcuts);
 
   // Check for shared progression in URL
   useEffect(() => {

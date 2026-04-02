@@ -56,3 +56,6 @@
 - Fixed Progression Library filtering so search now respects the selected genre filter.
   - Location: `client/src/components/ProgressionLibrary.jsx`
 
+- Stabilized keyboard shortcut definitions in `App` using memoized callbacks/array to avoid listener re-registration on every render.
+  - Location: `client/src/App.jsx`
+
