@@ -12,6 +12,19 @@ class ModelService {
     this.isLoading = false;
     this.modelPath = '/model/web_model/model.json';
     this.mappingsPath = '/model/mappings.json';
+    this.debugEnabled = import.meta.env.DEV;
+  }
+
+  debug(...args) {
+    if (this.debugEnabled) {
+      console.log(...args);
+    }
+  }
+
+  debugWarn(...args) {
+    if (this.debugEnabled) {
+      console.warn(...args);
+    }
   }
 
   async loadModel() {
@@ -26,7 +39,7 @@ class ModelService {
     this.isLoading = true;
 
     try {
-      console.log('[DEBUG] Starting model and mappings load...');
+      this.debug('[DEBUG] Starting model and mappings load...');
 
       const [mappingsResponse, model] = await Promise.all([
         fetch(this.mappingsPath),
@@ -37,7 +50,7 @@ class ModelService {
       this.mappings = rawMappings.token_to_int;
       this.model = model;
 
-      console.log('[DEBUG] Mappings Loaded:', Object.keys(this.mappings).length, 'tokens');
+      this.debug('[DEBUG] Mappings Loaded:', Object.keys(this.mappings).length, 'tokens');
 
       // Generate reverse mapping
       this.idToToken = {};
@@ -54,19 +67,19 @@ class ModelService {
 
       this.chords = tokens.filter(token => !token.startsWith('<'));
 
-      console.log('[DEBUG] Available Genres:', this.genres);
-      console.log('[DEBUG] Available Chords Count:', this.chords.length);
-      console.log('[DEBUG] Special Token IDs:', {
+      this.debug('[DEBUG] Available Genres:', this.genres);
+      this.debug('[DEBUG] Available Chords Count:', this.chords.length);
+      this.debug('[DEBUG] Special Token IDs:', {
         PAD: this.mappings['<PAD>'],
         START: this.mappings['<START>'],
         END: this.mappings['<END>']
       });
 
       this.isLoaded = true;
-      console.log('[DEBUG] Model and mappings loaded successfully!');
+      this.debug('[DEBUG] Model and mappings loaded successfully!');
       return true;
     } catch (error) {
-      console.error('[DEBUG] FAILED to load model or mappings:', error);
+      console.error('Failed to load model or mappings:', error);
       this.isLoaded = false;
       throw error;
     } finally {
@@ -84,8 +97,8 @@ class ModelService {
       await this.loadModel();
     }
 
-    console.log('[DEBUG] ========== predictNextChord ==========');
-    console.log('[DEBUG] Input:', JSON.stringify({ currentChords, genre, adventure }));
+    this.debug('[DEBUG] ========== predictNextChord ==========');
+    this.debug('[DEBUG] Input:', JSON.stringify({ currentChords, genre, adventure }));
 
     return tf.tidy(() => {
       const tokenToInt = this.mappings;
@@ -97,10 +110,10 @@ class ModelService {
       const genreToken = `<GENRE=${genreLower}>`;
       let genreId = tokenToInt[genreToken];
 
-      console.log('[DEBUG] Genre Token:', genreToken, '-> ID:', genreId);
+      this.debug('[DEBUG] Genre Token:', genreToken, '-> ID:', genreId);
 
       if (genreId === undefined) {
-        console.warn('[DEBUG] Genre not found! Defaulting to pop.');
+        this.debugWarn('[DEBUG] Genre not found! Defaulting to pop.');
         genreId = tokenToInt['<GENRE=pop>'];
         if (genreId === undefined) {
           const firstGenre = Object.keys(tokenToInt).find(k => k.startsWith('<GENRE='));
@@ -112,9 +125,9 @@ class ModelService {
       const chordIds = currentChords.map(chord => {
         const id = tokenToInt[chord];
         if (id === undefined) {
-          console.warn('[DEBUG] Chord NOT FOUND in vocab:', chord, '-> Using PAD');
+          this.debugWarn('[DEBUG] Chord NOT FOUND in vocab:', chord, '-> Using PAD');
         } else {
-          console.log('[DEBUG] Chord:', chord, '-> ID:', id);
+          this.debug('[DEBUG] Chord:', chord, '-> ID:', id);
         }
         return id !== undefined ? id : PAD_ID;
       });
@@ -133,8 +146,8 @@ class ModelService {
       }
 
       const inputIds = [genreId, START_ID, ...historyIds];
-      console.log('[DEBUG] Final Input IDs:', inputIds);
-      console.log('[DEBUG] Input Tokens:', inputIds.map(id => this.idToToken[id]));
+      this.debug('[DEBUG] Final Input IDs:', inputIds);
+      this.debug('[DEBUG] Input Tokens:', inputIds.map(id => this.idToToken[id]));
 
       const inputTensor = tf.tensor2d([inputIds], [1, SEQUENCE_LENGTH]);
 
@@ -148,13 +161,13 @@ class ModelService {
         .map((p, i) => ({ p, i, token: this.idToToken[i] }))
         .sort((a, b) => b.p - a.p)
         .slice(0, 5);
-      console.log('[DEBUG] Top 5 BEFORE Penalty:', top5Before.map(item => `${item.token} (${(item.p * 100).toFixed(2)}%)`));
+      this.debug('[DEBUG] Top 5 BEFORE Penalty:', top5Before.map(item => `${item.token} (${(item.p * 100).toFixed(2)}%)`));
 
       // Repetition Penalty
       if (historyIds.length > 0) {
         const lastChordId = historyIds[historyIds.length - 1];
         if (lastChordId !== undefined && lastChordId < probsArray.length && lastChordId !== PAD_ID && lastChordId !== START_ID) {
-          console.log('[DEBUG] Applying Hard Ban to:', this.idToToken[lastChordId], '(ID:', lastChordId, ')');
+          this.debug('[DEBUG] Applying Hard Ban to:', this.idToToken[lastChordId], '(ID:', lastChordId, ')');
           probsArray[lastChordId] = 0;
           const sum = probsArray.reduce((a, b) => a + b, 0);
           if (sum > 0) {
@@ -169,26 +182,26 @@ class ModelService {
         .map((p, i) => ({ p, i, token: this.idToToken[i] }))
         .sort((a, b) => b.p - a.p)
         .slice(0, 5);
-      console.log('[DEBUG] Top 5 AFTER Penalty:', top5After.map(item => `${item.token} (${(item.p * 100).toFixed(2)}%)`));
+      this.debug('[DEBUG] Top 5 AFTER Penalty:', top5After.map(item => `${item.token} (${(item.p * 100).toFixed(2)}%)`));
 
       // Sampling
       const temperature = 0.2 + (adventure / 100);
       const topP = 0.9;
-      console.log('[DEBUG] Sampling Params:', { temperature, topP });
+      this.debug('[DEBUG] Sampling Params:', { temperature, topP });
 
       const predictedId = this.sampleWithTopP(probabilities, topP, temperature);
       const predictedToken = this.idToToken[predictedId];
 
-      console.log('[DEBUG] Sampled ID:', predictedId, '-> Token:', predictedToken);
+      this.debug('[DEBUG] Sampled ID:', predictedId, '-> Token:', predictedToken);
 
       if (!predictedToken || predictedToken.startsWith('<')) {
-        console.warn('[DEBUG] Predicted a special token! Falling back to C');
+        this.debugWarn('[DEBUG] Predicted a special token! Falling back to C');
         return 'C';
       }
 
       // Return RAW token (not formatted) - this is critical for proper lookups
-      console.log('[DEBUG] Final Output (RAW):', predictedToken);
-      console.log('[DEBUG] ==========================================');
+      this.debug('[DEBUG] Final Output (RAW):', predictedToken);
+      this.debug('[DEBUG] ==========================================');
       return predictedToken;
     });
   }
@@ -254,9 +267,9 @@ class ModelService {
    * Returns RAW chord name from vocabulary
    */
   getRandomStartChord(adventure) {
-    console.log('[DEBUG] getRandomStartChord called with adventure:', adventure);
+    this.debug('[DEBUG] getRandomStartChord called with adventure:', adventure);
     if (!this.chords || this.chords.length === 0) {
-      console.warn('[DEBUG] No chords available! Returning C');
+      this.debugWarn('[DEBUG] No chords available! Returning C');
       return 'C';
     }
 
@@ -265,20 +278,20 @@ class ModelService {
     if (adventure < 30) {
       candidates = this.chords.filter(c => /^[A-G][bs]?(m)?$/.test(c));
       if (candidates.length === 0) candidates = ['C', 'G', 'F', 'Am'];
-      console.log('[DEBUG] Low Adventure - Simple Triads:', candidates.length, 'candidates');
+      this.debug('[DEBUG] Low Adventure - Simple Triads:', candidates.length, 'candidates');
     }
     else if (adventure < 70) {
       candidates = this.chords.filter(c => /^[A-G][bs]?(m)?(7|sus|dim)?$/.test(c));
-      console.log('[DEBUG] Medium Adventure - Including 7ths:', candidates.length, 'candidates');
+      this.debug('[DEBUG] Medium Adventure - Including 7ths:', candidates.length, 'candidates');
     }
     else {
       candidates = this.chords;
-      console.log('[DEBUG] High Adventure - All Chords:', candidates.length, 'candidates');
+      this.debug('[DEBUG] High Adventure - All Chords:', candidates.length, 'candidates');
     }
 
     const randomIndex = Math.floor(Math.random() * candidates.length);
     const result = candidates[randomIndex];
-    console.log('[DEBUG] Selected Start Chord (RAW):', result);
+    this.debug('[DEBUG] Selected Start Chord (RAW):', result);
     // Return RAW chord - no formatting!
     return result;
   }
@@ -294,7 +307,7 @@ class ModelService {
         return `${chordInfo.tonic} ${isMinor ? 'Minor' : 'Major'}`;
       }
     } catch (e) {
-      console.warn('[DEBUG] Key detection failed:', e);
+      this.debugWarn('[DEBUG] Key detection failed:', e);
     }
     return 'C Major';
   }
