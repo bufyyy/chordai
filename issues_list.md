@@ -12,7 +12,7 @@ Bugs (Broken Functionality)
 
 6. ProgressionDisplay chord display replaces only first b/# ProgressionDisplay.jsx line 26: .replace('b', '♭').replace('#', '♯') only replaces the first occurrence. A chord like "Bb" correctly becomes "B♭", but "Bbb" (double flat) or a chord with b in the quality part (e.g., "m7b5") would get incorrectly replaced. The b in Bb happens to be the first character after root, but Ab7 would replace the b in Ab correctly only by luck. (Done)
 
-7. HistoryPanel / FavoritesPanel don't refresh when sidebar opens Both panels load data only once on mount (useEffect([], [])). If the user generates a new progression and then opens the sidebar, the new history/favorite won't appear until they close and re-mount the sidebar.
+7. HistoryPanel / FavoritesPanel don't refresh when sidebar opens Both panels load data only once on mount (useEffect([], [])). If the user generates a new progression and then opens the sidebar, the new history/favorite won't appear until they close and re-mount the sidebar. (Done)
 
 8. Duplicate quality === '9' condition in audioEngine.js audioEngine.js line 191 matches quality === '9' to maj9 intervals [0, 4, 7, 11, 14], but line 209 also matches quality === '9' to dom9 intervals [0, 4, 7, 10, 14]. The second branch is unreachable — 9 chords always get treated as maj9 instead of dom9.
 

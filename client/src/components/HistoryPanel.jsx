@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
 import { getHistory, deleteHistoryItem, clearHistory } from '../utils/storage';
 
-const HistoryPanel = () => {
+const HistoryPanel = ({ isOpen }) => {
   const [history, setHistory] = useState([]);
-  const { setCurrentProgression, setGenre, setMood, setKey, setScaleType } = useStore();
+  const { currentProgression, setCurrentProgression, setGenre, setMood, setKey, setScaleType } =
+    useStore();
 
   useEffect(() => {
+    if (!isOpen) return;
     loadHistory();
-  }, []);
+  }, [isOpen, currentProgression]);
 
   const loadHistory = () => {
     const data = getHistory();

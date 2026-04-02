@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
 import { getFavorites, removeFromFavorites, clearFavorites } from '../utils/storage';
 
-const FavoritesPanel = () => {
+const FavoritesPanel = ({ isOpen }) => {
   const [favorites, setFavorites] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState('');
-  const { setCurrentProgression, setGenre, setMood, setKey, setScaleType } = useStore();
+  const { currentProgression, setCurrentProgression, setGenre, setMood, setKey, setScaleType } =
+    useStore();
 
   useEffect(() => {
+    if (!isOpen) return;
     loadFavorites();
-  }, []);
+  }, [isOpen, currentProgression]);
 
   const loadFavorites = () => {
     const data = getFavorites();

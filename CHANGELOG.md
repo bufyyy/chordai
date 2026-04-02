@@ -23,3 +23,6 @@
 - Fixed `ProgressionDisplay` chord symbol rendering to replace all `b/#` occurrences (e.g. `m7b5`, double flats).
   - Location: `client/src/components/ProgressionDisplay.jsx`
 
+- Fixed Sidebar History/Favorites panels to refresh when opened (and after new progressions are generated).
+  - Location: `client/src/components/Sidebar.jsx`, `client/src/components/HistoryPanel.jsx`, `client/src/components/FavoritesPanel.jsx`
+

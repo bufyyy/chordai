@@ -85,7 +85,11 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* Content */}
         <div className="p-4 overflow-y-auto h-[calc(100vh-140px)] custom-scrollbar">
-          {activeTab === 'history' ? <HistoryPanel /> : <FavoritesPanel />}
+          {activeTab === 'history' ? (
+            <HistoryPanel isOpen={isOpen} />
+          ) : (
+            <FavoritesPanel isOpen={isOpen} />
+          )}
         </div>
       </div>
     </>
