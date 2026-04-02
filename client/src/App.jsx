@@ -11,6 +11,7 @@ import ProgressionLibrary from './components/ProgressionLibrary';
 import useStore from './store/useStore';
 import useKeyboardShortcuts from './hooks/useKeyboardShortcuts';
 import { getAudioEngine } from './services/audioEngine';
+import { getSettings } from './utils/storage';
 
 function App() {
   const {
@@ -27,6 +28,7 @@ function App() {
     setIsPlaying,
     currentProgression,
     tempo,
+    setTempo,
     octave,
     setGenre,
     setOctave,
@@ -37,6 +39,14 @@ function App() {
   } = useStore();
 
   const isDemoMode = model === 'DEMO_MODE';
+
+  // Hydrate settings on app load (e.g., default tempo)
+  useEffect(() => {
+    const settings = getSettings();
+    if (typeof settings.defaultTempo === 'number' && Number.isFinite(settings.defaultTempo)) {
+      setTempo(settings.defaultTempo);
+    }
+  }, [setTempo]);
 
   // Keyboard shortcuts
   useKeyboardShortcuts([

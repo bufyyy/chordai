@@ -29,3 +29,6 @@
 - Fixed `9` chord interval mapping so `9` is treated as dominant 9 and `maj9` as major 9 (removed unreachable branch).
   - Location: `client/src/services/audioEngine.js`
 
+- Applied saved `defaultTempo` setting on app startup (so playback uses the user’s default BPM).
+  - Location: `client/src/App.jsx`
+
