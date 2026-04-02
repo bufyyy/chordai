@@ -10,7 +10,7 @@ Bugs (Broken Functionality)
 
 5. ChordPlayer doesn't use the octave from the progression audioEngine.js line 284: playProgression hardcodes octave 4 inside the sequence callback, ignoring the user's selected octave from currentProgression.metadata.octave. (Done)
 
-6. ProgressionDisplay chord display replaces only first b/# ProgressionDisplay.jsx line 26: .replace('b', '♭').replace('#', '♯') only replaces the first occurrence. A chord like "Bb" correctly becomes "B♭", but "Bbb" (double flat) or a chord with b in the quality part (e.g., "m7b5") would get incorrectly replaced. The b in Bb happens to be the first character after root, but Ab7 would replace the b in Ab correctly only by luck.
+6. ProgressionDisplay chord display replaces only first b/# ProgressionDisplay.jsx line 26: .replace('b', '♭').replace('#', '♯') only replaces the first occurrence. A chord like "Bb" correctly becomes "B♭", but "Bbb" (double flat) or a chord with b in the quality part (e.g., "m7b5") would get incorrectly replaced. The b in Bb happens to be the first character after root, but Ab7 would replace the b in Ab correctly only by luck. (Done)
 
 7. HistoryPanel / FavoritesPanel don't refresh when sidebar opens Both panels load data only once on mount (useEffect([], [])). If the user generates a new progression and then opens the sidebar, the new history/favorite won't appear until they close and re-mount the sidebar.
 

@@ -23,7 +23,11 @@ const ChordCard = ({ chord, index, octave, isPlaying }) => {
 
         {/* Chord Name + Octave */}
         <div className="text-3xl font-bold text-white mb-2">
-          {modelService.formatChordForDisplay(chord).replace('b', '♭').replace('#', '♯')}<span className="text-xl text-gray-400">{octave}</span>
+          {modelService
+            .formatChordForDisplay(chord)
+            .replace(/b/g, '♭')
+            .replace(/#/g, '♯')}
+          <span className="text-xl text-gray-400">{octave}</span>
         </div>
 
         {/* Placeholder for Roman Numeral if we want it back later */}

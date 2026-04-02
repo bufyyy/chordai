@@ -20,3 +20,6 @@
 - Fixed progression playback to respect the selected octave (instead of hardcoding octave 4).
   - Location: `client/src/services/audioEngine.js`, `client/src/components/ChordPlayer.jsx`, `client/src/App.jsx`
 
+- Fixed `ProgressionDisplay` chord symbol rendering to replace all `b/#` occurrences (e.g. `m7b5`, double flats).
+  - Location: `client/src/components/ProgressionDisplay.jsx`
+
