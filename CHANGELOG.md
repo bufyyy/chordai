@@ -50,3 +50,6 @@
 - Updated tutorial parameter guidance to match current input controls (genre, adventure, count, octave, optional start chord).
   - Location: `client/src/components/Tutorial.jsx`
 
+- Updated footer "How it works" text to match current generation inputs (removed outdated mood/key wording).
+  - Location: `client/src/App.jsx`
+

@@ -325,7 +325,7 @@ function App() {
                       </svg>
                     </div>
                     <p className="font-medium text-white mb-1">1. Choose Settings</p>
-                    <p>Select genre, mood, key, and other parameters for your progression</p>
+                    <p>Set genre, adventure, count, and octave for your progression</p>
                   </div>
                   <div>
                     <div className="w-12 h-12 mx-auto mb-3 bg-purple-500/20 rounded-full flex items-center justify-center">

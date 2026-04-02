@@ -32,7 +32,7 @@ Architecture / Code Quality Issues
 
 15. Tutorial text mentions outdated parameters Tutorial.jsx line 38: Says "Select genre, mood, key, and scale type" but the current InputForm uses genre, adventure, count, and octave. Mood, key, and scale type are no longer user inputs. (Done)
 
-16. Footer "How it works" text is outdated App.jsx line 242: Says "Select genre, mood, key, and other parameters" — same outdated reference to mood and key.
+16. Footer "How it works" text is outdated App.jsx line 242: Says "Select genre, mood, key, and other parameters" — same outdated reference to mood and key. (Done)
 
 17. ProgressionLibrary filter logic conflict ProgressionLibrary.jsx lines 14-26: When both a genre filter AND search query are active, the search runs on the full famousProgressions array (not the genre-filtered results), effectively ignoring the genre filter.
 
