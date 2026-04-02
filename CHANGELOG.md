@@ -26,3 +26,6 @@
 - Fixed Sidebar History/Favorites panels to refresh when opened (and after new progressions are generated).
   - Location: `client/src/components/Sidebar.jsx`, `client/src/components/HistoryPanel.jsx`, `client/src/components/FavoritesPanel.jsx`
 
+- Fixed `9` chord interval mapping so `9` is treated as dominant 9 and `maj9` as major 9 (removed unreachable branch).
+  - Location: `client/src/services/audioEngine.js`
+

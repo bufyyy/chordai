@@ -188,7 +188,7 @@ export class AudioEngine {
       intervals = [0, 4, 7, 9];
     } else if (quality === 'add9') {
       intervals = [0, 4, 7, 14];
-    } else if (quality === '9' || quality === 'maj9') {
+    } else if (quality === 'maj9') {
       intervals = [0, 4, 7, 11, 14];
     }
     // Minor variations

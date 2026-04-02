@@ -14,7 +14,7 @@ Bugs (Broken Functionality)
 
 7. HistoryPanel / FavoritesPanel don't refresh when sidebar opens Both panels load data only once on mount (useEffect([], [])). If the user generates a new progression and then opens the sidebar, the new history/favorite won't appear until they close and re-mount the sidebar. (Done)
 
-8. Duplicate quality === '9' condition in audioEngine.js audioEngine.js line 191 matches quality === '9' to maj9 intervals [0, 4, 7, 11, 14], but line 209 also matches quality === '9' to dom9 intervals [0, 4, 7, 10, 14]. The second branch is unreachable — 9 chords always get treated as maj9 instead of dom9.
+8. Duplicate quality === '9' condition in audioEngine.js audioEngine.js line 191 matches quality === '9' to maj9 intervals [0, 4, 7, 11, 14], but line 209 also matches quality === '9' to dom9 intervals [0, 4, 7, 10, 14]. The second branch is unreachable — 9 chords always get treated as maj9 instead of dom9. (Done)
 
 Incomplete Features
 9. Settings defaultTempo is never applied on app load Settings.jsx lets users set a defaultTempo, and storage.js persists it, but ChordPlayer always initializes with the Zustand default of 120 BPM. The saved setting is never read and applied.
