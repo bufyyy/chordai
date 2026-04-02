@@ -7,3 +7,7 @@
   - resets playback state and removes the `p` query param to avoid re-processing
   - Location: `client/src/App.jsx`
 
+- Fixed `Space` shortcut to start/stop audio playback.
+  - The shortcut now calls the `AudioEngine` playback methods (instead of only toggling UI state).
+  - Location: `client/src/App.jsx`
+
