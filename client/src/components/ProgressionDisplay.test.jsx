@@ -12,6 +12,7 @@ vi.mock('../utils/storage', () => ({
   saveToFavorites: vi.fn(() => ({ id: Date.now() })),
   isInFavorites: vi.fn(() => false),
   removeFromFavorites: vi.fn(() => true),
+  getSettings: vi.fn(() => ({ autoSaveHistory: true })),
 }));
 
 // Mock model service

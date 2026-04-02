@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
 import { saveToHistory, saveToFavorites, isInFavorites, removeFromFavorites } from '../utils/storage';
+import { getSettings } from '../utils/storage';
 import modelService from '../services/modelService';
 
 const ChordCard = ({ chord, index, octave, isPlaying }) => {
@@ -63,6 +64,9 @@ const ProgressionDisplay = () => {
 
   // Auto-save to history when progression changes
   useEffect(() => {
+    const { autoSaveHistory } = getSettings();
+    if (!autoSaveHistory) return;
+
     // Avoid saving incomplete entries while the key hasn't been detected yet.
     if (chords.length > 0 && detectedKey) {
       const scaleType = detectedKey.toLowerCase().includes('minor') ? 'minor' : 'major';

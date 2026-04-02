@@ -19,7 +19,7 @@ Bugs (Broken Functionality)
 Incomplete Features
 9. Settings defaultTempo is never applied on app load Settings.jsx lets users set a defaultTempo, and storage.js persists it, but ChordPlayer always initializes with the Zustand default of 120 BPM. The saved setting is never read and applied. (Done)
 
-10. Settings autoSaveHistory toggle has no effect The checkbox is saved in localStorage, but ProgressionDisplay.jsx always auto-saves to history on every progression change (line 61-72) without checking this setting.
+10. Settings autoSaveHistory toggle has no effect The checkbox is saved in localStorage, but ProgressionDisplay.jsx always auto-saves to history on every progression change (line 61-72) without checking this setting. (Done)
 
 11. Settings audioQuality has no effect Three quality options (High/Medium/Low) are offered in Settings but no code in audioEngine.js or anywhere else reads or acts on this value.
 

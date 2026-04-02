@@ -32,3 +32,6 @@
 - Applied saved `defaultTempo` setting on app startup (so playback uses the user’s default BPM).
   - Location: `client/src/App.jsx`
 
+- Made `autoSaveHistory` setting actually control whether history is written.
+  - Location: `client/src/components/ProgressionDisplay.jsx`
+
