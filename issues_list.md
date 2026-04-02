@@ -25,7 +25,7 @@ Incomplete Features
 
 12. Demo Mode is unreachable App.jsx line 29 checks model === 'DEMO_MODE' but nothing in the codebase ever sets the model to this string. The demo mode banner and fallback logic are dead code. (Done)
 
-13. exportAsPdf exports a PNG, not a PDF exportUtils.js line 303-397: The function creates a canvas and downloads it as a .png file, not an actual PDF.
+13. exportAsPdf exports a PNG, not a PDF exportUtils.js line 303-397: The function creates a canvas and downloads it as a .png file, not an actual PDF. (Done)
 
 Architecture / Code Quality Issues
 14. Tutorial text mentions non-existent shortcut R for regenerate Tutorial.jsx line 74: Says "R (regenerate)" but no such shortcut is registered in App.jsx.

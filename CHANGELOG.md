@@ -41,3 +41,6 @@
 - Enabled a real demo-mode fallback: when model loading fails, app now sets `model = 'DEMO_MODE'` and continues.
   - Location: `client/src/components/ModelLoader.jsx`
 
+- Fixed PDF export to generate an actual `.pdf` file (instead of downloading a PNG with print dimensions).
+  - Location: `client/src/utils/exportUtils.js`
+

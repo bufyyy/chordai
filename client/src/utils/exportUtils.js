@@ -2,6 +2,7 @@
  * Export utilities for chord progressions
  * Supports TXT, JSON, MIDI, PNG, and URL sharing
  */
+import { jsPDF } from 'jspdf';
 
 /**
  * Export progression as plain text
@@ -298,12 +299,9 @@ export function exportAsPng(progression) {
 
 /**
  * Export progression as PDF
- * Uses canvas to create PDF-style image
+ * Generates a real PDF file
  */
 export function exportAsPdf(progression) {
-  // For a real PDF, you would use a library like jsPDF
-  // For now, we'll export a high-quality PNG that can be printed
-
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -384,17 +382,28 @@ export function exportAsPdf(progression) {
   ctx.fillText('Generated with ChordAI', width / 2, height - 200);
   ctx.fillText('https://chordai.app', width / 2, height - 120);
 
-  // Download as PNG (print-ready)
-  canvas.toBlob((blob) => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `chordai-progression-print-${Date.now()}.png`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  // Export as real PDF
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4',
   });
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const margin = 24;
+  const contentWidth = pageWidth - margin * 2;
+  const contentHeight = pageHeight - margin * 2;
+
+  const scale = Math.min(contentWidth / width, contentHeight / height);
+  const renderWidth = width * scale;
+  const renderHeight = height * scale;
+  const x = (pageWidth - renderWidth) / 2;
+  const y = (pageHeight - renderHeight) / 2;
+
+  const imageData = canvas.toDataURL('image/png');
+  pdf.addImage(imageData, 'PNG', x, y, renderWidth, renderHeight, undefined, 'FAST');
+  pdf.save(`chordai-progression-${Date.now()}.pdf`);
 }
 
 export default {
