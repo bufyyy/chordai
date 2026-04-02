@@ -17,11 +17,20 @@ function App() {
     model,
     isSettingsOpen,
     isLibraryOpen,
+    isSidebarOpen,
     setSettingsOpen,
     setLibraryOpen,
+    setSidebarOpen,
     addToast,
     isPlaying,
     setIsPlaying,
+    octave,
+    setGenre,
+    setOctave,
+    setCount,
+    setDetectedKey,
+    setCurrentProgression,
+    setCurrentChordIndex,
   } = useStore();
 
   const isDemoMode = model === 'DEMO_MODE';
@@ -66,10 +75,39 @@ function App() {
           const progression = decodeProgressionFromUrl();
 
           if (progression) {
+            const { chords, metadata = {} } = progression;
+
+            // Shared URLs currently don't include octave, so fall back to the current setting.
+            const nextMetadata = {
+              ...metadata,
+              octave: metadata.octave ?? octave,
+            };
+
+            // Update input + display state so the loaded progression shows immediately.
+            if (metadata.genre) setGenre(metadata.genre);
+            if (nextMetadata.octave) setOctave(nextMetadata.octave);
+            setCount(Array.isArray(chords) ? chords.length : 4);
+            setDetectedKey(metadata.key ?? null);
+            setCurrentChordIndex(-1);
+            setIsPlaying(false);
+            setCurrentProgression({
+              chords: Array.isArray(chords) ? chords : [],
+              metadata: nextMetadata,
+            });
+
             addToast({
               type: 'success',
               message: 'Loaded shared progression!',
             });
+
+            // Prevent re-processing if React re-renders the effect.
+            params.delete('p');
+            const newSearch = params.toString();
+            const newUrl =
+              window.location.pathname +
+              (newSearch ? `?${newSearch}` : '') +
+              window.location.hash;
+            window.history.replaceState({}, '', newUrl);
           }
         } catch (error) {
           console.error('Failed to load shared progression:', error);
@@ -78,7 +116,17 @@ function App() {
     };
 
     checkSharedProgression();
-  }, [addToast]);
+  }, [
+    addToast,
+    octave,
+    setCount,
+    setDetectedKey,
+    setCurrentProgression,
+    setCurrentChordIndex,
+    setGenre,
+    setIsPlaying,
+    setOctave,
+  ]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900">
@@ -114,7 +162,7 @@ function App() {
       <ModelLoader />
 
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main Content */}
       <div className="relative z-10">
@@ -123,6 +171,21 @@ function App() {
           <div className="max-w-7xl mx-auto">
             {/* Top Actions */}
             <div className="flex justify-end gap-3 mb-4">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="px-4 py-2 glass hover:bg-white/15 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 group"
+                title="History & Favorites"
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                History
+              </button>
               <button
                 onClick={() => setLibraryOpen(true)}
                 className="px-4 py-2 glass hover:bg-white/15 rounded-lg font-medium transition-all duration-300 flex items-center gap-2 group"
