@@ -38,6 +38,7 @@ const ProgressionDisplay = () => {
     currentProgression,
     detectedKey,
     currentChordIndex,
+    mood,
   } = useStore();
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -58,18 +59,21 @@ const ProgressionDisplay = () => {
 
   // Auto-save to history when progression changes
   useEffect(() => {
-    if (chords.length > 0) {
+    // Avoid saving incomplete entries while the key hasn't been detected yet.
+    if (chords.length > 0 && detectedKey) {
+      const scaleType = detectedKey.toLowerCase().includes('minor') ? 'minor' : 'major';
       const entry = saveToHistory({
         chords: chords,
         genre,
-        detectedKey,
-        octave
+        mood,
+        key: detectedKey,
+        scaleType,
       });
       if (entry) {
         setProgressionId(entry.id);
       }
     }
-  }, [chords, genre, detectedKey, octave]);
+  }, [chords, genre, detectedKey, mood, octave]);
 
   const handleCopyProgression = () => {
     const text = chords.map(c => modelService.formatChordForDisplay(c) + octave).join(' - ');
@@ -91,7 +95,13 @@ const ProgressionDisplay = () => {
       const result = saveToFavorites({
         id: progressionId,
         chords: chords,
-        metadata: { genre, detectedKey, octave },
+        metadata: {
+          genre,
+          mood,
+          key: detectedKey,
+          scaleType: detectedKey.toLowerCase().includes('minor') ? 'minor' : 'major',
+          octave,
+        },
       });
       if (result) {
         setIsFavorite(true);

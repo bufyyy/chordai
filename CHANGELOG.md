@@ -11,3 +11,6 @@
   - The shortcut now calls the `AudioEngine` playback methods (instead of only toggling UI state).
   - Location: `client/src/App.jsx`
 
+- Fixed history metadata saving (key/mood/scaleType) so History/Favorites display correctly.
+  - Location: `client/src/components/ProgressionDisplay.jsx` (+ `client/src/utils/storage.js` expectations)
+
