@@ -6,7 +6,7 @@ Bugs (Broken Functionality)
 
 3. History saves with wrong field names — metadata is always empty ProgressionDisplay.jsx line 62-67 calls saveToHistory({ chords, genre, detectedKey, octave }), but storage.js line 23-31 expects progression.key (not detectedKey) and progression.mood, progression.scaleType. Result: history entries are saved with key: undefined, mood: undefined, scaleType: undefined. (Done)
 
-4. ChordPlayer uses raw vocab tokens for individual chord display ChordPlayer.jsx line 239: chord.replace('b', '♭').replace('#', '♯') operates on raw vocab tokens (e.g., "Fs") without first calling formatChordForDisplay(). So "Fs" stays as "Fs" instead of showing "F♯".
+4. ChordPlayer uses raw vocab tokens for individual chord display ChordPlayer.jsx line 239: chord.replace('b', '♭').replace('#', '♯') operates on raw vocab tokens (e.g., "Fs") without first calling formatChordForDisplay(). So "Fs" stays as "Fs" instead of showing "F♯". (Done)
 
 5. ChordPlayer doesn't use the octave from the progression audioEngine.js line 284: playProgression hardcodes octave 4 inside the sequence callback, ignoring the user's selected octave from currentProgression.metadata.octave.
 

@@ -14,3 +14,6 @@
 - Fixed history metadata saving (key/mood/scaleType) so History/Favorites display correctly.
   - Location: `client/src/components/ProgressionDisplay.jsx` (+ `client/src/utils/storage.js` expectations)
 
+- Fixed individual chord button rendering in `ChordPlayer` to use proper chord formatting (raw tokens like `Fs` now display as `F♯`).
+  - Location: `client/src/components/ChordPlayer.jsx`
+

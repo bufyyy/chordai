@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import useStore from '../store/useStore';
 import { getAudioEngine } from '../services/audioEngine';
+import modelService from '../services/modelService';
 
 const ChordPlayer = () => {
   const {
@@ -236,7 +237,10 @@ const ChordPlayer = () => {
                       : 'bg-gray-800 hover:bg-gray-700 text-white'
                   } ${isPlaying ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  {chord.replace('b', '♭').replace('#', '♯')}
+                  {modelService
+                    .formatChordForDisplay(chord)
+                    .replace('b', '♭')
+                    .replace('#', '♯')}
                 </button>
               ))}
             </div>
