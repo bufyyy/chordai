@@ -8,7 +8,7 @@ Bugs (Broken Functionality)
 
 4. ChordPlayer uses raw vocab tokens for individual chord display ChordPlayer.jsx line 239: chord.replace('b', '♭').replace('#', '♯') operates on raw vocab tokens (e.g., "Fs") without first calling formatChordForDisplay(). So "Fs" stays as "Fs" instead of showing "F♯". (Done)
 
-5. ChordPlayer doesn't use the octave from the progression audioEngine.js line 284: playProgression hardcodes octave 4 inside the sequence callback, ignoring the user's selected octave from currentProgression.metadata.octave.
+5. ChordPlayer doesn't use the octave from the progression audioEngine.js line 284: playProgression hardcodes octave 4 inside the sequence callback, ignoring the user's selected octave from currentProgression.metadata.octave. (Done)
 
 6. ProgressionDisplay chord display replaces only first b/# ProgressionDisplay.jsx line 26: .replace('b', '♭').replace('#', '♯') only replaces the first occurrence. A chord like "Bb" correctly becomes "B♭", but "Bbb" (double flat) or a chord with b in the quality part (e.g., "m7b5") would get incorrectly replaced. The b in Bb happens to be the first character after root, but Ab7 would replace the b in Ab correctly only by luck.
 

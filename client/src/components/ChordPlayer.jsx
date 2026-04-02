@@ -43,7 +43,8 @@ const ChordPlayer = () => {
 
     try {
       setIsPlaying(true);
-      await audioEngine.playProgression(currentProgression.chords, tempo, isLooping);
+      const progressionOctave = currentProgression?.metadata?.octave ?? 4;
+      await audioEngine.playProgression(currentProgression.chords, tempo, isLooping, progressionOctave);
     } catch (error) {
       console.error('Error playing progression:', error);
       setIsPlaying(false);

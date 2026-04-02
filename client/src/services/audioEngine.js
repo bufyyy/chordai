@@ -262,7 +262,7 @@ export class AudioEngine {
   /**
    * Play chord progression
    */
-  async playProgression(chords, tempo = 120, loop = false) {
+  async playProgression(chords, tempo = 120, loop = false, octave = 4) {
     await this.initialize();
 
     if (chords.length === 0) {
@@ -281,7 +281,7 @@ export class AudioEngine {
     // Create sequence
     this.sequence = new Tone.Sequence(
       (time, chord) => {
-        const midiNotes = this.chordToMidi(chord, 4);
+        const midiNotes = this.chordToMidi(chord, octave);
         const frequencies = midiNotes.map(midi => this.midiToFrequency(midi));
 
         // Play the chord

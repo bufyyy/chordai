@@ -59,7 +59,8 @@ function App() {
 
         setIsPlaying(true);
         try {
-          await engine.playProgression(chords, tempo, engine.isLooping);
+          const progressionOctave = currentProgression?.metadata?.octave ?? octave ?? 4;
+          await engine.playProgression(chords, tempo, engine.isLooping, progressionOctave);
         } catch (error) {
           console.error('Error playing progression (Space shortcut):', error);
           setIsPlaying(false);

@@ -17,3 +17,6 @@
 - Fixed individual chord button rendering in `ChordPlayer` to use proper chord formatting (raw tokens like `Fs` now display as `F♯`).
   - Location: `client/src/components/ChordPlayer.jsx`
 
+- Fixed progression playback to respect the selected octave (instead of hardcoding octave 4).
+  - Location: `client/src/services/audioEngine.js`, `client/src/components/ChordPlayer.jsx`, `client/src/App.jsx`
+
