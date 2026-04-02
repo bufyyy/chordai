@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { famousProgressions, getProgressionsByGenre, searchProgressions } from '../data/famousProgressions';
+import { famousProgressions, getProgressionsByGenre } from '../data/famousProgressions';
 import useStore from '../store/useStore';
 
 /**
@@ -19,7 +19,13 @@ function ProgressionLibrary({ isOpen, onClose }) {
     }
 
     if (searchQuery.trim()) {
-      results = searchProgressions(searchQuery);
+      const query = searchQuery.toLowerCase();
+      results = results.filter((prog) => {
+        const nameMatch = prog.name.toLowerCase().includes(query);
+        const songMatch = prog.songs?.some((song) => song.toLowerCase().includes(query));
+        const chordMatch = prog.chords?.some((chord) => chord.toLowerCase().includes(query));
+        return nameMatch || songMatch || chordMatch;
+      });
     }
 
     return results;

@@ -53,3 +53,6 @@
 - Updated footer "How it works" text to match current generation inputs (removed outdated mood/key wording).
   - Location: `client/src/App.jsx`
 
+- Fixed Progression Library filtering so search now respects the selected genre filter.
+  - Location: `client/src/components/ProgressionLibrary.jsx`
+

@@ -34,7 +34,7 @@ Architecture / Code Quality Issues
 
 16. Footer "How it works" text is outdated App.jsx line 242: Says "Select genre, mood, key, and other parameters" — same outdated reference to mood and key. (Done)
 
-17. ProgressionLibrary filter logic conflict ProgressionLibrary.jsx lines 14-26: When both a genre filter AND search query are active, the search runs on the full famousProgressions array (not the genre-filtered results), effectively ignoring the genre filter.
+17. ProgressionLibrary filter logic conflict ProgressionLibrary.jsx lines 14-26: When both a genre filter AND search query are active, the search runs on the full famousProgressions array (not the genre-filtered results), effectively ignoring the genre filter. (Done)
 
 18. useKeyboardShortcuts re-registers listeners every render App.jsx passes a new inline array to useKeyboardShortcuts on every render. Since the dependency is [shortcuts] and the array reference changes each render, the event listener is torn down and re-added on every render cycle.
 
