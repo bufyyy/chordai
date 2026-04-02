@@ -11,6 +11,7 @@ import {
   resetOnboarding,
 } from '../utils/storage';
 import useStore from '../store/useStore';
+import { getAudioEngine } from '../services/audioEngine';
 
 /**
  * Settings panel component
@@ -32,6 +33,11 @@ function Settings({ isOpen, onClose }) {
   const handleSettingChange = (key, value) => {
     updateSetting(key, value);
     setSettings({ ...settings, [key]: value });
+
+    if (key === 'audioQuality') {
+      getAudioEngine().setAudioQuality(value);
+    }
+
     addToast({
       type: 'success',
       message: 'Setting updated successfully',

@@ -35,3 +35,6 @@
 - Made `autoSaveHistory` setting actually control whether history is written.
   - Location: `client/src/components/ProgressionDisplay.jsx`
 
+- Made `audioQuality` setting affect playback (latency hint + effect intensity presets).
+  - Location: `client/src/services/audioEngine.js`, `client/src/App.jsx`, `client/src/components/Settings.jsx`
+

@@ -43,8 +43,13 @@ function App() {
   // Hydrate settings on app load (e.g., default tempo)
   useEffect(() => {
     const settings = getSettings();
+    const engine = getAudioEngine();
+
     if (typeof settings.defaultTempo === 'number' && Number.isFinite(settings.defaultTempo)) {
       setTempo(settings.defaultTempo);
+    }
+    if (settings.audioQuality) {
+      engine.setAudioQuality(settings.audioQuality);
     }
   }, [setTempo]);
 

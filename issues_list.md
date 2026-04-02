@@ -21,7 +21,7 @@ Incomplete Features
 
 10. Settings autoSaveHistory toggle has no effect The checkbox is saved in localStorage, but ProgressionDisplay.jsx always auto-saves to history on every progression change (line 61-72) without checking this setting. (Done)
 
-11. Settings audioQuality has no effect Three quality options (High/Medium/Low) are offered in Settings but no code in audioEngine.js or anywhere else reads or acts on this value.
+11. Settings audioQuality has no effect Three quality options (High/Medium/Low) are offered in Settings but no code in audioEngine.js or anywhere else reads or acts on this value. (Done)
 
 12. Demo Mode is unreachable App.jsx line 29 checks model === 'DEMO_MODE' but nothing in the codebase ever sets the model to this string. The demo mode banner and fallback logic are dead code.
 

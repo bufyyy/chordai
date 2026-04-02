@@ -20,6 +20,39 @@ export class AudioEngine {
 
     // Initialize on first user interaction
     this.initialized = false;
+
+    // Settings
+    this.audioQuality = 'high';
+  }
+
+  applyAudioQuality(quality) {
+    const q = quality === 'low' || quality === 'medium' || quality === 'high' ? quality : 'high';
+    this.audioQuality = q;
+
+    // Prefer lower latency for "low", higher fidelity for "high"
+    const latencyHint =
+      q === 'low' ? 'interactive' : q === 'medium' ? 'balanced' : 'playback';
+    try {
+      // Tone.js exposes the underlying AudioContext via Tone.context
+      if (Tone?.context && 'latencyHint' in Tone.context) {
+        Tone.context.latencyHint = latencyHint;
+      }
+    } catch (e) {
+      // ignore if not supported in environment
+    }
+
+    if (this.reverb) {
+      this.reverb.decay = q === 'low' ? 1.5 : q === 'medium' ? 2.0 : 2.5;
+      this.reverb.wet.value = q === 'low' ? 0.15 : q === 'medium' ? 0.25 : 0.3;
+    }
+
+    if (this.chorus) {
+      this.chorus.wet.value = q === 'low' ? 0.1 : q === 'medium' ? 0.15 : 0.2;
+    }
+  }
+
+  setAudioQuality(quality) {
+    this.applyAudioQuality(quality);
   }
 
   /**
@@ -49,6 +82,9 @@ export class AudioEngine {
 
       // Create default synth
       this.createSynth(this.currentSynthType);
+
+      // Apply settings after nodes exist
+      this.applyAudioQuality(this.audioQuality);
 
       this.initialized = true;
     } catch (error) {
