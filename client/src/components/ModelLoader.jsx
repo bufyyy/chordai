@@ -79,6 +79,11 @@ const ModelLoader = () => {
     }
   };
 
+  const handleRetry = () => {
+    setModelError(null);
+    loadModel(false);
+  };
+
   if (!isModelLoading && !modelError) {
     return null;
   }
@@ -129,7 +134,7 @@ const ModelLoader = () => {
               <p className="font-semibold mb-2">Failed to load model</p>
               <p className="text-sm text-gray-500">{modelError}</p>
               <button
-                onClick={loadModel}
+                onClick={handleRetry}
                 className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
               >
                 Retry

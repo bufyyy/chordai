@@ -42,7 +42,7 @@ Architecture / Code Quality Issues
 
 20. Excessive console.log debug output in production modelService.js has ~30 console.log('[DEBUG]') statements that run on every prediction, cluttering the browser console in production. (Done)
 
-21. ModelLoader retry button passes wrong argument ModelLoader.jsx line 128: onClick={loadModel} calls the function without the isCancelled flag, which defaults to false, so it works — but the function signature expects it as a parameter and doesn't re-clear the modelError state before retrying.
+21. ModelLoader retry button passes wrong argument ModelLoader.jsx line 128: onClick={loadModel} calls the function without the isCancelled flag, which defaults to false, so it works — but the function signature expects it as a parameter and doesn't re-clear the modelError state before retrying. (Done)
 
 22. ModelLoader progress jumps are not granular ModelLoader.jsx lines 50-56: Progress goes 0 → 20 → 90 → 100 with no intermediate steps. The "Loading vocabularies" stage (50%) is never shown because progress skips from 20 directly to 90.
 

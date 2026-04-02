@@ -65,3 +65,6 @@
 - Gated verbose model `[DEBUG]` logs to development mode to prevent console noise in production.
   - Location: `client/src/services/modelService.js`
 
+- Improved model loader retry flow: explicit retry handler now clears error state and retries with explicit cancel flag.
+  - Location: `client/src/components/ModelLoader.jsx`
+
