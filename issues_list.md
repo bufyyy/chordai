@@ -28,7 +28,7 @@ Incomplete Features
 13. exportAsPdf exports a PNG, not a PDF exportUtils.js line 303-397: The function creates a canvas and downloads it as a .png file, not an actual PDF. (Done)
 
 Architecture / Code Quality Issues
-14. Tutorial text mentions non-existent shortcut R for regenerate Tutorial.jsx line 74: Says "R (regenerate)" but no such shortcut is registered in App.jsx.
+14. Tutorial text mentions non-existent shortcut R for regenerate Tutorial.jsx line 74: Says "R (regenerate)" but no such shortcut is registered in App.jsx. (Done)
 
 15. Tutorial text mentions outdated parameters Tutorial.jsx line 38: Says "Select genre, mood, key, and scale type" but the current InputForm uses genre, adventure, count, and octave. Mood, key, and scale type are no longer user inputs.
 

@@ -71,7 +71,7 @@ function Tutorial() {
     {
       title: 'Save & Export',
       description:
-        'Star your favorites, view history, or export as MIDI. Use keyboard shortcuts: Space (play), R (regenerate), L (library).',
+        'Star your favorites, view history, or export as MIDI. Use keyboard shortcuts: Space (play/stop), L (library), Ctrl+S (settings).',
       icon: (
         <svg className="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

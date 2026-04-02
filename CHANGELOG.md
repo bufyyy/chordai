@@ -44,3 +44,6 @@
 - Fixed PDF export to generate an actual `.pdf` file (instead of downloading a PNG with print dimensions).
   - Location: `client/src/utils/exportUtils.js`
 
+- Updated tutorial shortcut text to match actual implemented keyboard shortcuts (removed non-existent `R` regenerate key).
+  - Location: `client/src/components/Tutorial.jsx`
+
