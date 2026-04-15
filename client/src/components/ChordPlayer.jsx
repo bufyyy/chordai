@@ -7,16 +7,17 @@ const ChordPlayer = () => {
   const {
     currentProgression,
     isPlaying,
+    isLooping,
     tempo,
     currentChordIndex,
     setIsPlaying,
+    setIsLooping,
     setTempo,
     setCurrentChordIndex,
   } = useStore();
 
   const [synthType, setSynthType] = useState('acoustic-piano');
   const [volume, setVolume] = useState(-6);
-  const [isLooping, setIsLooping] = useState(false);
   const [audioEngine, setAudioEngine] = useState(null);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const ChordPlayer = () => {
     return () => {
       engine.stop();
     };
-  }, []);
+  }, [setCurrentChordIndex, setIsPlaying]);
 
   const handlePlay = async () => {
     if (!audioEngine || !currentProgression || !currentProgression.chords || currentProgression.chords.length === 0) return;
@@ -44,7 +45,13 @@ const ChordPlayer = () => {
     try {
       setIsPlaying(true);
       const progressionOctave = currentProgression?.metadata?.octave ?? 4;
-      await audioEngine.playProgression(currentProgression.chords, tempo, isLooping, progressionOctave);
+      await audioEngine.playProgression(
+        currentProgression.chords,
+        tempo,
+        isLooping,
+        progressionOctave,
+        currentProgression.durations
+      );
     } catch (error) {
       console.error('Error playing progression:', error);
       setIsPlaying(false);
@@ -242,10 +249,7 @@ const ChordPlayer = () => {
                       : 'bg-gray-800 hover:bg-gray-700 text-white'
                   } ${isPlaying ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  {modelService
-                    .formatChordForDisplay(chord)
-                    .replace('b', '♭')
-                    .replace('#', '♯')}
+                  {modelService.formatChordWithSymbols(chord)}
                 </button>
               ))}
             </div>

@@ -61,7 +61,7 @@ const InputForm = () => {
     if (isGenerating) return;
 
     setIsGenerating(true);
-    setCurrentProgression({ chords: [] });
+    setCurrentProgression({ chords: [], durations: [] });
     setDetectedKey(null);
 
     try {
@@ -88,10 +88,12 @@ const InputForm = () => {
       }
 
       currentChords.push(initialChord);
+      let currentDurations = [4];
 
       // Update state immediately with the first chord
       setCurrentProgression({
         chords: [...currentChords],
+        durations: [...currentDurations],
         metadata: { genre, adventure, octave }
       });
       await new Promise(r => setTimeout(r, 100));
@@ -105,9 +107,11 @@ const InputForm = () => {
       for (let i = 0; i < loops; i++) {
         const nextChord = await modelService.predictNextChord(currentChords, genre, adventure);
         currentChords.push(nextChord);
+        currentDurations.push(4);
 
         setCurrentProgression({
           chords: [...currentChords],
+          durations: [...currentDurations],
           metadata: { genre, adventure, octave }
         });
 

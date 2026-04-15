@@ -7,6 +7,10 @@ import { useEffect } from 'react';
 function useKeyboardShortcuts(shortcuts) {
   useEffect(() => {
     const handleKeyDown = (event) => {
+      // Escape handling support:
+      // if a higher-priority capture listener handled Escape and prevented default,
+      // skip all shortcut actions in this global handler.
+      if (event.defaultPrevented) return;
       // Ignore if user is typing in an input
       const isInputFocused =
         event.target.tagName === 'INPUT' ||

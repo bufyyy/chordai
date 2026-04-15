@@ -1,5 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
-import { Chord } from '@tonaljs/tonal';
+import { Chord, Note, Interval } from '@tonaljs/tonal';
+import { toRomanNumerals as tonalChordListToRoman } from '@tonaljs/progression';
 
 class ModelService {
   constructor() {
@@ -220,6 +221,99 @@ class ModelService {
     return chord.replace(/^([A-G]b?)s(?!us)/, '$1#');
   }
 
+  formatChordWithSymbols(chord) {
+    const display = this.formatChordForDisplay(chord);
+    if (!display) return display;
+    return display.replace(/b/g, '♭').replace(/#/g, '♯');
+  }
+
+  formatDisplayChordWithSymbols(displayChord) {
+    if (!displayChord) return displayChord;
+    return displayChord.replace(/b/g, '♭').replace(/#/g, '♯');
+  }
+
+  /**
+   * Convert display chord string back to raw vocabulary token (inverse of formatChordForDisplay).
+   * e.g. "F#m7" -> "Fsm7" when sharp is only on the root.
+   */
+  displayToRawToken(display) {
+    if (!display) return display;
+    return display.replace(/^([A-G]b?)#(?!us)/, '$1s');
+  }
+
+  /**
+   * Transpose a single chord (raw vocabulary token) by semitones; returns raw token.
+   */
+  simplifyNoteName(noteName) {
+    if (!noteName) return noteName;
+    const avoid = new Set(['Cb', 'Fb', 'E#', 'B#']);
+    if (noteName.includes('bb') || noteName.includes('##') || avoid.has(noteName)) {
+      return Note.enharmonic(noteName) || noteName;
+    }
+    return noteName;
+  }
+
+  transposeChord(rawChord, semitones) {
+    if (!rawChord || semitones === 0) return rawChord;
+    const display = this.formatChordForDisplay(rawChord);
+    const info = Chord.get(display);
+
+    let newDisplay;
+    if (info && info.tonic) {
+      const newTonic = this.simplifyNoteName(
+        Note.transpose(info.tonic, Interval.fromSemitones(semitones))
+      );
+      newDisplay = newTonic + display.slice(info.tonic.length);
+    } else {
+      const m = display.match(/^([A-G][#b]?)/);
+      if (!m) return rawChord;
+      const newTonic = this.simplifyNoteName(
+        Note.transpose(m[1], Interval.fromSemitones(semitones))
+      );
+      newDisplay = newTonic + display.slice(m[1].length);
+    }
+
+    const transposedRaw = this.displayToRawToken(newDisplay);
+
+    // Keep progression tokens vocabulary-safe to avoid PAD fallback degradation later.
+    if (
+      this.mappings &&
+      Object.prototype.hasOwnProperty.call(this.mappings, transposedRaw)
+    ) {
+      return transposedRaw;
+    }
+    if (Array.isArray(this.chords) && this.chords.includes(transposedRaw)) {
+      return transposedRaw;
+    }
+
+    this.debugWarn('[DEBUG] Transposed chord not in vocabulary, keeping original:', {
+      from: rawChord,
+      attempted: transposedRaw,
+      semitones,
+    });
+    return rawChord;
+  }
+
+  getChroma(rawChord) {
+    if (!rawChord) return null;
+    const display = this.formatChordForDisplay(rawChord);
+    const root = this.getRootFromDisplay(display);
+    if (!root) return null;
+    const c = Note.chroma(root);
+    return c !== undefined ? c : null;
+  }
+
+  getRootFromDisplay(displayChord) {
+    if (!displayChord) return null;
+    const m = displayChord.match(/^([A-G][#b]?)/);
+    return m ? m[1] : null;
+  }
+
+  transposeProgression(chords, semitones) {
+    if (!chords?.length || semitones === 0) return chords;
+    return chords.map((c) => this.transposeChord(c, semitones));
+  }
+
   sampleWithTopP(probabilities, topP, temperature) {
     const probs = probabilities.arraySync();
     const temp = Math.max(temperature, 0.01);
@@ -294,6 +388,28 @@ class ModelService {
     this.debug('[DEBUG] Selected Start Chord (RAW):', result);
     // Return RAW chord - no formatting!
     return result;
+  }
+
+  /**
+   * Roman numerals relative to detected key (e.g. "C Major" → tonic C).
+   * Uses @tonaljs/progression; falls back to "?" per chord if parsing fails.
+   */
+  chordsToRomanNumerals(rawChords, detectedKey) {
+    if (!rawChords?.length) return [];
+    const m = detectedKey?.match(/^([A-G][#b]?)\s+(Major|Minor)/i);
+    const tonic = m ? m[1] : 'C';
+    const mode = m ? m[2].toLowerCase() : 'major';
+    const keyForRoman = `${tonic} ${mode}`;
+    const displayChords = rawChords.map((c) => this.formatChordForDisplay(c));
+    try {
+      const numerals = tonalChordListToRoman(keyForRoman, displayChords);
+      return displayChords.map((_, index) => {
+        const rn = numerals?.[index];
+        return rn && String(rn).trim() ? rn : '?';
+      });
+    } catch {
+      return displayChords.map(() => '?');
+    }
   }
 
   detectKey(chordList) {

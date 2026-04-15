@@ -49,6 +49,7 @@ export class AudioEngine {
     this.onChordChange = null;
     this.onPlaybackEnd = null;
     this.samplerLoaded = false;
+    this.playbackStopTimeout = null;
 
     // Initialize on first user interaction
     this.initialized = false;
@@ -171,6 +172,14 @@ export class AudioEngine {
             this.samplerLoaded = true;
           },
         }).connect(this.volume);
+        try {
+          if (typeof Tone.loaded === 'function') {
+            await Tone.loaded();
+            this.samplerLoaded = true;
+          }
+        } catch {
+          // Some test mocks don't define Tone.loaded; sampler onload flag still handles readiness.
+        }
         break;
       }
 
@@ -258,6 +267,16 @@ export class AudioEngine {
       this.samplerLoaded = true;
     }
     this.currentSynthType = type;
+  }
+
+  async waitForSamplerReady(timeoutMs = 5000) {
+    if (this.currentSynthType !== 'acoustic-piano' || this.samplerLoaded) return true;
+
+    const start = Date.now();
+    while (!this.samplerLoaded && Date.now() - start < timeoutMs) {
+      await new Promise((resolve) => setTimeout(resolve, 25));
+    }
+    return this.samplerLoaded;
   }
 
   /**
@@ -408,8 +427,9 @@ export class AudioEngine {
    */
   async playChord(chordName, duration = '2n', octave = 4) {
     await this.initialize();
-    if (this.currentSynthType === 'acoustic-piano' && !this.samplerLoaded) {
-      console.warn('Sampler still loading...');
+    const samplerReady = await this.waitForSamplerReady();
+    if (this.currentSynthType === 'acoustic-piano' && !samplerReady) {
+      console.warn('Sampler failed to load in time; skipping chord playback.');
       return;
     }
 
@@ -422,10 +442,11 @@ export class AudioEngine {
   /**
    * Play chord progression
    */
-  async playProgression(chords, tempo = 120, loop = false, octave = 4) {
+  async playProgression(chords, tempo = 120, loop = false, octave = 4, durations = null) {
     await this.initialize();
-    if (this.currentSynthType === 'acoustic-piano' && !this.samplerLoaded) {
-      console.warn('Sampler still loading...');
+    const samplerReady = await this.waitForSamplerReady();
+    if (this.currentSynthType === 'acoustic-piano' && !samplerReady) {
+      console.warn('Sampler failed to load in time; skipping progression playback.');
       return;
     }
 
@@ -440,46 +461,62 @@ export class AudioEngine {
     this.isLooping = loop;
     Tone.Transport.bpm.value = tempo;
 
-    let chordIndex = 0;
+    const safeDurations = chords.map((_, index) => {
+      const beats = Number(durations?.[index]);
+      if (!Number.isFinite(beats)) return 4;
+      return Math.max(1, Math.min(8, beats));
+    });
 
-    // Create sequence
-    this.sequence = new Tone.Sequence(
-      (time, chord) => {
-        const midiNotes = this.chordToMidi(chord, octave);
+    const events = [];
+    let currentBeat = 0;
+    const secondsPerBeat = 60 / tempo;
+    for (let index = 0; index < chords.length; index++) {
+      const beats = safeDurations[index];
+      events.push({
+        time: currentBeat * secondsPerBeat,
+        chord: chords[index],
+        index,
+        beats,
+      });
+      currentBeat += beats;
+    }
+    const totalBeats = currentBeat;
+
+    // Create variable-timing part (per-chord beats)
+    this.sequence = new Tone.Part(
+      (time, event) => {
+        const midiNotes = this.chordToMidi(event.chord, octave);
         const frequencies = midiNotes.map(midi => this.midiToFrequency(midi));
 
-        // Play the chord
-        this.synth.triggerAttackRelease(frequencies, '2n', time);
+        // Hold nearly the full beat span so there is no audible gap.
+        const noteDurationSeconds = secondsPerBeat * event.beats * 0.98;
+        this.synth.triggerAttackRelease(frequencies, noteDurationSeconds, time);
 
         // Update current chord index on the main thread
         Tone.Draw.schedule(() => {
-          this.currentChordIndex = chordIndex;
+          this.currentChordIndex = event.index;
           if (this.onChordChange) {
-            this.onChordChange(chordIndex);
-          }
-
-          chordIndex++;
-
-          // Check if we've reached the end
-          if (!loop && chordIndex >= chords.length) {
-            // Schedule playback end
-            setTimeout(() => {
-              this.stop();
-              if (this.onPlaybackEnd) {
-                this.onPlaybackEnd();
-              }
-            }, 2000); // Wait for last chord to finish
-          } else if (chordIndex >= chords.length) {
-            chordIndex = 0; // Loop back
+            this.onChordChange(event.index);
           }
         }, time);
       },
-      chords,
-      '1m' // One measure per chord
+      events
     );
 
     this.sequence.loop = loop;
+    this.sequence.loopEnd = totalBeats * secondsPerBeat;
     this.sequence.start(0);
+
+    if (!loop && events.length > 0) {
+      const stopDelayMs = (60 / tempo) * totalBeats * 1000 + 500;
+      this.playbackStopTimeout = setTimeout(() => {
+        if (!this.isPlaying) return;
+        this.stop();
+        if (this.onPlaybackEnd) {
+          this.onPlaybackEnd();
+        }
+      }, stopDelayMs);
+    }
 
     Tone.Transport.start();
   }
@@ -508,6 +545,11 @@ export class AudioEngine {
    * Stop playback
    */
   stop() {
+    if (this.playbackStopTimeout) {
+      clearTimeout(this.playbackStopTimeout);
+      this.playbackStopTimeout = null;
+    }
+
     Tone.Transport.stop();
     Tone.Transport.cancel();
 

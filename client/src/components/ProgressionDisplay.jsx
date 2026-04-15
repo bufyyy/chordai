@@ -1,11 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import useStore from '../store/useStore';
 import { saveToHistory, saveToFavorites, isInFavorites, removeFromFavorites } from '../utils/storage';
 import { getSettings } from '../utils/storage';
 import { exportAsPdf } from '../utils/exportUtils';
 import modelService from '../services/modelService';
+import ChordPicker from './ChordPicker';
 
-const ChordCard = ({ chord, index, octave, isPlaying }) => {
+const EMPTY_CHORDS = [];
+
+const ChordCard = ({
+  chord,
+  index,
+  octave,
+  isPlaying,
+  onCardClick,
+  romanNumeral,
+  beats = 4,
+  onDecreaseBeats,
+  onIncreaseBeats,
+  disableDurationControls = false,
+}) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -15,25 +29,74 @@ const ChordCard = ({ chord, index, octave, isPlaying }) => {
       onMouseLeave={() => setShowTooltip(false)}
     >
       <div
-        className={`glass rounded-xl p-6 transition-all duration-300 ${isPlaying
+        role={onCardClick ? 'button' : undefined}
+        tabIndex={onCardClick ? 0 : undefined}
+        onClick={onCardClick}
+        onKeyDown={
+          onCardClick
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onCardClick();
+                }
+              }
+            : undefined
+        }
+        className={`glass rounded-xl p-6 transition-all duration-300 ${onCardClick ? 'cursor-pointer' : ''
+          } ${isPlaying
           ? 'ring-4 ring-blue-500 shadow-2xl scale-105'
           : 'hover:scale-105 glass-hover'
           }`}
       >
         {/* Chord Index */}
-        <div className="text-xs text-gray-500 mb-2">Chord {index + 1}</div>
+        <div className="text-xs text-gray-500 mb-2" data-testid={`chord-card-label-${index}`}>
+          Chord {index + 1}
+        </div>
 
         {/* Chord Name + Octave */}
         <div className="text-3xl font-bold text-white mb-2">
-          {modelService
-            .formatChordForDisplay(chord)
-            .replace(/b/g, '♭')
-            .replace(/#/g, '♯')}
+          {modelService.formatChordWithSymbols(chord)}
           <span className="text-xl text-gray-400">{octave}</span>
         </div>
 
-        {/* Placeholder for Roman Numeral if we want it back later */}
-        {/* <div className="text-sm text-purple-400 font-semibold">I</div> */}
+        {romanNumeral ? (
+          <div className="text-sm text-purple-300 font-semibold tracking-wide">{romanNumeral}</div>
+        ) : null}
+
+        <div className="mt-3 flex items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDecreaseBeats?.();
+            }}
+            disabled={disableDurationControls || beats <= 1}
+            data-testid={`duration-minus-${index}`}
+            title="Decrease beats"
+            className="w-7 h-7 rounded-md bg-gray-700 hover:bg-gray-600 text-white font-bold disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            -
+          </button>
+          <span
+            className="text-xs text-blue-200 min-w-[72px] text-center font-semibold"
+            data-testid={`duration-value-${index}`}
+          >
+            {beats} beat{beats === 1 ? '' : 's'}
+          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onIncreaseBeats?.();
+            }}
+            disabled={disableDurationControls || beats >= 8}
+            data-testid={`duration-plus-${index}`}
+            title="Increase beats"
+            className="w-7 h-7 rounded-md bg-gray-700 hover:bg-gray-600 text-white font-bold disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -44,17 +107,37 @@ const ProgressionDisplay = () => {
     currentProgression,
     detectedKey,
     currentChordIndex,
+    isGenerating,
+    isPlaying,
     mood,
+    addChord,
+    removeChord,
+    setChordDuration,
+    replaceChord,
+    transposeProgression,
   } = useStore();
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [progressionId, setProgressionId] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [pickerState, setPickerState] = useState(null);
+  const [showRomanNumerals, setShowRomanNumerals] = useState(false);
 
-  const chords = currentProgression?.chords || [];
+  const chords = currentProgression?.chords ?? EMPTY_CHORDS;
+  const durations = useMemo(
+    () => (currentProgression?.durations?.length ? currentProgression.durations : chords.map(() => 4)),
+    [chords, currentProgression?.durations]
+  );
   const metadata = currentProgression?.metadata || {};
   const { genre, octave } = metadata;
+
+  const resolvedRomanNumerals = useMemo(() => {
+    if (!chords.length || !detectedKey) return null;
+    const preset = currentProgression?.romanNumerals;
+    if (preset && preset.length === chords.length) return preset;
+    return modelService.chordsToRomanNumerals(chords, detectedKey);
+  }, [chords, currentProgression?.romanNumerals, detectedKey]);
 
   // Check if current progression is favorited
   useEffect(() => {
@@ -97,6 +180,62 @@ const ProgressionDisplay = () => {
       romanNumerals: currentProgression?.romanNumerals,
     });
     showToastNotification('PDF exported!');
+  };
+
+  const handleChordReplace = useCallback((index, newChord) => {
+    replaceChord(index, newChord);
+    showToastNotification('Chord updated');
+  }, [replaceChord]);
+
+  const handleChordAdd = useCallback((index, newChord) => {
+    addChord(index, newChord);
+    showToastNotification('Chord added');
+  }, [addChord]);
+
+  const handleChordRemove = useCallback((index) => {
+    if (chords.length <= 1) return;
+    removeChord(index);
+    showToastNotification('Chord removed');
+  }, [chords.length, removeChord]);
+
+  const handleDurationChange = useCallback(
+    (index, delta) => {
+      const currentBeats = durations[index] ?? 4;
+      const nextBeats = Math.max(1, Math.min(8, currentBeats + delta));
+      if (nextBeats === currentBeats) return;
+      setChordDuration(index, nextBeats);
+    },
+    [durations, setChordDuration]
+  );
+
+  const handleCardClick = useCallback((index) => {
+    if (isGenerating || isPlaying) return;
+    setPickerState({ mode: 'replace', index });
+  }, [isGenerating, isPlaying]);
+
+  const handleAddClick = useCallback((index) => {
+    if (isGenerating || isPlaying) return;
+    setPickerState({ mode: 'add', index });
+  }, [isGenerating, isPlaying]);
+
+  const handlePickerCancel = useCallback(() => {
+    setPickerState(null);
+  }, []);
+
+  const handlePickerSelect = useCallback((raw) => {
+    if (!pickerState) return;
+
+    if (pickerState.mode === 'add') {
+      handleChordAdd(pickerState.index, raw);
+    } else {
+      handleChordReplace(pickerState.index, raw);
+    }
+    setPickerState(null);
+  }, [pickerState, handleChordAdd, handleChordReplace]);
+
+  const handleTranspose = (semitones) => {
+    transposeProgression(semitones);
+    showToastNotification(`Transposed ${semitones > 0 ? '+' : ''}${semitones} semitone${Math.abs(semitones) === 1 ? '' : 's'}`);
   };
 
   const handleToggleFavorite = () => {
@@ -161,7 +300,7 @@ const ProgressionDisplay = () => {
   }
 
   return (
-    <div className="glass rounded-2xl p-6 shadow-xl relative">
+    <div className="glass rounded-2xl p-6 shadow-xl relative z-20 overflow-visible">
       {/* Toast Notification */}
       {showToast && (
         <div className="absolute top-4 right-4 z-50 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in">
@@ -182,7 +321,7 @@ const ProgressionDisplay = () => {
         <h2 className="text-2xl font-bold gradient-text">Your Progression</h2>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center justify-end gap-2">
           <button
             onClick={handleToggleFavorite}
             className={`px-4 py-2 rounded-lg transition-all text-sm font-medium ${isFavorite
@@ -245,20 +384,115 @@ const ProgressionDisplay = () => {
               />
             </svg>
           </button>
+
+          <button
+            type="button"
+            onClick={() => setShowRomanNumerals((v) => !v)}
+            aria-pressed={showRomanNumerals}
+            className={`shrink-0 px-3 py-2 rounded-lg transition-colors text-sm font-semibold whitespace-nowrap border ${
+              showRomanNumerals
+                ? 'bg-purple-600 hover:bg-purple-500 text-white border-purple-400'
+                : 'bg-gray-800 hover:bg-gray-700 text-white border-gray-600'
+            }`}
+            title={
+              showRomanNumerals
+                ? 'Show chord symbol names on cards'
+                : 'Show roman numerals (relative to detected key)'
+            }
+          >
+            {showRomanNumerals ? 'Letters' : 'Roman #'}
+          </button>
         </div>
       </div>
 
       {/* Chord Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <p className="text-xs text-gray-500 mb-3">
+        {isGenerating
+          ? 'Generating... chord editing is temporarily disabled.'
+          : 'Click a chord card to replace it, use + to insert chords, and × to remove chords.'}
+      </p>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 overflow-visible">
         {chords.map((chord, index) => (
-          <ChordCard
-            key={index}
-            chord={chord}
-            index={index}
-            octave={octave}
-            isPlaying={index === currentChordIndex}
-          />
+          <div
+            key={currentProgression?.chordItemIds?.[index] || `${chord}-${index}`}
+            data-testid={`chord-card-${index}`}
+            className="relative min-h-[140px] overflow-visible"
+          >
+            <ChordCard
+              chord={chord}
+              index={index}
+              octave={octave}
+              isPlaying={index === currentChordIndex}
+              onCardClick={!isGenerating && !isPlaying ? () => handleCardClick(index) : undefined}
+              beats={durations[index] ?? 4}
+              onDecreaseBeats={() => handleDurationChange(index, -1)}
+              onIncreaseBeats={() => handleDurationChange(index, 1)}
+              disableDurationControls={isGenerating || isPlaying}
+              romanNumeral={
+                showRomanNumerals && resolvedRomanNumerals?.[index]
+                  ? resolvedRomanNumerals[index]
+                  : null
+              }
+            />
+            {chords.length > 1 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleChordRemove(index);
+                }}
+                disabled={isGenerating || isPlaying}
+                title="Remove chord"
+                data-testid={`remove-chord-${index}`}
+                className="absolute top-2 right-2 z-30 w-7 h-7 rounded-full bg-red-600/90 hover:bg-red-500 text-white text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                ×
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddClick(index + 1);
+              }}
+              disabled={isGenerating || isPlaying}
+              title={`Add chord after ${index + 1}`}
+              data-testid={`add-chord-after-${index}`}
+              className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-20 w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              +
+            </button>
+
+            {pickerState?.mode === 'replace' && pickerState.index === index && (
+              <ChordPicker
+                mode="replace"
+                onSelect={handlePickerSelect}
+                onCancel={handlePickerCancel}
+              />
+            )}
+            {pickerState?.mode === 'add' && pickerState.index === index + 1 && (
+              <ChordPicker
+                mode="add"
+                onSelect={handlePickerSelect}
+                onCancel={handlePickerCancel}
+              />
+            )}
+          </div>
         ))}
+        <button
+          type="button"
+          onClick={() => handleAddClick(chords.length)}
+          disabled={isGenerating || isPlaying}
+          title="Add chord at end"
+          data-testid="add-chord-end"
+          className="min-h-[140px] rounded-xl border-2 border-dashed border-blue-400/60 text-blue-300 hover:text-white hover:border-blue-300 hover:bg-blue-500/10 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <div className="flex h-full flex-col items-center justify-center gap-2">
+            <span className="text-3xl leading-none">+</span>
+            <span className="text-xs font-semibold tracking-wide uppercase">Add Chord</span>
+          </div>
+        </button>
       </div>
 
       {/* Progression Info */}
@@ -280,13 +514,35 @@ const ProgressionDisplay = () => {
           <span className="text-gray-400 mr-2">Length:</span>
           <span className="text-white font-semibold">{chords.length} chords</span>
         </div>
+
+        <div className="flex items-center gap-2 px-2 py-1">
+          <button
+            type="button"
+            onClick={() => handleTranspose(-1)}
+            className="px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-bold min-w-[44px]"
+            title="Transpose down one semitone"
+          >
+            −
+          </button>
+          <span className="text-sm text-gray-300 whitespace-nowrap">Transpose</span>
+          <button
+            type="button"
+            onClick={() => handleTranspose(1)}
+            className="px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-white font-bold min-w-[44px]"
+            title="Transpose up one semitone"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       {/* Progression as text */}
       <div className="mt-6 p-4 bg-gray-800 rounded-lg">
         <div className="text-gray-400 text-sm mb-2">Progression notation:</div>
         <div className="text-white font-mono text-lg">
-          {chords.map(c => modelService.formatChordForDisplay(c) + octave).join(' → ')}
+          {showRomanNumerals && resolvedRomanNumerals?.length
+            ? resolvedRomanNumerals.join(' → ')
+            : chords.map((c) => modelService.formatChordForDisplay(c) + octave).join(' → ')}
         </div>
       </div>
     </div>

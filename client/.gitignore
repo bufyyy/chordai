@@ -39,3 +39,8 @@ yarn-error.log*
 
 # Model files (too large for git)
 public/model/*.bin
+
+# Cursor/local planning files
+.cursorrules
+*.plan.md
+future_todo_backlog.md

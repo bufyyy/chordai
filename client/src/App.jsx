@@ -20,11 +20,13 @@ function App() {
     isSettingsOpen,
     isLibraryOpen,
     isSidebarOpen,
+    isChordPickerOpen,
     setSettingsOpen,
     setLibraryOpen,
     setSidebarOpen,
     addToast,
     isPlaying,
+    isLooping,
     setIsPlaying,
     currentProgression,
     tempo,
@@ -71,13 +73,19 @@ function App() {
     setIsPlaying(true);
     try {
       const progressionOctave = currentProgression?.metadata?.octave ?? octave ?? 4;
-      await engine.playProgression(chords, tempo, engine.isLooping, progressionOctave);
+      await engine.playProgression(
+        chords,
+        tempo,
+        isLooping,
+        progressionOctave,
+        currentProgression?.durations
+      );
     } catch (error) {
       console.error('Error playing progression (Space shortcut):', error);
       setIsPlaying(false);
       setCurrentChordIndex(-1);
     }
-  }, [currentProgression, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
+  }, [currentProgression, isLooping, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
 
   const handleLibraryShortcut = useCallback(() => {
     setLibraryOpen(true);
@@ -88,9 +96,12 @@ function App() {
   }, [setSettingsOpen]);
 
   const handleEscapeShortcut = useCallback(() => {
+    // Escape handling layer 3:
+    // app-level shortcut no-ops while picker is open (state-driven, no DOM querying).
+    if (isChordPickerOpen) return;
     setSettingsOpen(false);
     setLibraryOpen(false);
-  }, [setLibraryOpen, setSettingsOpen]);
+  }, [isChordPickerOpen, setLibraryOpen, setSettingsOpen]);
 
   const shortcuts = useMemo(
     () => [
