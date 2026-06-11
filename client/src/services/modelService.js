@@ -8,6 +8,7 @@ class ModelService {
     this.mappings = null;
     this.idToToken = null;
     this.genres = [];
+    this.sections = [];
     this.chords = [];
     this.isLoaded = false;
     this.isLoading = false;
@@ -66,9 +67,16 @@ class ModelService {
         .map(token => token.replace('<GENRE=', '').replace('>', ''))
         .sort();
 
+      // Section conditioning tokens (e.g. <SECTION=verse>) — extracted like genres.
+      this.sections = tokens
+        .filter(token => token.startsWith('<SECTION='))
+        .map(token => token.replace('<SECTION=', '').replace('>', ''))
+        .sort();
+
       this.chords = tokens.filter(token => !token.startsWith('<'));
 
       this.debug('[DEBUG] Available Genres:', this.genres);
+      this.debug('[DEBUG] Available Sections:', this.sections);
       this.debug('[DEBUG] Available Chords Count:', this.chords.length);
       this.debug('[DEBUG] Special Token IDs:', {
         PAD: this.mappings['<PAD>'],
@@ -93,18 +101,18 @@ class ModelService {
    * IMPORTANT: Returns RAW chord name from vocabulary (e.g., "Fs" not "F#")
    * Use formatChordForDisplay() to convert for UI display
    */
-  async predictNextChord(currentChords, genre, adventure) {
+  async predictNextChord(currentChords, genre, adventure, section = 'any') {
     if (!this.isLoaded) {
       await this.loadModel();
     }
 
     this.debug('[DEBUG] ========== predictNextChord ==========');
-    this.debug('[DEBUG] Input:', JSON.stringify({ currentChords, genre, adventure }));
+    this.debug('[DEBUG] Input:', JSON.stringify({ currentChords, genre, adventure, section }));
 
     return tf.tidy(() => {
       const tokenToInt = this.mappings;
       const PAD_ID = tokenToInt['<PAD>'] !== undefined ? tokenToInt['<PAD>'] : 14;
-      const START_ID = tokenToInt['<START>'] !== undefined ? tokenToInt['<START>'] : 15;
+      const START_ID = tokenToInt['<START>'] !== undefined ? tokenToInt['<START>'] : 22;
 
       // Genre Handling
       const genreLower = genre ? genre.toLowerCase() : 'pop';
@@ -122,6 +130,22 @@ class ModelService {
         }
       }
 
+      // Section Handling — replaces the legacy <START> slot in the input sequence.
+      const sectionLower = section ? section.toLowerCase() : 'any';
+      const sectionToken = `<SECTION=${sectionLower}>`;
+      let sectionId = tokenToInt[sectionToken];
+
+      this.debug('[DEBUG] Section Token:', sectionToken, '-> ID:', sectionId);
+
+      if (sectionId === undefined) {
+        this.debugWarn('[DEBUG] Section not found! Defaulting to any.');
+        sectionId = tokenToInt['<SECTION=any>'];
+        if (sectionId === undefined) {
+          const firstSection = Object.keys(tokenToInt).find(k => k.startsWith('<SECTION='));
+          sectionId = firstSection ? tokenToInt[firstSection] : 15;
+        }
+      }
+
       // Convert chords to IDs (chords should be in RAW vocabulary format)
       const chordIds = currentChords.map(chord => {
         const id = tokenToInt[chord];
@@ -134,7 +158,8 @@ class ModelService {
       });
 
       // Sequence Construction
-      const SEQUENCE_LENGTH = 5;
+      // Input layout: [genre, section, c1, c2, c3, c4] (length 6, context window = 4 chords)
+      const SEQUENCE_LENGTH = 6;
       const MAX_HISTORY = SEQUENCE_LENGTH - 2;
 
       let historyIds = [];
@@ -146,7 +171,7 @@ class ModelService {
         historyIds = [...padding, ...chordIds];
       }
 
-      const inputIds = [genreId, START_ID, ...historyIds];
+      const inputIds = [genreId, sectionId, ...historyIds];
       this.debug('[DEBUG] Final Input IDs:', inputIds);
       this.debug('[DEBUG] Input Tokens:', inputIds.map(id => this.idToToken[id]));
 
@@ -234,11 +259,12 @@ class ModelService {
 
   /**
    * Convert display chord string back to raw vocabulary token (inverse of formatChordForDisplay).
-   * e.g. "F#m7" -> "Fsm7" when sharp is only on the root.
+   * The v3 vocabulary uses '#' natively (e.g. "F#m7"), so the display string is already a
+   * valid raw token — no '#' -> 's' conversion is needed.
    */
   displayToRawToken(display) {
     if (!display) return display;
-    return display.replace(/^([A-G]b?)#(?!us)/, '$1s');
+    return display;
   }
 
   /**
@@ -370,12 +396,12 @@ class ModelService {
     let candidates = [];
 
     if (adventure < 30) {
-      candidates = this.chords.filter(c => /^[A-G][bs]?(m)?$/.test(c));
+      candidates = this.chords.filter(c => /^[A-G][b#s]?(m)?$/.test(c));
       if (candidates.length === 0) candidates = ['C', 'G', 'F', 'Am'];
       this.debug('[DEBUG] Low Adventure - Simple Triads:', candidates.length, 'candidates');
     }
     else if (adventure < 70) {
-      candidates = this.chords.filter(c => /^[A-G][bs]?(m)?(7|sus|dim)?$/.test(c));
+      candidates = this.chords.filter(c => /^[A-G][b#s]?(m)?(7|sus|dim)?$/.test(c));
       this.debug('[DEBUG] Medium Adventure - Including 7ths:', candidates.length, 'candidates');
     }
     else {

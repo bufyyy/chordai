@@ -80,6 +80,7 @@ const useStore = create((set, get) => ({
 
   // User input state
   genre: 'pop',
+  section: 'any', // song section conditioning: any|verse|chorus|bridge|intro|outro|other
   adventure: 50, // 0-100
   octave: 4,
   count: 4,
@@ -120,6 +121,7 @@ const useStore = create((set, get) => ({
 
   // Actions - Input
   setGenre: (genre) => set({ genre }),
+  setSection: (section) => set({ section }),
   setAdventure: (adventure) => set({ adventure }),
   setOctave: (octave) => set({ octave }),
   setCount: (count) => set({ count }),
@@ -388,6 +390,7 @@ const useStore = create((set, get) => ({
     const state = get();
     return {
       genre: state.genre,
+      section: state.section,
       adventure: state.adventure,
       octave: state.octave,
       count: state.count,

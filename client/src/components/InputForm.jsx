@@ -5,11 +5,13 @@ import modelService from '../services/modelService';
 const InputForm = () => {
   const {
     genre,
+    section,
     adventure,
     octave,
     count,
     isGenerating,
     setGenre,
+    setSection,
     setAdventure,
     setOctave,
     setCount,
@@ -20,6 +22,7 @@ const InputForm = () => {
   } = useStore();
 
   const [availableGenres, setAvailableGenres] = useState([]);
+  const [availableSections, setAvailableSections] = useState([]);
   const [startChord, setStartChord] = useState('');
 
   const normalizeStartChord = (input) => {
@@ -32,9 +35,8 @@ const InputForm = () => {
     const rest = trimmed.slice(1);
     const normalizedCase = `${first}${rest}`;
 
-    // model vocabulary uses "s" for sharps (e.g., Fs, Cs)
-    const rawSharp = normalizedCase.replace(/^([A-G]b?)#(?!us)/, '$1s');
-    return rawSharp;
+    // v3 vocabulary uses "#" natively (e.g., F#, C#), so keep the sharp as typed.
+    return normalizedCase;
   };
 
   // Fetch genres on mount
@@ -48,6 +50,9 @@ const InputForm = () => {
           if (!genres.includes(genre) && genres.length > 0) {
             setGenre(genres[0]);
           }
+        }
+        if (modelService.sections && modelService.sections.length > 0) {
+          setAvailableSections(modelService.sections);
         }
       } catch (error) {
         console.error('Failed to load genres:', error);
@@ -105,7 +110,7 @@ const InputForm = () => {
       const loops = Math.max(0, count - 1);
 
       for (let i = 0; i < loops; i++) {
-        const nextChord = await modelService.predictNextChord(currentChords, genre, adventure);
+        const nextChord = await modelService.predictNextChord(currentChords, genre, adventure, section);
         currentChords.push(nextChord);
         currentDurations.push(4);
 
@@ -151,25 +156,47 @@ const InputForm = () => {
           />
         </div>
 
-        {/* Genre Selection */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Genre</label>
-          <select
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-            disabled={isGenerating}
-          >
-            {availableGenres.length > 0 ? (
-              availableGenres.map((g) => (
-                <option key={g} value={g}>
-                  {g.charAt(0).toUpperCase() + g.slice(1)}
-                </option>
-              ))
-            ) : (
-              <option>Loading genres...</option>
-            )}
-          </select>
+        {/* Genre & Section Selection */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Genre</label>
+            <select
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              disabled={isGenerating}
+            >
+              {availableGenres.length > 0 ? (
+                availableGenres.map((g) => (
+                  <option key={g} value={g}>
+                    {g.charAt(0).toUpperCase() + g.slice(1)}
+                  </option>
+                ))
+              ) : (
+                <option>Loading genres...</option>
+              )}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Section</label>
+            <select
+              value={section}
+              onChange={(e) => setSection(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              disabled={isGenerating}
+            >
+              {availableSections.length > 0 ? (
+                availableSections.map((s) => (
+                  <option key={s} value={s}>
+                    {s.charAt(0).toUpperCase() + s.slice(1)}
+                  </option>
+                ))
+              ) : (
+                <option value="any">Any</option>
+              )}
+            </select>
+          </div>
         </div>
 
         {/* Adventure Slider */}
