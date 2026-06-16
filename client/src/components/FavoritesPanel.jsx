@@ -11,7 +11,7 @@ const FavoritesPanel = ({ isOpen }) => {
   const [favorites, setFavorites] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState('');
-  const { currentProgression, setCurrentProgression, setGenre, setMood, setKey, setScaleType } =
+  const { currentProgression, loadProgression, setGenre, setMood, setKey, setScaleType } =
     useStore();
 
   useEffect(() => {
@@ -25,10 +25,10 @@ const FavoritesPanel = ({ isOpen }) => {
   };
 
   const handleLoadProgression = (item) => {
-    // Convert to object format expected by store
-    setCurrentProgression({
+    loadProgression({
       chords: item.chords,
-      metadata: item.metadata || {}
+      durations: item.durations,
+      metadata: item.metadata || {},
     });
     if (item.metadata) {
       if (item.metadata.genre) setGenre(item.metadata.genre);

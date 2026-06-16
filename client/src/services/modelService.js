@@ -10,6 +10,7 @@ class ModelService {
     this.genres = [];
     this.sections = [];
     this.chords = [];
+    this.specialTokenIds = [];
     this.isLoaded = false;
     this.isLoading = false;
     this.modelPath = '/model/web_model/model.json';
@@ -75,6 +76,12 @@ class ModelService {
 
       this.chords = tokens.filter(token => !token.startsWith('<'));
 
+      // IDs of all <...> tokens — zeroed out before sampling so generation can
+      // only ever produce real chords.
+      this.specialTokenIds = tokens
+        .filter(token => token.startsWith('<'))
+        .map(token => this.mappings[token]);
+
       this.debug('[DEBUG] Available Genres:', this.genres);
       this.debug('[DEBUG] Available Sections:', this.sections);
       this.debug('[DEBUG] Available Chords Count:', this.chords.length);
@@ -97,9 +104,14 @@ class ModelService {
   }
 
   /**
-   * Predict the next chord in the sequence
-   * IMPORTANT: Returns RAW chord name from vocabulary (e.g., "Fs" not "F#")
-   * Use formatChordForDisplay() to convert for UI display
+   * Predict the next chord in the sequence.
+   * Returns { chord, candidates } where:
+   *   - chord: RAW chord token from the vocabulary (e.g. "F#m") — the sampled pick.
+   *   - candidates: top probability candidates from the final (masked, renormalized)
+   *     distribution as [{ token, prob }], with the sampled chord guaranteed present.
+   *     This powers the "model's brain" UI (interpretability), so the jury can see
+   *     what the model considered and why the adventure slider picked a non-top choice.
+   * Use formatChordForDisplay() to convert tokens for UI display.
    */
   async predictNextChord(currentChords, genre, adventure, section = 'any') {
     if (!this.isLoaded) {
@@ -159,16 +171,16 @@ class ModelService {
 
       // Sequence Construction
       // Input layout: [genre, section, c1, c2, c3, c4] (length 6, context window = 4 chords)
+      // Training sequences are ['<START>', ...chords] (preprocess_data.py), so the
+      // context must contain <START> while fewer than 4 chords exist — one chord is
+      // [PAD, PAD, START, c1]. Without it the model sees a pattern it was never
+      // trained on and the next-chord distribution collapses to near-uniform.
       const SEQUENCE_LENGTH = 6;
       const MAX_HISTORY = SEQUENCE_LENGTH - 2;
 
-      let historyIds = [];
-      if (chordIds.length >= MAX_HISTORY) {
-        historyIds = chordIds.slice(chordIds.length - MAX_HISTORY);
-      } else {
-        const paddingCount = MAX_HISTORY - chordIds.length;
-        const padding = new Array(paddingCount).fill(PAD_ID);
-        historyIds = [...padding, ...chordIds];
+      const historyIds = [START_ID, ...chordIds].slice(-MAX_HISTORY);
+      while (historyIds.length < MAX_HISTORY) {
+        historyIds.unshift(PAD_ID);
       }
 
       const inputIds = [genreId, sectionId, ...historyIds];
@@ -189,19 +201,27 @@ class ModelService {
         .slice(0, 5);
       this.debug('[DEBUG] Top 5 BEFORE Penalty:', top5Before.map(item => `${item.token} (${(item.p * 100).toFixed(2)}%)`));
 
-      // Repetition Penalty
-      if (historyIds.length > 0) {
-        const lastChordId = historyIds[historyIds.length - 1];
-        if (lastChordId !== undefined && lastChordId < probsArray.length && lastChordId !== PAD_ID && lastChordId !== START_ID) {
-          this.debug('[DEBUG] Applying Hard Ban to:', this.idToToken[lastChordId], '(ID:', lastChordId, ')');
-          probsArray[lastChordId] = 0;
-          const sum = probsArray.reduce((a, b) => a + b, 0);
-          if (sum > 0) {
-            probsArray = probsArray.map(p => p / sum);
-          }
-          probabilities = tf.tensor1d(probsArray);
+      // Mask special tokens (<PAD>, <START>, <END>, <GENRE=*>, <SECTION=*>) before
+      // sampling so only real chords can come out — mirrors generate.py. Without
+      // this, sections with high P(<END>) (e.g. bridge) leak into the nucleus.
+      for (const specialId of this.specialTokenIds) {
+        if (specialId < probsArray.length) {
+          probsArray[specialId] = 0;
         }
       }
+
+      // Repetition Penalty: hard ban on immediate repeat
+      const lastChordId = historyIds[historyIds.length - 1];
+      if (lastChordId !== undefined && lastChordId < probsArray.length && lastChordId !== PAD_ID && lastChordId !== START_ID) {
+        this.debug('[DEBUG] Applying Hard Ban to:', this.idToToken[lastChordId], '(ID:', lastChordId, ')');
+        probsArray[lastChordId] = 0;
+      }
+
+      const maskedSum = probsArray.reduce((a, b) => a + b, 0);
+      if (maskedSum > 0) {
+        probsArray = probsArray.map(p => p / maskedSum);
+      }
+      probabilities = tf.tensor1d(probsArray);
 
       // Find top 5 AFTER penalty
       const top5After = probsArray
@@ -216,19 +236,40 @@ class ModelService {
       this.debug('[DEBUG] Sampling Params:', { temperature, topP });
 
       const predictedId = this.sampleWithTopP(probabilities, topP, temperature);
-      const predictedToken = this.idToToken[predictedId];
+      let predictedToken = this.idToToken[predictedId];
 
       this.debug('[DEBUG] Sampled ID:', predictedId, '-> Token:', predictedToken);
 
       if (!predictedToken || predictedToken.startsWith('<')) {
-        this.debugWarn('[DEBUG] Predicted a special token! Falling back to C');
-        return 'C';
+        // Unreachable in practice — special tokens are zeroed before sampling.
+        // Defensive: pick the most probable real chord, not a hardcoded C.
+        this.debugWarn('[DEBUG] Sampled a masked token, falling back to argmax chord');
+        let bestId = -1;
+        for (let i = 0; i < probsArray.length; i++) {
+          const tok = this.idToToken[i];
+          if (tok && !tok.startsWith('<') && (bestId === -1 || probsArray[i] > probsArray[bestId])) {
+            bestId = i;
+          }
+        }
+        predictedToken = bestId >= 0 ? this.idToToken[bestId] : 'C';
+      }
+
+      // Interpretability data: top real-chord candidates from the final
+      // (masked, renormalized) distribution. The sampled chord is guaranteed
+      // present so the UI can always mark which one the model actually chose.
+      const candidates = probsArray
+        .map((prob, i) => ({ token: this.idToToken[i], prob }))
+        .filter(({ token }) => token && !token.startsWith('<'))
+        .sort((a, b) => b.prob - a.prob)
+        .slice(0, 5);
+      if (!candidates.some(c => c.token === predictedToken)) {
+        candidates.push({ token: predictedToken, prob: probsArray[predictedId] || 0 });
       }
 
       // Return RAW token (not formatted) - this is critical for proper lookups
       this.debug('[DEBUG] Final Output (RAW):', predictedToken);
       this.debug('[DEBUG] ==========================================');
-      return predictedToken;
+      return { chord: predictedToken, candidates };
     });
   }
 
@@ -417,52 +458,119 @@ class ModelService {
   }
 
   /**
+   * Normalize a tonal numeral to standard theory notation:
+   * minor chords get lowercase numerals ("VIm" → "vi", "IIm7" → "ii7"),
+   * diminished become lowercase + ° ("VIIdim" → "vii°"), and in minor keys
+   * the diatonic bIII/bVI/bVII lose their flat ("bVII" → "VII").
+   */
+  formatRomanNumeral(numeral, mode) {
+    if (!numeral) return numeral;
+    let n = String(numeral).trim();
+    if (mode === 'minor') {
+      n = n.replace(/^b(III|VI|VII)/, '$1');
+    }
+    const m = n.match(/^([b#]?)([IV]+)(.*)$/i);
+    if (!m) return n;
+    const [, accidental, roman, quality] = m;
+    if (/^m(?!aj)/.test(quality)) {
+      return accidental + roman.toLowerCase() + quality.slice(1);
+    }
+    if (quality.startsWith('dim')) {
+      return accidental + roman.toLowerCase() + '°' + quality.slice(3);
+    }
+    return accidental + roman.toUpperCase() + quality;
+  }
+
+  /**
    * Roman numerals relative to detected key (e.g. "C Major" → tonic C).
-   * Uses @tonaljs/progression; falls back to "?" per chord if parsing fails.
+   * tonal's toRomanNumerals expects ONLY the tonic ("C", not "C major" —
+   * the latter silently degrades to quality suffixes like "m7 7 maj7").
    */
   chordsToRomanNumerals(rawChords, detectedKey) {
     if (!rawChords?.length) return [];
     const m = detectedKey?.match(/^([A-G][#b]?)\s+(Major|Minor)/i);
     const tonic = m ? m[1] : 'C';
     const mode = m ? m[2].toLowerCase() : 'major';
-    const keyForRoman = `${tonic} ${mode}`;
     const displayChords = rawChords.map((c) => this.formatChordForDisplay(c));
     try {
-      const numerals = tonalChordListToRoman(keyForRoman, displayChords);
+      const numerals = tonalChordListToRoman(tonic, displayChords);
       return displayChords.map((_, index) => {
         const rn = numerals?.[index];
-        return rn && String(rn).trim() ? rn : '?';
+        return rn && String(rn).trim() ? this.formatRomanNumeral(rn, mode) : '?';
       });
     } catch {
       return displayChords.map(() => '?');
     }
   }
 
+  /**
+   * Key detection via diatonic-coverage scoring over all 24 keys.
+   * Each chord contributes the root-weighted fraction of its tones that fit
+   * the candidate scale; tonic-root chords and first/last-chord anchors add
+   * small bonuses (so relative major/minor resolve to the actual tonal
+   * center, e.g. Am-F-C-G → A Minor but C-G-Am-F → C Major). Minor scales
+   * include the raised 7th so the harmonic-minor V/V7 is not penalized.
+   */
   detectKey(chordList) {
     if (!chordList || chordList.length === 0) return 'C Major';
     try {
-      const tonicScores = {};
-      const modeScores = { major: 0, minor: 0 };
+      const TONICS = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B'];
+      const MAJOR_STEPS = [0, 2, 4, 5, 7, 9, 11];
+      const MINOR_STEPS = [0, 2, 3, 5, 7, 8, 10, 11];
 
-      chordList.forEach((rawChord, index) => {
-        const chord = this.formatChordForDisplay(rawChord);
-        const chordInfo = Chord.get(chord);
-        if (!chordInfo || !chordInfo.tonic) return;
+      const parsed = [];
+      for (const rawChord of chordList) {
+        const display = this.formatChordForDisplay(rawChord);
+        const info = Chord.get(display);
+        const rootName = info?.tonic || this.getRootFromDisplay(display);
+        const rootChroma = rootName ? Note.chroma(rootName) : undefined;
+        if (rootChroma === undefined || rootChroma === null) continue;
 
-        const tonic = chordInfo.tonic;
-        const weight = index === 0 ? 1.2 : 1; // keep slight bias for the starting chord
-        tonicScores[tonic] = (tonicScores[tonic] || 0) + weight;
+        let tones = (info?.notes || [])
+          .map((n) => Note.chroma(n))
+          .filter((c) => c !== undefined && c !== null);
+        if (!tones.length) tones = [rootChroma];
 
-        const lower = chord.toLowerCase();
-        const isMinor = lower.includes('m') && !lower.includes('maj');
-        modeScores[isMinor ? 'minor' : 'major'] += weight;
-      });
+        const quality = display.slice(rootName.length);
+        const family = /^m(?!aj)/.test(quality)
+          ? 'minor'
+          : quality.startsWith('dim')
+            ? 'dim'
+            : 'major';
+        parsed.push({ rootChroma, tones, family });
+      }
+      if (!parsed.length) return 'C Major';
 
-      const bestTonic = Object.entries(tonicScores).sort((a, b) => b[1] - a[1])[0]?.[0];
-      if (!bestTonic) return 'C Major';
+      let best = { score: -Infinity, name: 'C Major' };
+      for (let tonic = 0; tonic < 12; tonic++) {
+        for (const mode of ['major', 'minor']) {
+          const steps = mode === 'major' ? MAJOR_STEPS : MINOR_STEPS;
+          const scale = new Set(steps.map((s) => (tonic + s) % 12));
 
-      const bestMode = modeScores.minor > modeScores.major ? 'Minor' : 'Major';
-      return `${bestTonic} ${bestMode}`;
+          let score = 0;
+          parsed.forEach((chord, index) => {
+            let weightTotal = 0;
+            let weightInScale = 0;
+            for (const tone of chord.tones) {
+              const w = tone === chord.rootChroma ? 2 : 1;
+              weightTotal += w;
+              if (scale.has(tone)) weightInScale += w;
+            }
+            score += weightTotal ? weightInScale / weightTotal : 0;
+
+            if (chord.rootChroma === tonic) {
+              if (chord.family === mode) score += 0.2;
+              if (index === 0) score += 0.4;
+              if (index === parsed.length - 1) score += 0.3;
+            }
+          });
+
+          if (score > best.score) {
+            best = { score, name: `${TONICS[tonic]} ${mode === 'major' ? 'Major' : 'Minor'}` };
+          }
+        }
+      }
+      return best.name;
     } catch (e) {
       this.debugWarn('[DEBUG] Key detection failed:', e);
     }

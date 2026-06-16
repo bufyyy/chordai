@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import useStore from '../store/useStore';
 import modelService from '../services/modelService';
+import { SONG_TEMPLATES } from '../constants/songStructure';
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const InputForm = () => {
   const {
@@ -19,11 +22,13 @@ const InputForm = () => {
     setDetectedKey,
     setIsGenerating,
     addToast,
+    openAbTest,
   } = useStore();
 
   const [availableGenres, setAvailableGenres] = useState([]);
   const [availableSections, setAvailableSections] = useState([]);
   const [startChord, setStartChord] = useState('');
+  const [songTemplateId, setSongTemplateId] = useState(SONG_TEMPLATES[0].id);
 
   const normalizeStartChord = (input) => {
     if (!input) return '';
@@ -94,12 +99,16 @@ const InputForm = () => {
 
       currentChords.push(initialChord);
       let currentDurations = [4];
+      // predictions[i] holds the model's candidate list for chords[i]; the seed
+      // chord (index 0) wasn't predicted, so its slot stays null.
+      let currentPredictions = [null];
 
       // Update state immediately with the first chord
       setCurrentProgression({
         chords: [...currentChords],
         durations: [...currentDurations],
-        metadata: { genre, adventure, octave }
+        predictions: [...currentPredictions],
+        metadata: { genre, section, adventure, octave }
       });
       await new Promise(r => setTimeout(r, 100));
 
@@ -110,14 +119,18 @@ const InputForm = () => {
       const loops = Math.max(0, count - 1);
 
       for (let i = 0; i < loops; i++) {
-        const nextChord = await modelService.predictNextChord(currentChords, genre, adventure, section);
+        const { chord: nextChord, candidates } = await modelService.predictNextChord(
+          currentChords, genre, adventure, section
+        );
         currentChords.push(nextChord);
         currentDurations.push(4);
+        currentPredictions.push(candidates);
 
         setCurrentProgression({
           chords: [...currentChords],
           durations: [...currentDurations],
-          metadata: { genre, adventure, octave }
+          predictions: [...currentPredictions],
+          metadata: { genre, section, adventure, octave }
         });
 
         await new Promise(r => setTimeout(r, 100));
@@ -133,6 +146,102 @@ const InputForm = () => {
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  // Generate a full multi-section song: each section is produced with its own
+  // <SECTION=...> token (showcasing section conditioning), while chord context
+  // carries across boundaries so the song flows and stays in one key.
+  const handleGenerateSong = async (template) => {
+    if (isGenerating || !template) return;
+
+    setIsGenerating(true);
+    setCurrentProgression({ chords: [], durations: [] });
+    setDetectedKey(null);
+
+    try {
+      // Seed chord: validated user input or an adventure-based random pick.
+      let seed = normalizeStartChord(startChord);
+      if (seed) {
+        if (!modelService.chords?.includes(seed)) {
+          addToast({
+            type: 'warning',
+            message: 'Start chord not found in model vocabulary. Try a simpler chord (e.g., C, Am, G7).',
+          });
+          setIsGenerating(false);
+          return;
+        }
+      } else {
+        seed = modelService.getRandomStartChord(adventure);
+      }
+
+      const chords = [];
+      const durations = [];
+      const predictions = [];
+      const sections = [];
+
+      const pushUpdate = (sectionName, producedInSection) => {
+        setCurrentProgression({
+          chords: [...chords],
+          durations: [...durations],
+          predictions: [...predictions],
+          sections: [...sections, { name: sectionName, length: producedInSection }],
+          metadata: { genre, adventure, octave, songForm: template.name },
+        });
+      };
+
+      for (const sec of template.sections) {
+        let produced = 0;
+
+        // The very first chord of the whole song is the seed (lives in section 1).
+        if (chords.length === 0) {
+          chords.push(seed);
+          durations.push(4);
+          predictions.push(null);
+          produced = 1;
+          pushUpdate(sec.name, produced);
+          await delay(80);
+        }
+
+        while (produced < sec.length) {
+          const { chord, candidates } = await modelService.predictNextChord(
+            chords, genre, adventure, sec.name
+          );
+          chords.push(chord);
+          durations.push(4);
+          predictions.push(candidates);
+          produced += 1;
+          pushUpdate(sec.name, produced);
+          await delay(80);
+        }
+
+        sections.push({ name: sec.name, length: produced });
+      }
+
+      setDetectedKey(modelService.detectKey(chords));
+    } catch (error) {
+      console.error('Error generating song:', error);
+      addToast({ type: 'error', message: 'Failed to generate song. Please try again.' });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Open the Adventure A/B test using a fixed seed (validated user input or a
+  // random pick) so both compared progressions start from the same chord.
+  const handleOpenAbTest = () => {
+    let seed = normalizeStartChord(startChord);
+    if (seed) {
+      if (!modelService.chords?.includes(seed)) {
+        addToast({
+          type: 'warning',
+          message: 'Start chord not found in model vocabulary. Try a simpler chord (e.g., C, Am, G7).',
+        });
+        return;
+      }
+    } else {
+      seed = modelService.getRandomStartChord(50);
+    }
+    openAbTest(seed);
   };
 
   return (
@@ -218,6 +327,15 @@ const InputForm = () => {
             <span>Natural</span>
             <span>Experimental</span>
           </div>
+          <button
+            type="button"
+            onClick={handleOpenAbTest}
+            disabled={isGenerating}
+            data-testid="open-ab-test"
+            className="mt-3 w-full py-2 rounded-lg text-sm font-semibold text-purple-200 bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            ⚖️ A/B Test: hear Safe vs Experimental
+          </button>
         </div>
 
         {/* Count & Octave */}
@@ -286,6 +404,46 @@ const InputForm = () => {
             'Generate Progression'
           )}
         </button>
+
+        {/* Full Song Builder */}
+        <div className="rounded-lg border border-purple-500/30 bg-purple-500/5 p-4">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-sm font-semibold text-purple-200">🎵 Build a Full Song</span>
+          </div>
+          <p className="text-xs text-gray-400 mb-3">
+            Generates a complete structure — each section conditioned on its own type.
+          </p>
+          <div className="flex gap-2">
+            <select
+              value={songTemplateId}
+              onChange={(e) => setSongTemplateId(e.target.value)}
+              disabled={isGenerating}
+              aria-label="Song structure template"
+              className="flex-1 min-w-0 px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+            >
+              {SONG_TEMPLATES.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => handleGenerateSong(SONG_TEMPLATES.find((t) => t.id === songTemplateId))}
+              disabled={isGenerating}
+              data-testid="generate-song"
+              className={`shrink-0 px-4 py-2.5 rounded-lg font-semibold text-white text-sm transition-all duration-300 ${
+                isGenerating
+                  ? 'bg-gray-700 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl'
+              }`}
+            >
+              Generate Song
+            </button>
+          </div>
+          <p className="text-[11px] text-gray-500 mt-2">
+            {SONG_TEMPLATES.find((t) => t.id === songTemplateId)?.summary}
+          </p>
+        </div>
 
         {/* Info */}
         <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">

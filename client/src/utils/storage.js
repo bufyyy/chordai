@@ -19,17 +19,41 @@ export function saveToHistory(progression) {
   try {
     const history = getHistory();
 
-    // Create progression entry
+    const metadata = {
+      genre: progression.genre,
+      mood: progression.mood,
+      key: progression.key,
+      scaleType: progression.scaleType,
+      octave: progression.octave,
+      section: progression.section,
+      timestamp: new Date().toISOString(),
+    };
+
+    // Same chords already in history → refresh that entry to the top instead
+    // of stacking duplicates (loading from history re-triggers the auto-save).
+    const chordsKey = JSON.stringify(progression.chords);
+    const existingIndex = history.findIndex(
+      (item) => JSON.stringify(item.chords) === chordsKey,
+    );
+    if (existingIndex !== -1) {
+      const [existing] = history.splice(existingIndex, 1);
+      if (progression.durations) {
+        existing.durations = progression.durations;
+      }
+      const definedMeta = Object.fromEntries(
+        Object.entries(metadata).filter(([, value]) => value !== undefined),
+      );
+      existing.metadata = { ...existing.metadata, ...definedMeta };
+      history.unshift(existing);
+      localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(history));
+      return existing;
+    }
+
     const entry = {
       id: Date.now(),
       chords: progression.chords,
-      metadata: {
-        genre: progression.genre,
-        mood: progression.mood,
-        key: progression.key,
-        scaleType: progression.scaleType,
-        timestamp: new Date().toISOString(),
-      },
+      durations: progression.durations,
+      metadata,
     };
 
     // Add to beginning
@@ -103,6 +127,7 @@ export function saveToFavorites(progression) {
     const entry = {
       id: progression.id || Date.now(),
       chords: progression.chords,
+      durations: progression.durations,
       metadata: progression.metadata || {},
       name: progression.name || `Progression ${favorites.length + 1}`,
       addedAt: new Date().toISOString(),

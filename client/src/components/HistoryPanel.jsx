@@ -4,7 +4,7 @@ import { getHistory, deleteHistoryItem, clearHistory } from '../utils/storage';
 
 const HistoryPanel = ({ isOpen }) => {
   const [history, setHistory] = useState([]);
-  const { currentProgression, setCurrentProgression, setGenre, setMood, setKey, setScaleType } =
+  const { currentProgression, loadProgression, setGenre, setMood, setKey, setScaleType } =
     useStore();
 
   useEffect(() => {
@@ -18,10 +18,10 @@ const HistoryPanel = ({ isOpen }) => {
   };
 
   const handleLoadProgression = (item) => {
-    // Convert to object format expected by store
-    setCurrentProgression({
+    loadProgression({
       chords: item.chords,
-      metadata: item.metadata || {}
+      durations: item.durations,
+      metadata: item.metadata || {},
     });
     if (item.metadata) {
       if (item.metadata.genre) setGenre(item.metadata.genre);

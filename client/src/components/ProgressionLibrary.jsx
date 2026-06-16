@@ -7,7 +7,7 @@ import useStore from '../store/useStore';
  * Displays famous chord progressions for inspiration
  */
 function ProgressionLibrary({ isOpen, onClose }) {
-  const { addToast, setCurrentProgression, setGenre, setMood, setKey, setScaleType } = useStore();
+  const { addToast, loadProgression, setGenre, setMood, setKey, setScaleType } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('all');
 
@@ -32,8 +32,7 @@ function ProgressionLibrary({ isOpen, onClose }) {
   }, [searchQuery, selectedGenre]);
 
   const handleLoadProgression = (progression) => {
-    // Set progression and metadata
-    setCurrentProgression({
+    loadProgression({
       id: Date.now(),
       chords: progression.chords,
       romanNumerals: progression.romanNumerals,

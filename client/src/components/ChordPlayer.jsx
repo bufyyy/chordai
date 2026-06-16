@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import useStore from '../store/useStore';
 import { getAudioEngine } from '../services/audioEngine';
 import modelService from '../services/modelService';
+import { sectionStyle, sectionNameByIndex } from '../constants/songStructure';
+import PianoKeyboard from './PianoKeyboard';
 
 const ChordPlayer = () => {
   const {
@@ -14,11 +16,15 @@ const ChordPlayer = () => {
     setIsLooping,
     setTempo,
     setCurrentChordIndex,
+    addToast,
   } = useStore();
 
   const [synthType, setSynthType] = useState('acoustic-piano');
   const [volume, setVolume] = useState(-6);
   const [audioEngine, setAudioEngine] = useState(null);
+  // Last chord previewed via the individual-chord buttons, so the keyboard
+  // lights up even when not running full playback.
+  const [previewChord, setPreviewChord] = useState(null);
 
   useEffect(() => {
     const engine = getAudioEngine();
@@ -55,6 +61,11 @@ const ChordPlayer = () => {
     } catch (error) {
       console.error('Error playing progression:', error);
       setIsPlaying(false);
+      setCurrentChordIndex(-1);
+      addToast({
+        type: 'error',
+        message: 'Playback failed — audio samples may not be loaded. Try again or switch instrument.',
+      });
     }
   };
 
@@ -69,11 +80,16 @@ const ChordPlayer = () => {
   const handlePlayChord = async (chord) => {
     if (!audioEngine || isPlaying) return;
 
+    setPreviewChord(chord);
     try {
       const progressionOctave = currentProgression?.metadata?.octave ?? 4;
       await audioEngine.playChord(chord, '2n', progressionOctave);
     } catch (error) {
       console.error('Error playing chord:', error);
+      addToast({
+        type: 'error',
+        message: 'Could not play chord — audio samples may not be loaded.',
+      });
     }
   };
 
@@ -131,6 +147,25 @@ const ChordPlayer = () => {
 
   const chords = currentProgression?.chords || [];
   const hasChords = chords.length > 0;
+
+  // Resolve the section label for the chord currently playing (full-song mode).
+  const sectionNames = sectionNameByIndex(currentProgression?.sections, chords.length);
+  const currentSectionName =
+    currentChordIndex >= 0 ? sectionNames[currentChordIndex] : null;
+  const currentSection = currentSectionName ? sectionStyle(currentSectionName) : null;
+
+  // Keyboard visualizer: show the playing chord, else the last previewed one.
+  const keyboardOctave = currentProgression?.metadata?.octave ?? 4;
+  const keyboardChord =
+    isPlaying && currentChordIndex >= 0 ? chords[currentChordIndex] : previewChord;
+  const keyboardMidi = useMemo(() => {
+    if (!keyboardChord) return [];
+    try {
+      return getAudioEngine().chordToMidi(keyboardChord, keyboardOctave);
+    } catch {
+      return [];
+    }
+  }, [keyboardChord, keyboardOctave]);
 
   return (
     <div className="glass rounded-2xl p-6 shadow-xl">
@@ -195,6 +230,13 @@ const ChordPlayer = () => {
                   Playing chord {currentChordIndex + 1} of {chords.length}
                   {isLooping && ' (Looping)'}
                 </span>
+                {currentSection && (
+                  <span
+                    className={`ml-auto px-2 py-0.5 rounded-full text-xs font-semibold border ${currentSection.pill}`}
+                  >
+                    {currentSection.label}
+                  </span>
+                )}
               </div>
               {/* Progress bar */}
               <div className="mt-3 h-1 bg-gray-700 rounded-full overflow-hidden">
@@ -207,6 +249,26 @@ const ChordPlayer = () => {
               </div>
             </div>
           )}
+
+          {/* Note Visualizer */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-sm font-medium text-gray-300">Notes</label>
+              {keyboardChord && (
+                <span className="text-sm font-semibold text-blue-300">
+                  {modelService.formatChordWithSymbols(keyboardChord)}
+                </span>
+              )}
+            </div>
+            <div className="rounded-lg bg-gray-900/50 border border-white/5 p-3">
+              <PianoKeyboard activeMidi={keyboardMidi} baseMidi={keyboardOctave * 12} />
+              {!keyboardChord && (
+                <p className="text-center text-xs text-gray-500 mt-2">
+                  Play the progression or tap a chord to see its notes light up.
+                </p>
+              )}
+            </div>
+          </div>
 
           {/* Synth Type Selector */}
           <div>

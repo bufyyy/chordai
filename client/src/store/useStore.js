@@ -111,6 +111,8 @@ const useStore = create((set, get) => ({
   isLibraryOpen: false,
   isSidebarOpen: false,
   isChordPickerOpen: false,
+  isAbTestOpen: false,
+  abTestSeed: 'C',
 
   // Actions - Model
   setModel: (model) => set({ model }),
@@ -137,6 +139,29 @@ const useStore = create((set, get) => ({
 
   setDetectedKey: (key) => set({ detectedKey: key }),
 
+  // Load a saved/library progression into the editor: normalizes shape,
+  // falls back to the current octave (old saved entries lack it), recomputes
+  // the detected key, and stops any active playback.
+  loadProgression: (progression) => {
+    const state = get();
+    if (!progression || !Array.isArray(progression.chords) || progression.chords.length === 0) {
+      return;
+    }
+
+    const octave = clampOctave(Number(progression.metadata?.octave) || state.octave || 4);
+    const safeProg = ensureProgressionShape({
+      ...progression,
+      metadata: { ...progression.metadata, octave },
+    });
+
+    set({
+      currentProgression: safeProg,
+      detectedKey: modelService.detectKey(safeProg.chords),
+      currentChordIndex: -1,
+      ...stopPlaybackIfActive(state),
+    });
+  },
+
   addToHistory: (progression) => {
     const history = get().progressionHistory;
     set({
@@ -161,6 +186,7 @@ const useStore = create((set, get) => ({
         ...safeProg,
         chords: updatedChords,
         romanNumerals: undefined,
+        predictions: undefined,
       },
       detectedKey: modelService.detectKey(updatedChords),
       ...stopPlaybackIfActive(state),
@@ -196,6 +222,8 @@ const useStore = create((set, get) => ({
         durations: updatedDurations,
         chordItemIds: updatedChordItemIds,
         romanNumerals: undefined,
+        predictions: undefined,
+        sections: undefined,
       },
       currentChordIndex: nextCurrentIndex,
       detectedKey: modelService.detectKey(updatedChords),
@@ -235,6 +263,8 @@ const useStore = create((set, get) => ({
         durations: updatedDurations,
         chordItemIds: updatedChordItemIds,
         romanNumerals: undefined,
+        predictions: undefined,
+        sections: undefined,
       },
       currentChordIndex: nextCurrentIndex,
       detectedKey: modelService.detectKey(updatedChords),
@@ -306,6 +336,8 @@ const useStore = create((set, get) => ({
         durations: updatedDurations,
         chordItemIds: updatedChordItemIds,
         romanNumerals: undefined,
+        predictions: undefined,
+        sections: undefined,
       },
       currentChordIndex: nextCurrentIndex,
       detectedKey: modelService.detectKey(updatedChords),
@@ -339,6 +371,7 @@ const useStore = create((set, get) => ({
         chords: transposed,
         durations: safeProg.durations,
         romanNumerals: undefined,
+        predictions: undefined,
         metadata: { ...safeProg.metadata, octave },
       },
       detectedKey: modelService.detectKey(transposed),
@@ -384,6 +417,8 @@ const useStore = create((set, get) => ({
   setLibraryOpen: (isOpen) => set({ isLibraryOpen: isOpen }),
   setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
   setChordPickerOpen: (isOpen) => set({ isChordPickerOpen: isOpen }),
+  openAbTest: (seed) => set({ isAbTestOpen: true, abTestSeed: seed || 'C' }),
+  setAbTestOpen: (isOpen) => set({ isAbTestOpen: isOpen }),
 
   // Helper to get current input
   getCurrentInput: () => {

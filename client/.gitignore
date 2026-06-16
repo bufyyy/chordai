@@ -44,3 +44,8 @@ public/model/*.bin
 .cursorrules
 *.plan.md
 future_todo_backlog.md
+
+# Local audit/verification scratch (not part of the app)
+audit_artifacts/
+audit_*.mjs
+client_*.mjs

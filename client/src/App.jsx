@@ -8,6 +8,7 @@ import Toast from './components/Toast';
 import Tutorial from './components/Tutorial';
 import Settings from './components/Settings';
 import ProgressionLibrary from './components/ProgressionLibrary';
+import AdventureCompare from './components/AdventureCompare';
 import useStore from './store/useStore';
 import useKeyboardShortcuts from './hooks/useKeyboardShortcuts';
 import { getAudioEngine } from './services/audioEngine';
@@ -84,8 +85,12 @@ function App() {
       console.error('Error playing progression (Space shortcut):', error);
       setIsPlaying(false);
       setCurrentChordIndex(-1);
+      addToast({
+        type: 'error',
+        message: 'Playback failed — audio samples may not be loaded. Try again or switch instrument.',
+      });
     }
-  }, [currentProgression, isLooping, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
+  }, [addToast, currentProgression, isLooping, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
 
   const handleLibraryShortcut = useCallback(() => {
     setLibraryOpen(true);
@@ -213,6 +218,7 @@ function App() {
       <Tutorial />
       <Settings isOpen={isSettingsOpen} onClose={() => setSettingsOpen(false)} />
       <ProgressionLibrary isOpen={isLibraryOpen} onClose={() => setLibraryOpen(false)} />
+      <AdventureCompare />
 
       {/* Model Loader */}
       <ModelLoader />

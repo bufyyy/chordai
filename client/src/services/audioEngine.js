@@ -167,7 +167,9 @@ export class AudioEngine {
             A7: 'A7.mp3',
             C8: 'C8.mp3',
           },
-          baseUrl: 'https://tonejs.github.io/audio/salamander/',
+          // Bundled locally (public/samples/salamander) so the default
+          // instrument loads without an internet connection.
+          baseUrl: '/samples/salamander/',
           onload: () => {
             this.samplerLoaded = true;
           },
@@ -429,8 +431,8 @@ export class AudioEngine {
     await this.initialize();
     const samplerReady = await this.waitForSamplerReady();
     if (this.currentSynthType === 'acoustic-piano' && !samplerReady) {
-      console.warn('Sampler failed to load in time; skipping chord playback.');
-      return;
+      // Throw instead of silently skipping so callers can reset UI state.
+      throw new Error('Piano samples are not loaded yet');
     }
 
     const midiNotes = this.chordToMidi(chordName, octave);
@@ -446,8 +448,9 @@ export class AudioEngine {
     await this.initialize();
     const samplerReady = await this.waitForSamplerReady();
     if (this.currentSynthType === 'acoustic-piano' && !samplerReady) {
-      console.warn('Sampler failed to load in time; skipping progression playback.');
-      return;
+      // Throw instead of silently skipping: a silent return left the store's
+      // isPlaying stuck on true with no sound and no feedback.
+      throw new Error('Piano samples are not loaded yet');
     }
 
     if (chords.length === 0) {

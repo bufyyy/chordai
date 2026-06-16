@@ -5,8 +5,65 @@ import { getSettings } from '../utils/storage';
 import { exportAsPdf } from '../utils/exportUtils';
 import modelService from '../services/modelService';
 import ChordPicker from './ChordPicker';
+import { sectionStyle, sectionNameByIndex } from '../constants/songStructure';
 
 const EMPTY_CHORDS = [];
+
+/**
+ * "Model's brain" panel: shows the top candidates the model weighed for this
+ * slot, with the actually-sampled chord highlighted. Bars are scaled relative
+ * to the strongest candidate for visual punch; the % text is the real value.
+ */
+const ChordInsights = ({ candidates, chosen }) => {
+  if (!candidates?.length) return null;
+  const sorted = [...candidates].sort((a, b) => b.prob - a.prob).slice(0, 5);
+  const max = Math.max(...sorted.map((c) => c.prob), 1e-6);
+
+  return (
+    <div
+      className="mt-3 pt-3 border-t border-white/10 text-left"
+      onClick={(e) => e.stopPropagation()}
+      data-testid="chord-insights"
+    >
+      <div className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-purple-300/80 mb-2 font-semibold">
+        <span aria-hidden="true">🧠</span> Model considered
+      </div>
+      <div className="space-y-1.5">
+        {sorted.map(({ token, prob }) => {
+          const isChosen = token === chosen;
+          return (
+            <div key={token} className="flex items-center gap-2">
+              <span
+                className={`w-12 shrink-0 text-[11px] font-semibold truncate ${
+                  isChosen ? 'text-white' : 'text-gray-400'
+                }`}
+              >
+                {modelService.formatChordWithSymbols(token)}
+              </span>
+              <div className="flex-1 h-2 rounded-full bg-gray-700/60 overflow-hidden">
+                <div
+                  className={`h-full rounded-full transition-all duration-500 ${
+                    isChosen
+                      ? 'bg-gradient-to-r from-blue-400 to-purple-500'
+                      : 'bg-gray-500/80'
+                  }`}
+                  style={{ width: `${Math.max(6, (prob / max) * 100)}%` }}
+                />
+              </div>
+              <span
+                className={`w-9 shrink-0 text-right text-[10px] tabular-nums ${
+                  isChosen ? 'text-purple-200 font-semibold' : 'text-gray-500'
+                }`}
+              >
+                {Math.round(prob * 100)}%
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const ChordCard = ({
   chord,
@@ -19,8 +76,12 @@ const ChordCard = ({
   onDecreaseBeats,
   onIncreaseBeats,
   disableDurationControls = false,
+  candidates = null,
+  showInsights = false,
+  sectionName = null,
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const section = sectionName ? sectionStyle(sectionName) : null;
 
   return (
     <div
@@ -48,9 +109,14 @@ const ChordCard = ({
           : 'hover:scale-105 glass-hover'
           }`}
       >
-        {/* Chord Index */}
-        <div className="text-xs text-gray-500 mb-2" data-testid={`chord-card-label-${index}`}>
-          Chord {index + 1}
+        {/* Chord Index + section tag */}
+        <div className="flex items-center gap-2 mb-2" data-testid={`chord-card-label-${index}`}>
+          {section && (
+            <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${section.pill}`}>
+              {section.label}
+            </span>
+          )}
+          <span className="text-xs text-gray-500">Chord {index + 1}</span>
         </div>
 
         {/* Chord Name + Octave */}
@@ -97,6 +163,16 @@ const ChordCard = ({
             +
           </button>
         </div>
+
+        {showInsights && (
+          candidates?.length ? (
+            <ChordInsights candidates={candidates} chosen={chord} />
+          ) : (
+            <div className="mt-3 pt-3 border-t border-white/10 text-[10px] text-gray-500 text-left">
+              🌱 Seed chord — not model-predicted.
+            </div>
+          )
+        )}
       </div>
     </div>
   );
@@ -123,8 +199,20 @@ const ProgressionDisplay = () => {
   const [toastMessage, setToastMessage] = useState('');
   const [pickerState, setPickerState] = useState(null);
   const [showRomanNumerals, setShowRomanNumerals] = useState(false);
+  const [showInsights, setShowInsights] = useState(false);
 
   const chords = currentProgression?.chords ?? EMPTY_CHORDS;
+  const predictions = currentProgression?.predictions;
+  // Insights only exist for a fresh AI generation; structural edits clear them.
+  const hasInsights = Array.isArray(predictions) && predictions.some(Boolean);
+
+  // Song-structure metadata (present only for full-song generations).
+  const songSections = currentProgression?.sections;
+  const sectionForIndex = useMemo(
+    () => sectionNameByIndex(songSections, chords.length),
+    [songSections, chords.length]
+  );
+  const hasSongStructure = Array.isArray(songSections) && songSections.length > 0;
   const durations = useMemo(
     () => (currentProgression?.durations?.length ? currentProgression.durations : chords.map(() => 4)),
     [chords, currentProgression?.durations]
@@ -156,19 +244,22 @@ const ProgressionDisplay = () => {
       const scaleType = detectedKey.toLowerCase().includes('minor') ? 'minor' : 'major';
       const entry = saveToHistory({
         chords: chords,
+        durations,
         genre,
         mood,
         key: detectedKey,
         scaleType,
+        octave,
+        section: metadata.section,
       });
       if (entry) {
         setProgressionId(entry.id);
       }
     }
-  }, [chords, genre, detectedKey, mood, octave]);
+  }, [chords, durations, genre, detectedKey, mood, octave, metadata.section]);
 
   const handleCopyProgression = () => {
-    const text = chords.map(c => modelService.formatChordForDisplay(c) + octave).join(' - ');
+    const text = chords.map(c => modelService.formatChordForDisplay(c) + (octave ?? '')).join(' - ');
     navigator.clipboard.writeText(text);
     showToastNotification('Copied to clipboard!');
   };
@@ -252,12 +343,14 @@ const ProgressionDisplay = () => {
       const result = saveToFavorites({
         id: progressionId,
         chords: chords,
+        durations,
         metadata: {
           genre,
           mood,
           key: detectedKey,
-          scaleType: detectedKey.toLowerCase().includes('minor') ? 'minor' : 'major',
+          scaleType: detectedKey?.toLowerCase().includes('minor') ? 'minor' : 'major',
           octave,
+          section: metadata.section,
         },
       });
       if (result) {
@@ -402,8 +495,47 @@ const ProgressionDisplay = () => {
           >
             {showRomanNumerals ? 'Letters' : 'Roman #'}
           </button>
+
+          {hasInsights && (
+            <button
+              type="button"
+              onClick={() => setShowInsights((v) => !v)}
+              aria-pressed={showInsights}
+              data-testid="toggle-insights"
+              className={`shrink-0 px-3 py-2 rounded-lg transition-colors text-sm font-semibold whitespace-nowrap border ${
+                showInsights
+                  ? 'bg-purple-600 hover:bg-purple-500 text-white border-purple-400'
+                  : 'bg-gray-800 hover:bg-gray-700 text-white border-gray-600'
+              }`}
+              title={
+                showInsights
+                  ? 'Hide the model\'s candidate probabilities'
+                  : 'Show what the AI considered for each chord'
+              }
+            >
+              {showInsights ? '🧠 Hide AI' : '🧠 AI Insights'}
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Song form summary */}
+      {hasSongStructure && (
+        <div className="mb-4 flex flex-wrap items-center gap-2" data-testid="song-form">
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Song form</span>
+          {songSections.map((s, i) => {
+            const style = sectionStyle(s.name);
+            return (
+              <span
+                key={`${s.name}-${i}`}
+                className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${style.pill}`}
+              >
+                {style.label}
+              </span>
+            );
+          })}
+        </div>
+      )}
 
       {/* Chord Cards */}
       <p className="text-xs text-gray-500 mb-3">
@@ -433,6 +565,9 @@ const ProgressionDisplay = () => {
                   ? resolvedRomanNumerals[index]
                   : null
               }
+              candidates={predictions?.[index] ?? null}
+              showInsights={showInsights}
+              sectionName={sectionForIndex[index]}
             />
             {chords.length > 1 && (
               <button
@@ -542,7 +677,7 @@ const ProgressionDisplay = () => {
         <div className="text-white font-mono text-lg">
           {showRomanNumerals && resolvedRomanNumerals?.length
             ? resolvedRomanNumerals.join(' → ')
-            : chords.map((c) => modelService.formatChordForDisplay(c) + octave).join(' → ')}
+            : chords.map((c) => modelService.formatChordForDisplay(c) + (octave ?? '')).join(' → ')}
         </div>
       </div>
     </div>

@@ -1,0 +1,4 @@
+Salamander Grand Piano (Yamaha C5) — recorded by Alexander Holm
+License: CC BY 3.0 — https://creativecommons.org/licenses/by/3.0/
+Files from the Tone.js example set: https://tonejs.github.io/audio/salamander/
+Bundled locally so the app works without an internet connection.

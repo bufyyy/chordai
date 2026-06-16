@@ -94,6 +94,33 @@ describe('Storage Utils', () => {
       expect(history.length).toBeLessThanOrEqual(20);
     });
 
+    it('should refresh duplicate chords to the top instead of duplicating', () => {
+      saveToHistory({ chords: ['C', 'F', 'G', 'C'], genre: 'pop' });
+      saveToHistory({ chords: ['Am', 'F', 'C', 'G'], genre: 'rock' });
+      const refreshed = saveToHistory({ chords: ['C', 'F', 'G', 'C'], genre: 'jazz' });
+
+      const history = getHistory();
+      expect(history).toHaveLength(2);
+      expect(history[0].id).toBe(refreshed.id);
+      expect(history[0].metadata.genre).toBe('jazz');
+    });
+
+    it('should persist durations, octave and section', () => {
+      const entry = saveToHistory({
+        chords: ['C', 'F'],
+        durations: [2, 4],
+        genre: 'pop',
+        octave: 3,
+        section: 'chorus',
+      });
+
+      expect(entry.durations).toEqual([2, 4]);
+      const saved = getHistory()[0];
+      expect(saved.durations).toEqual([2, 4]);
+      expect(saved.metadata.octave).toBe(3);
+      expect(saved.metadata.section).toBe('chorus');
+    });
+
     it('should delete history item by id', () => {
       const entry = saveToHistory({
         chords: ['C', 'F', 'G', 'C'],
