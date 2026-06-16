@@ -101,15 +101,25 @@ desktop.ini
 !README.txt
 !LICENSE.txt
 
-# Misc project files
+# Local working notes / internal docs (not part of the project)
 örnek*
 Örnek*
 issues_list.md
-CHANGELOG.md
-DEPLOYMENT.md
-FEATURES.md
-PROJECT_STATUS.md
-QUICKSTART.md
-SETUP_GUIDE.md
+future_todo_backlog.md
 chordai_project_deep_dive.md
-issues_list.md
+*.plan.md
+
+# Editor / deploy tooling
+.cursorrules
+.vercel/
+.stfolder/
+
+# Thesis / article materials (kept locally, not committed)
+article.md
+figures/
+training_log.csv
+
+# Local audit / verification scratch (not part of the app)
+client/audit_artifacts/
+client/audit_*.mjs
+client/client_*.mjs

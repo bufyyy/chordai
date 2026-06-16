@@ -1,5 +1,53 @@
 # Changelog
 
+## 2026-06-17
+
+### New features
+
+- Added an "AI Insights" panel that reveals, for each chord, the candidate chords the model weighed and their probabilities — highlighting the one it actually sampled (interpretability / "model's brain").
+  - `predictNextChord` now returns `{ chord, candidates }`: the top candidates from the final masked/renormalized distribution, with the sampled chord guaranteed present.
+  - `InputForm` collects a per-chord `predictions` array during generation; the store clears it on structural edits so insights only show for unedited AI output.
+  - `ProgressionDisplay` adds a toggle and renders `ChordInsights` probability bars under each chord card.
+  - Location: `client/src/services/modelService.js`, `client/src/components/InputForm.jsx`, `client/src/store/useStore.js`, `client/src/components/ProgressionDisplay.jsx`
+
+- Added a full-song structure generator that builds multi-section songs (e.g. Intro → Verse → Chorus → Bridge → Chorus → Outro), generating each section with its own `<SECTION=...>` token while carrying chord context across boundaries for key coherence.
+  - Added `SONG_TEMPLATES` presets, section styling, and a `sectionNameByIndex` helper.
+  - `InputForm` adds a template selector + `handleGenerateSong`; `ProgressionDisplay` shows a song-form summary and per-card section pills; `ChordPlayer` shows the active section during playback.
+  - Section metadata is cleared on structure-changing edits (add/remove/move) but preserved on replace/transpose.
+  - Location: `client/src/constants/songStructure.js`, `client/src/components/InputForm.jsx`, `client/src/components/ProgressionDisplay.jsx`, `client/src/components/ChordPlayer.jsx`, `client/src/store/useStore.js`
+
+- Added a live mini-keyboard that lights up the notes of the chord currently playing (or last previewed).
+  - New presentational `PianoKeyboard` (2-octave SVG); `ChordPlayer` feeds it MIDI from `audioEngine.chordToMidi`, so the lit keys exactly match the sounded notes.
+  - Location: `client/src/components/PianoKeyboard.jsx`, `client/src/components/ChordPlayer.jsx`
+
+- Added an Adventure A/B test: generates two progressions from the same seed chord — one at 0% and one at 100% adventure — side by side, each with independent playback, to demonstrate what the slider does.
+  - New `AdventureCompare` modal rendered at app level via `isAbTestOpen`/`abTestSeed` store flags; trigger button placed under the Adventure slider.
+  - Playback borrows the shared audio engine and restores the store-driven wiring on close, so the main player keeps working.
+  - Location: `client/src/components/AdventureCompare.jsx`, `client/src/store/useStore.js`, `client/src/components/InputForm.jsx`, `client/src/App.jsx`
+
+### Fixes
+
+- Fixed next-chord generation that was nearly random on the first chords of a progression and leaked spurious `C` chords.
+  - `predictNextChord` now seeds the input context with `<START>` to match the training format (`preprocess_data.py`); without it the next-chord distribution collapsed to near-uniform early in a progression.
+  - Special tokens are now masked before sampling (mirroring `generate.py`) and the hardcoded-`C` fallback was removed — eliminating spurious `C` insertions, most visible in verse/chorus/bridge sections.
+  - Location: `client/src/services/modelService.js`
+
+- Fixed key detection and roman numerals.
+  - Replaced the first-chord-biased tonic-vote heuristic with 24-key diatonic-coverage scoring; relative major/minor now resolves correctly (e.g. `Am F C G` → A Minor, `Dm7 G7 Cmaj7` → C Major, harmonic-minor V not penalized).
+  - Fixed `chordsToRomanNumerals` to pass only the tonic to the tonal API (passing `"C major"` silently degraded output) and to normalize to standard notation (`ii7 V7 Imaj7` instead of `m7 7 maj7`).
+  - Location: `client/src/services/modelService.js`
+
+- Fixed loading progressions from History and Library.
+  - Added a single `loadProgression` store action that recomputes the detected key, falls back to the current octave for older entries, restores durations, and stops active playback.
+  - History entries now persist `durations`, `octave`, and `section`, and de-duplicate by chords so loading/editing no longer stacks duplicate entries.
+  - Fixed the `undefined` octave in copied/notation text and the silent favorite button (and a null-key crash) on freshly loaded progressions.
+  - Location: `client/src/store/useStore.js`, `client/src/utils/storage.js`, `client/src/components/HistoryPanel.jsx`, `client/src/components/FavoritesPanel.jsx`, `client/src/components/ProgressionLibrary.jsx`, `client/src/components/ProgressionDisplay.jsx`, `client/src/components/InputForm.jsx`, `client/src/utils/storage.test.js`
+
+- Made the default acoustic piano work offline and stopped the UI from getting stuck after a failed playback.
+  - Bundled the Salamander piano samples locally under `public/samples/salamander/` (engine `baseUrl` now points local instead of `tonejs.github.io`).
+  - `playProgression`/`playChord` now throw when the sampler is not ready instead of silently returning; callers reset playback state and show an error toast (previously the Play button stayed stuck on "Stop" with no sound).
+  - Location: `client/src/services/audioEngine.js`, `client/src/components/ChordPlayer.jsx`, `client/src/App.jsx`, `client/public/samples/`
+
 ## 2026-04-15
 - Fixed reviewer follow-ups for playback loop-state consistency and chord-card interaction UX.
   - Added global `isLooping` + `setIsLooping` in store so loop mode is a single source of truth.
