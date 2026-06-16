@@ -100,6 +100,7 @@ const useStore = create((set, get) => ({
   // Audio playback state
   isPlaying: false,
   isLooping: false,
+  isArpeggio: false, // play each chord as a rolled arpeggio instead of a block
   tempo: 120,
   currentChordIndex: -1,
 
@@ -384,6 +385,7 @@ const useStore = create((set, get) => ({
   // Actions - Audio
   setIsPlaying: (isPlaying) => set({ isPlaying }),
   setIsLooping: (isLooping) => set({ isLooping }),
+  setIsArpeggio: (isArpeggio) => set({ isArpeggio }),
   setTempo: (tempo) => set({ tempo }),
   setCurrentChordIndex: (index) => set({ currentChordIndex: index }),
 

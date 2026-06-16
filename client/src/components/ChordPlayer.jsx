@@ -12,8 +12,10 @@ const ChordPlayer = () => {
     isLooping,
     tempo,
     currentChordIndex,
+    isArpeggio,
     setIsPlaying,
     setIsLooping,
+    setIsArpeggio,
     setTempo,
     setCurrentChordIndex,
     addToast,
@@ -56,7 +58,8 @@ const ChordPlayer = () => {
         tempo,
         isLooping,
         progressionOctave,
-        currentProgression.durations
+        currentProgression.durations,
+        isArpeggio
       );
     } catch (error) {
       console.error('Error playing progression:', error);
@@ -219,6 +222,38 @@ const ChordPlayer = () => {
                 <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
               </svg>
             </button>
+          </div>
+
+          {/* Playback Style: block chords vs rolled arpeggio */}
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Playback Style</label>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { value: false, label: 'Chords', icon: '🎵', hint: 'All notes together' },
+                { value: true, label: 'Arpeggio', icon: '🎶', hint: 'Notes rolled one by one' },
+              ].map((opt) => {
+                const active = isArpeggio === opt.value;
+                return (
+                  <button
+                    key={opt.label}
+                    type="button"
+                    onClick={() => setIsArpeggio(opt.value)}
+                    disabled={isPlaying}
+                    aria-pressed={active}
+                    data-testid={`playback-style-${opt.label.toLowerCase()}`}
+                    title={opt.hint}
+                    className={`px-4 py-2.5 rounded-lg font-semibold text-sm transition-all border ${
+                      active
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-purple-400'
+                        : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700'
+                    } ${isPlaying ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    <span className="mr-1.5">{opt.icon}</span>
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Progress Indicator */}

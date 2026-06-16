@@ -444,7 +444,7 @@ export class AudioEngine {
   /**
    * Play chord progression
    */
-  async playProgression(chords, tempo = 120, loop = false, octave = 4, durations = null) {
+  async playProgression(chords, tempo = 120, loop = false, octave = 4, durations = null, arpeggio = false) {
     await this.initialize();
     const samplerReady = await this.waitForSamplerReady();
     if (this.currentSynthType === 'acoustic-piano' && !samplerReady) {
@@ -489,11 +489,28 @@ export class AudioEngine {
     this.sequence = new Tone.Part(
       (time, event) => {
         const midiNotes = this.chordToMidi(event.chord, octave);
-        const frequencies = midiNotes.map(midi => this.midiToFrequency(midi));
+        const chordSeconds = secondsPerBeat * event.beats;
 
-        // Hold nearly the full beat span so there is no audible gap.
-        const noteDurationSeconds = secondsPerBeat * event.beats * 0.98;
-        this.synth.triggerAttackRelease(frequencies, noteDurationSeconds, time);
+        if (arpeggio && midiNotes.length > 0) {
+          // Roll the chord tones across its duration, ascending. At least one
+          // note per beat (and never fewer than the chord's notes), so every
+          // chord arpeggiates fully regardless of length. Notes overlap
+          // (~1.8 steps) for a legato, flowing feel; a second pass climbs an
+          // octave so longer chords keep rising rather than looping flatly.
+          const n = midiNotes.length;
+          const stepCount = Math.max(event.beats, n);
+          const stepSeconds = chordSeconds / stepCount;
+          for (let k = 0; k < stepCount; k++) {
+            const octaveLift = Math.min(Math.floor(k / n), 1) * 12;
+            const freq = this.midiToFrequency(midiNotes[k % n] + octaveLift);
+            this.synth.triggerAttackRelease(freq, stepSeconds * 1.8, time + k * stepSeconds);
+          }
+        } else {
+          // Block chord: strike all tones together, holding nearly the full
+          // beat span so there is no audible gap.
+          const frequencies = midiNotes.map(midi => this.midiToFrequency(midi));
+          this.synth.triggerAttackRelease(frequencies, chordSeconds * 0.98, time);
+        }
 
         // Update current chord index on the main thread
         Tone.Draw.schedule(() => {

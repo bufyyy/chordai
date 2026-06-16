@@ -28,6 +28,7 @@ function App() {
     addToast,
     isPlaying,
     isLooping,
+    isArpeggio,
     setIsPlaying,
     currentProgression,
     tempo,
@@ -79,7 +80,8 @@ function App() {
         tempo,
         isLooping,
         progressionOctave,
-        currentProgression?.durations
+        currentProgression?.durations,
+        isArpeggio
       );
     } catch (error) {
       console.error('Error playing progression (Space shortcut):', error);
@@ -90,7 +92,7 @@ function App() {
         message: 'Playback failed — audio samples may not be loaded. Try again or switch instrument.',
       });
     }
-  }, [addToast, currentProgression, isLooping, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
+  }, [addToast, currentProgression, isArpeggio, isLooping, isPlaying, octave, setCurrentChordIndex, setIsPlaying, tempo]);
 
   const handleLibraryShortcut = useCallback(() => {
     setLibraryOpen(true);
