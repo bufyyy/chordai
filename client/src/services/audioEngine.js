@@ -606,14 +606,13 @@ export class AudioEngine {
   }
 
   /**
-   * Export progression to MIDI file
+   * Export progression to MIDI file.
+   * options: { durations, octave, tempo, arpeggio } so the exported file
+   * matches what the user set/heard (per-chord beats, octave, BPM, arpeggio).
    */
-  exportToMidi(chords, fileName = 'progression.mid') {
+  exportToMidi(chords, fileName = 'progression.mid', options = {}) {
     try {
-      // Create MIDI data structure
-      const midiData = this.createMidiData(chords);
-
-      // Convert to binary
+      const midiData = this.createMidiData(chords, options);
       const midiBlob = this.midiDataToBlob(midiData);
 
       // Download
@@ -634,11 +633,19 @@ export class AudioEngine {
   }
 
   /**
-   * Create MIDI data from chords
+   * Create MIDI data from chords.
+   *
+   * Builds an absolute-tick note-event list (so per-chord beat durations,
+   * octave, tempo and arpeggio articulation are all honored), then emits a
+   * single MIDI track with proper delta times. Block mode strikes all chord
+   * tones together for the chord's beat span; arpeggio mode rolls them
+   * ascending across that span (mirroring playProgression).
    */
-  createMidiData(chords) {
+  createMidiData(chords, options = {}) {
+    const { durations = null, octave = 4, tempo = 120, arpeggio = false } = options;
+
     const ticksPerBeat = 480;
-    const tempo = 500000; // 120 BPM in microseconds per quarter note
+    const microsecondsPerQuarter = Math.max(1, Math.round(60000000 / (tempo || 120)));
 
     // MIDI header
     const header = [
@@ -649,30 +656,60 @@ export class AudioEngine {
       (ticksPerBeat >> 8) & 0xFF, ticksPerBeat & 0xFF, // Ticks per beat
     ];
 
-    // Track events
-    const events = [];
+    // Build absolute-tick note events across the whole progression.
+    const noteEvents = []; // { tick, type: 'on' | 'off', note }
+    let cursorTick = 0;
 
-    // Tempo event
-    events.push(0x00, 0xFF, 0x51, 0x03); // Delta time, Meta event, Tempo, Length
-    events.push((tempo >> 16) & 0xFF, (tempo >> 8) & 0xFF, tempo & 0xFF);
+    chords.forEach((chord, index) => {
+      const rawBeats = Number(durations?.[index]);
+      const beats = Number.isFinite(rawBeats) ? Math.max(1, Math.min(8, rawBeats)) : 4;
+      const durationTicks = Math.round(beats * ticksPerBeat);
+      const midiNotes = this.chordToMidi(chord, octave);
 
-    // Add chords
-    chords.forEach((chord) => {
-      const midiNotes = this.chordToMidi(chord, 4);
-      const duration = ticksPerBeat * 4; // Whole note
+      if (arpeggio && midiNotes.length > 0) {
+        const n = midiNotes.length;
+        const stepCount = Math.max(beats, n);
+        const stepTicks = durationTicks / stepCount;
+        for (let k = 0; k < stepCount; k++) {
+          const octaveLift = Math.min(Math.floor(k / n), 1) * 12;
+          const note = midiNotes[k % n] + octaveLift;
+          const onTick = Math.round(cursorTick + k * stepTicks);
+          // ~full step, no overlap → clean, valid sequential notes
+          const offTick = Math.round(cursorTick + k * stepTicks + stepTicks * 0.98);
+          noteEvents.push({ tick: onTick, type: 'on', note });
+          noteEvents.push({ tick: offTick, type: 'off', note });
+        }
+      } else {
+        midiNotes.forEach((note) => {
+          noteEvents.push({ tick: cursorTick, type: 'on', note });
+          noteEvents.push({ tick: cursorTick + durationTicks, type: 'off', note });
+        });
+      }
 
-      // Note on events (all at delta 0 — simultaneous)
-      midiNotes.forEach(note => {
-        events.push(0x00, 0x90, note, 0x64); // Delta 0, Note on, Note, Velocity
-      });
-
-      // Note off events — first note carries the duration delta,
-      // remaining notes have delta 0 (they all end at the same time)
-      midiNotes.forEach((note, noteIdx) => {
-        const delta = noteIdx === 0 ? duration : 0;
-        events.push(...this.encodeVariableLength(delta), 0x80, note, 0x40);
-      });
+      cursorTick += durationTicks;
     });
+
+    // Order by time; at equal ticks emit note-offs before note-ons.
+    noteEvents.sort((a, b) => a.tick - b.tick || (a.type === 'off' ? -1 : 1));
+
+    // Emit track events with delta times.
+    const events = [];
+    events.push(
+      0x00, 0xFF, 0x51, 0x03, // delta, meta, tempo, length
+      (microsecondsPerQuarter >> 16) & 0xFF,
+      (microsecondsPerQuarter >> 8) & 0xFF,
+      microsecondsPerQuarter & 0xFF
+    );
+
+    let lastTick = 0;
+    for (const ev of noteEvents) {
+      const delta = Math.max(0, ev.tick - lastTick);
+      lastTick = ev.tick;
+      const status = ev.type === 'on' ? 0x90 : 0x80;
+      const velocity = ev.type === 'on' ? 0x64 : 0x40;
+      const note = Math.max(0, Math.min(127, ev.note));
+      events.push(...this.encodeVariableLength(delta), status, note, velocity);
+    }
 
     // End of track
     events.push(0x00, 0xFF, 0x2F, 0x00);

@@ -131,10 +131,19 @@ const ChordPlayer = () => {
 
     try {
       const fileName = `progression_${Date.now()}.mid`;
-      audioEngine.exportToMidi(currentProgression.chords, fileName);
+      audioEngine.exportToMidi(currentProgression.chords, fileName, {
+        durations: currentProgression.durations,
+        octave: currentProgression.metadata?.octave ?? 4,
+        tempo,
+        arpeggio: isArpeggio,
+      });
+      addToast({
+        type: 'success',
+        message: isArpeggio ? 'MIDI exported (arpeggio)' : 'MIDI exported',
+      });
     } catch (error) {
       console.error('Error exporting MIDI:', error);
-      alert('Failed to export MIDI file');
+      addToast({ type: 'error', message: 'Failed to export MIDI file' });
     }
   };
 

@@ -2,6 +2,29 @@
 
 ## 2026-06-17
 
+### Model upgrade: v1 → v3
+
+- Replaced the v1 LSTM model with ChordAI v3, a completely retrained model with a redesigned data pipeline.
+  - **Architecture**: 2-layer LSTM (256 units each), 64-dimensional embedding, dropout 0.2, softmax output.
+  - **Total parameters**: 888,363 (3.39 MB) — down from ~5.8 MB in v1.
+  - **Vocabulary**: Reduced from 765 tokens to 107 tokens (84 chords + 23 special tokens). Chords are now normalized to 7 quality types (major, minor, 7, m7, maj7, dim, sus4) × 12 chromatic roots, eliminating rare/exotic chord types that fragmented the probability distribution.
+  - **Sharp notation**: Changed from `s` encoding (`Fs`, `Cs`) to standard `#` encoding (`F#`, `C#`).
+  - **Section conditioning**: Added 7 section tokens (`<SECTION=verse>`, `<SECTION=chorus>`, `<SECTION=bridge>`, `<SECTION=intro>`, `<SECTION=outro>`, `<SECTION=other>`, `<SECTION=any>`) — a novel addition enabling structurally-aware generation.
+  - **Input format**: Changed from `[genre, START, c1, c2, c3]` (length 5) to `[genre, section, c1, c2, c3, c4]` (length 6), increasing the chord context window from 3 to 4.
+  - **Genre conditioning**: 13 genres (classical, disco, electronic, funk, hip hop, jazz, latin, metal, pop, punk, reggae, rock, soul).
+  - **Training data**: 211M samples from the Chordonomicon v2 dataset, with 12-key transposition augmentation, section parsing, and loop deduplication.
+  - **Training config**: 50 epochs, cosine decay LR (1e-3 → 0), Adam optimizer with gradient clipping (clipnorm=1.0), label smoothing 0.01, song-level train/val split (90/10).
+  - **Performance metrics**: Perplexity 10.06 (10.6× uncertainty reduction from random baseline of 107), Top-1 accuracy 30.1%, Top-3 accuracy 59.6%, Top-5 accuracy 73.4%.
+  - Location: `client/public/model/web_model/`, `client/public/model/mappings.json`
+
+- Updated `modelService.js` for v3 model compatibility.
+  - Sequence length updated from 5 to 6.
+  - Input construction changed to `[genreId, sectionId, c1, c2, c3, c4]`.
+  - Added section token extraction from vocabulary (parallel to genre extraction).
+  - Added `section` parameter to `predictNextChord()` (default: `'any'`).
+  - Updated `formatChordForDisplay()` / `displayToRawToken()` for native `#` notation.
+  - Location: `client/src/services/modelService.js`
+
 ### New features
 
 - Added an "AI Insights" panel that reveals, for each chord, the candidate chords the model weighed and their probabilities — highlighting the one it actually sampled (interpretability / "model's brain").
